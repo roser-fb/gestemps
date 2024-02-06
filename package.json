@@ -1,6 +1,6 @@
 {
-  "name": "vacances",
-  "version": "0.0.0",
+  "name": "gestemps",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy-prod.conf.json",
