@@ -1,0 +1,56 @@
+<div class="row justify-content-center">
+    <div class="col-10">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title mb-3">Registre de festius</h2>
+                <form [formGroup]="festiusForm" (ngSubmit)="onSubmit()">
+                    <div formControlGroup="periodeFestius">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text w-25 bg-autonomic" for="data_ini">Data Inici</span>
+                            <input type="date" class="form-control" name="data_ini" id="data_ini"
+                                formControlName="data_ini" required>
+                        </div>
+                        <div *ngIf="(festiusForm.get('data_ini')?.invalid && (festiusForm.get('data_ini')?.dirty || festiusForm.get('data_ini')?.touched)) || (festiusForm.get('data_ini')?.invalid && submitted)"
+                            class="alert alert-danger" role="alert">
+                            <div *ngIf="festiusForm.get('data_ini')?.errors?.['required']">
+                                La data d'inici és obligatòria
+                            </div>
+                            <div *ngIf="festiusForm.controls['data_ini'].hasError('dataValidator')">
+                                La data no té un formàt vàlid o és menor a 2023
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text w-25 bg-autonomic" for="motiu">Motiu</label>
+                            <select class="form-select" id="motiu" formControlName="motiu">
+                                <option value=0 selected>Selecciona...</option>
+                                <option value=3>Nadal/Reis</option>
+                                <option value=4>Pascua</option>
+                                <option value=5>Festiu Nacional</option>
+                                <option value=6>Festiu Autonòmic</option>
+                                <option value=7>Festiu Local</option>
+                            </select>
+                        </div>
+                        <div *ngIf="(festiusForm.get('motiu')?.invalid && (festiusForm.get('motiu')?.dirty || festiusForm.get('motiu')?.touched)) || (festiusForm.get('motiu')?.invalid && submitted)"
+                            class="alert alert-danger" role="alert">
+                            <div *ngIf="festiusForm.get('motiu')?.errors?.['required']">
+                                Selecciona un motiu
+                            </div>
+                            <div *ngIf="festiusForm.controls['motiu'].hasError('motiuValidator')">
+                                Selecciona un motiu vàlid
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <input class="form-check-input" type="checkbox" id="fix" formControlName="fix" value=1
+                                checked>
+                            <label class="mx-3 form-check-label" for="fix">Festiu Variable</label>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success">Registra</button>
+                        <div *ngIf="(submitted)" class="alert alert-succes" role="alert">
+                            Festiu registrat
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

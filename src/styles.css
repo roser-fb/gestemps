@@ -1,0 +1,231 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+}
+
+a.fc-daygrid-day-number {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+a.fc-col-header-cell-cushion {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+.sm-show {
+  display: flex;
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+}
+.lg-show {
+  display: flex;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+.mx-1 {
+  margin-inline: 0.5rem;
+}
+.mx-2 {
+  margin-inline: 1rem;
+}
+.mx-3 {
+  margin-inline: 1.5rem;
+}
+
+.table-nadal {
+  --bs-table-color: rgb(252, 252, 252);
+  --bs-table-bg: #edd3f3;
+  --bs-table-border-color: #edd3f3;
+  --bs-table-striped-bg: #edd3f3;
+  --bs-table-striped-color: rgb(252, 252, 252);
+  --bs-table-active-bg: #f1e9f3;
+  --bs-table-active-color: rgb(2, 2, 22);
+  --bs-table-hover-bg: #edd3f3;
+  --bs-table-hover-color: rgb(252, 252, 252);
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+.bg-nadal {
+  background-color: #f1e9f3;
+}
+.table-autonomic {
+  --bs-table-color: rgb(252, 252, 252);
+  --bs-table-bg: #dbbbe4;
+  --bs-table-border-color: #dbbbe4;
+  --bs-table-striped-bg: #dbbbe4;
+  --bs-table-striped-color: rgb(252, 252, 252);
+  --bs-table-active-bg: #dfcfe4;
+  --bs-table-active-color: rgb(2, 2, 22);
+  --bs-table-hover-bg: #dbbbe4;
+  --bs-table-hover-color: rgb(252, 252, 252);
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+.bg-autonomic {
+  background-color: #dfcfe4;
+}
+.table-pascua {
+  --bs-table-color: rgb(252, 252, 252);
+  --bs-table-bg: #bd9ccd;
+  --bs-table-border-color: #bd9ccd;
+  --bs-table-striped-bg: #bd9ccd;
+  --bs-table-striped-color: rgb(252, 252, 252);
+  --bs-table-active-bg: #cbb8d4;
+  --bs-table-active-color: rgb(2, 2, 22);
+  --bs-table-hover-bg: #bd9ccd;
+  --bs-table-hover-color: rgb(252, 252, 252);
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+.bg-pascua {
+  background-color: #cbb8d4;
+}
+.table-local {
+  --bs-table-color: rgb(252, 252, 252);
+  --bs-table-bg: #a17eb0;
+  --bs-table-border-color: #a17eb0;
+  --bs-table-striped-bg: #a17eb0;
+  --bs-table-striped-color: rgb(252, 252, 252);
+  --bs-table-active-bg: #a491ac;
+  --bs-table-active-color: rgb(2, 2, 22);
+  --bs-table-hover-bg: #a17eb0;
+  --bs-table-hover-color: rgb(252, 252, 252);
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+.bg-local {
+  background-color: #a491ac;
+  color: rgb(252, 252, 252);
+}
+.table-nacional {
+  --bs-table-color: rgb(252, 252, 252);
+  --bs-table-bg: #5b3970;
+  --bs-table-border-color: #5b3970;
+  --bs-table-striped-bg: #5b3970;
+  --bs-table-striped-color: rgb(252, 252, 252);
+  --bs-table-active-bg: #6a5477;
+  --bs-table-active-color: rgb(252, 252, 252);
+  --bs-table-hover-bg: #5b3970;
+  --bs-table-hover-color: rgb(252, 252, 252);
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+.bg-nacional {
+  background-color: #6a5477;
+}
+.table-guardia {
+  --bs-table-color: rgb(248, 248, 248);
+  --bs-table-bg: #c2817c;
+  --bs-table-border-color: #c2817c;
+  --bs-table-striped-bg: #c2817c;
+  --bs-table-striped-color: rgb(2, 2, 2);
+  --bs-table-active-bg: #d8998a;
+  --bs-table-active-color: rgb(2, 2, 2);
+  --bs-table-hover-bg: #c2817c;
+  --bs-table-hover-color: rgb(2, 2, 2);
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+.table-guardia-r {
+  --bs-table-color: rgb(68, 68, 68);
+  --bs-table-bg: #d8998a;
+  --bs-table-border-color: #d8998a;
+  --bs-table-striped-bg: #d8998a;
+  --bs-table-striped-color: rgb(2, 2, 2);
+  --bs-table-active-bg: #c2817c;
+  --bs-table-active-color: rgb(2, 2, 2);
+  --bs-table-hover-bg: #d8998a;
+  --bs-table-hover-color: rgb(2, 2, 2);
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+.bg-guardia {
+  background-color: #d8998a;
+  color: rgb(68, 68, 68);
+}
+.bg-guardia-r {
+  background-color: #c2817c;
+  color: rgb(68, 68, 68);
+}
+.table-vacances {
+  --bs-table-color: rgb(68, 68, 68);
+  --bs-table-bg: #eab59e;
+  --bs-table-border-color: #eab59e;
+  --bs-table-striped-bg: #eab59e;
+  --bs-table-striped-color: rgb(2, 2, 2);
+  --bs-table-active-bg: #f4cfb9;
+  --bs-table-active-color: rgb(2, 2, 22);
+  --bs-table-hover-bg: #eab59e;
+  --bs-table-hover-color: rgb(2, 2, 2);
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+.table-vacances-r {
+  --bs-table-color: rgb(68, 68, 68);
+  --bs-table-bg: #f4cfb9;
+  --bs-table-border-color: #f4cfb9;
+  --bs-table-striped-bg: #f4cfb9;
+  --bs-table-striped-color: rgb(2, 2, 2);
+  --bs-table-active-bg: #eab59e;
+  --bs-table-active-color: rgb(2, 2, 22);
+  --bs-table-hover-bg: #f4cfb9;
+  --bs-table-hover-color: rgb(2, 2, 2);
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+.bg-vacances {
+  background-color: #f4cfb9;
+}
+.bg-vacances-r {
+  background-color: #eab59e;
+}
+.table-festius {
+  --bs-table-color: rgb(252, 252, 252);
+  --bs-table-bg: #47255c;
+  --bs-table-border-color: #47255c;
+  --bs-table-striped-bg: #47255c;
+  --bs-table-striped-color: rgb(252, 252, 252);
+  --bs-table-active-bg: #47255c;
+  --bs-table-active-color: rgb(2, 2, 22);
+  --bs-table-hover-bg: #47255c;
+  --bs-table-hover-color: rgb(252, 252, 252);
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+.bg-festius {
+  background-color: #47255c;
+}
+
+th[ordena] {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+th[ordena].desc:before,
+th[ordena].asc:before {
+  content: "";
+  display: block;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAmxJREFUeAHtmksrRVEUx72fH8CIGQNJkpGUUmakDEiZSJRIZsRQmCkTJRmZmJgQE0kpX0D5DJKJgff7v+ru2u3O3vvc67TOvsdatdrnnP1Y///v7HvvubdbUiIhBISAEBACQkAICAEhIAQ4CXSh2DnyDfmCPEG2Iv9F9MPlM/LHyAecdyMzHYNwR3fdNK/OH9HXl1UCozD24TCvILxizEDWIEzA0FcM8woCgRrJCoS5PIwrANQSMAJX1LEI9bqpQo4JYNFFKRSvIgsxHDVnqZgIkPnNBM0rIGtYk9YOOsqgbgepRCfdbmFtqhFkVEDVPjJp0+Z6e6hRHhqBKgg6ZDCvYBygVmUoEGoh5JTRvIJwhJo1aUOoh4CLPMyvxxi7EWOMgnCGsXXI1GIXlZUYX7ucU+kbR8NW8lh3O7cue0Pk32MKndfUxQFAwxdirk3fHappAnc0oqDPzDfGTBrCfHP04dM4oTV8cxr0SVzH9FF07xD3ib6xCDE+M+aUcVygtWzzbtGX2rPBrEUYfecfQkaFzYi6HjVnGBdtL7epqAlc1+jRdAap74RrnPc4BCijttY2tRcdN0g17w7HqZrXhdJTYAuS3hd8z+vKgK3V1zWPae0mZDMykadBn1hTQBLnZNwVrJpSe/NwEeDsEwCctEOsJTsgxLvCqUl2ACftEGvJDgjxrnBqkh3ASTvEWrIDQrwrnJpkB3DSDrGW7IAQ7wqnJtkBnLRztejXXVu4+mxz/nQ9jR1w5VB86ejLTFcnnDwhzV+F6T+CHZlx6THSjn76eyyBIOPHyDakhBAQAkJACAgBISAEhIAQYCLwC8JxpAmsEGt6AAAAAElFTkSuQmCC")
+    no-repeat;
+  background-size: 16px;
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin-left: -10px;
+  margin-top: 4px;
+}
+
+th[ordena].desc:before {
+  transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+}
+
+@import "node_modules/bootstrap/dist/css/bootstrap.css" html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

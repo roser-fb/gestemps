@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+    <div class="col-10">  
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title mb-3">Registre de vacances i dies LD</h2>
+                <form [formGroup]="periodeForm" (ngSubmit)="onSubmit()">
+                    <div formControlGroup="periodeVacances">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text w-25 bg-vacances" for="data_ini">Data Inici</span>
+                            <input type="date" class="form-control" name="data_ini" id="data_ini" formControlName="data_ini" required>
+                        </div>
+                        <div *ngIf="(periodeForm.get('data_ini')?.invalid && (periodeForm.get('data_ini')?.dirty || periodeForm.get('data_ini')?.touched)) || (periodeForm.get('data_ini')?.invalid && submitted)"
+                            class="alert alert-danger" role="alert">
+                            <div *ngIf="periodeForm.get('data_ini')?.errors?.['required']">
+                                La data d'inici és obligatòria
+                            </div>
+                            <div *ngIf="periodeForm.controls['data_ini'].hasError('dataValidator')">
+                                La data no té un formàt vàlid o és menor a 2023
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text w-25 bg-vacances" for="data_fi">Data Fi</span>
+                            <input type="date" class="form-control" name="data_fi" id="data_fi" formControlName="data_fi" required>
+                        </div>
+                        <div *ngIf="(periodeForm.get('data_fi')?.invalid && (periodeForm.get('data_fi')?.dirty || periodeForm.get('data_fi')?.touched)) || (periodeForm.get('data_fi')?.invalid && submitted)"
+                            class="alert alert-danger" role="alert">
+                            <div *ngIf="periodeForm.get('data_fi')?.errors?.['required']">
+                                La data d'inici és obligatòria
+                            </div>
+                            <div *ngIf="periodeForm.controls['data_fi'].hasError('dataValidator')">
+                                La data no té un formàt vàlid o és menor a data inici
+                            </div>
+                        </div>
+                       
+                        <div class="input-group mb-3">
+                            <label class="input-group-text w-25 bg-vacances" for="motiu">Motiu</label>
+                            <select class="form-select" id="motiu" formControlName="motiu">
+                            <option value=0 selected>Selecciona...</option>
+                            <option value=1>Vacances</option>
+                            <option value=2>Dia Lliure Disposició</option>
+                            <option value=9>Dia Lliure Disposició Any Anterior</option>
+                            </select>
+                        </div>
+                        <div *ngIf="(periodeForm.get('motiu')?.invalid && (periodeForm.get('motiu')?.dirty || periodeForm.get('motiu')?.touched)) || (periodeForm.get('motiu')?.invalid && submitted)"
+                            class="alert alert-danger" role="alert">
+                            <div *ngIf="periodeForm.get('motiu')?.errors?.['required']">
+                                Selecciona un motiu
+                            </div>
+                            <div *ngIf="periodeForm.controls['motiu'].hasError('motiuValidator')">
+                                Selecciona un motiu vàlid. Si es DLAA no pot ser major al 15/01
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success">Registra</button>
+                        <div *ngIf="(submitted)" class="alert alert-succes" role="alert">                
+                            Periode registrat            
+                        </div>
+                    </div>
+                </form>
+             </div>
+        </div>
+    </div>
+  </div>

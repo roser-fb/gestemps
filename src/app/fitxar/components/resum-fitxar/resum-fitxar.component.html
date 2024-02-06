@@ -1,0 +1,63 @@
+<div class="row my-5">
+  <div class="col-9">
+    <div class="row">
+      <div class="col d-flex justify-content-center mb-4">
+        <app-fitxar></app-fitxar>
+      </div>
+      <div class="row">
+        <app-date-filter (filterApplied)="aplicarFiltre($event)"></app-date-filter>
+      </div>
+      <div class="row">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="table-fitxa">Data</th>
+              <th class="table-fitxa">Temps</th>
+              <th class="table-fitxa"></th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+
+            <tr *ngFor="let fitxa of llista_periodes$ | async">
+              <td>{{fitxa.data_ini | date: 'dd/MM/YYY'}}</td>
+              <td>{{fitxa.temps | timeFormat}}</td>
+              <td><button class="btn" type="button" (click)="esborra(fitxa.id)">
+                  <i class="fa-solid fa-trash text-danger"></i>
+                </button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="row">
+      <div class="d-flex flex-column justify-content-center mb-4">
+        <div class="alert alert-secondary text-start" role="alert">
+          <h5 class="alert-heading text-center">Aquesta setmana</h5>
+          <p><i class="fa-solid fa-hourglass-half"></i> Temps consumit: <b>{{temps_setmanal_consumit |
+              tmpsRestant:'C'}}h</b></p>
+          <hr>
+          <p><i class="fa-solid fa-hourglass-start"></i> Temps restant: <b>{{temps_setmanal_consumit |
+              tmpsRestant:'S'}}h</b></p>
+        </div>
+        <div class="alert alert-secondary text-start" role="alert">
+          <h5 class="alert-heading text-center">Extra</h5>
+          <p><i class="fa-solid fa-hourglass-half"></i> Temps consumit: <b>{{temps_extra_consumit |
+              tmpsRestant:'C'}}h</b></p>
+          <hr>
+          <p><i class="fa-solid fa-hourglass-start"></i> Temps restant: <b>{{temps_extra_consumit |
+              tmpsRestant:'E'}}h</b></p>
+        </div>
+        <div class="alert alert-secondary text-start" role="alert">
+          <h5 class="alert-heading text-center">Aquest any</h5>
+          <p><i class="fa-solid fa-hourglass-half"></i> Temps consumit: <b>{{temps_anual_consumit |
+              tmpsRestant:'C'}}h</b></p>
+          <hr>
+          <p><i class="fa-solid fa-hourglass-start"></i> Temps restant: <b>{{temps_anual_consumit |
+              tmpsRestant:'A'}}h</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

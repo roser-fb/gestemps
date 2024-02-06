@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/"> <img src="assets/icons/icon-72x72.png" alt="Logotip">GESTEMPS</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa-solid fa-ellipsis-vertical"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/festius">Festius</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/vacances">Vacances/LD</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/guardies">Guardies</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/fitxar">Control de temps</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a *ngIf="!haIniciatSessio()" class="nav-link" href="/login"><i class="fa-solid fa-user"></i></a>
+          <a *ngIf="haIniciatSessio()" class="nav-link" href="/logout"><i
+              class="fa-solid fa-arrow-right-from-bracket"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

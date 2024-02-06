@@ -1,0 +1,21 @@
+<div>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h1 class="card-title">{{ temps | timeFormat }}</h1>
+      <h6 *ngIf="isRunning || isPaused " class="card-subtitle mb-2 text-muted"><i class="fa-solid fa-business-time"></i>
+        Cronòmetre iniciat el {{fitxa.data_ini}}
+      </h6>
+      <div *ngIf="apiRes.alertOK" class="alert alert-success" role="alert">
+        S'ha registrat satisfactoriament el periode!
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-success" (click)="iniciarCronometre()" [disabled]="isRunning"><i
+          class="fa-solid fa-play"></i></button>
+      <button class="btn btn-warning mx-1" (click)="pausarCronometre()" [disabled]="!isRunning"><i
+          class="fa-solid fa-pause"></i></button>
+      <button class="btn btn-danger" (click)="finalitzarCronometre()" [disabled]="!isRunning && !isPaused"><i
+          class="fa-solid fa-stop"></i></button>
+    </div>
+  </div>
+</div>

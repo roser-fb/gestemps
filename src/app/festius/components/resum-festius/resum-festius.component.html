@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="table-festius">Data</th>
+                <th class="table-festius"></th>
+                <th class="table-festius">PRÒXIMS Festius</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                
+            <tr *ngFor="let festiu of llista_festius$ | async" >
+                <td *ngIf="proximsFestius(festiu.data_ini)">
+                    {{festiu.data_ini | date: 'dd/MM/YYY'}}
+                </td>               
+                <td *ngIf="proximsFestius(festiu.data_ini)"> {{festiu.data_ini | diaSetmana}}</td>
+                <td *ngIf="proximsFestius(festiu.data_ini)" class="table-active"  [ngClass]="{
+                    'table-nadal':festiu.motiu == '3',
+                    'table-pascua':festiu.motiu == '4',
+                    'table-nacional':festiu.motiu == '5',
+                    'table-autonomic':festiu.motiu == '6',
+                    'table-local':festiu.motiu == '7'}"
+                    >{{festiu.motiu | tipusFestiu}}
+                </td>
+                       
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="table-festius">Data inici</th>
+                <th class="table-festius">Festius {{currentDate | date: 'YYYY'}}</th>
+                <th class="table-festius"></th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                
+            <tr *ngFor="let festiu of llista_festius$ | async" >
+                <td *ngIf="fullYear(festiu.data_ini, 0)">{{festiu.data_ini | date: 'dd/MM/YYY'}}</td>               
+                <td *ngIf="fullYear(festiu.data_ini, 0)" class="table-active"  [ngClass]="{
+                    'table-nadal':festiu.motiu == '3',
+                    'table-pascua':festiu.motiu == '4',
+                    'table-nacional':festiu.motiu == '5',
+                    'table-autonomic':festiu.motiu == '6',
+                    'table-local':festiu.motiu == '7'}"
+                    >{{festiu.motiu | tipusFestiu}}</td>
+                <td *ngIf="fullYear(festiu.data_ini, 0) && festiu.fix == 0">
+                    <button class="btn" type="button"  (click)="esborra(festiu.id)"><fa-icon  class="text-danger" [icon]="faTrashCan"></fa-icon></button>
+                </td>           
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="table-festius">Data inici</th>
+                <th class="table-festius">Festius {{currentDate | nextYear }}</th>
+                <th class="table-festius"></th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                
+                <tr *ngFor="let festiu of llista_festius$ | async" >
+                    <td *ngIf="fullYear(festiu.data_ini, 1)">{{festiu.data_ini | date: 'dd/MM/YYY'}}</td>               
+                    <td *ngIf="fullYear(festiu.data_ini, 1)" class="table-active"  [ngClass]="{
+                        'table-nadal':festiu.motiu == '3',
+                        'table-pascua':festiu.motiu == '4',
+                        'table-nacional':festiu.motiu == '5',
+                        'table-autonomic':festiu.motiu == '6',
+                        'table-local':festiu.motiu == '7'}"
+                        >{{festiu.motiu | tipusFestiu}}</td>
+                    <td *ngIf="fullYear(festiu.data_ini, 1) && festiu.fix == 0">
+                        <button class="btn" type="button"  (click)="esborra(festiu.id)"><fa-icon  class="text-danger" [icon]="faTrashCan"></fa-icon></button>
+                    </td>           
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

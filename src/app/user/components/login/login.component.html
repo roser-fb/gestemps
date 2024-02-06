@@ -1,0 +1,47 @@
+
+
+<div class="row justify-content-center">
+    <div class="col-5">  
+        <div class="card m-5">
+            <div class="card-body">
+                <h2 class="card-title mb-3">Inici de sessió</h2>
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="container">
+                        <div class="input-group  mb-3">
+                 
+                            <input class="form-control" type="text" placeholder="Usuari" name="username"
+                                formControlName="username">
+                        </div>
+                        <div *ngIf="(loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)) || (loginForm.get('username')?.invalid && submitted)"
+                            class="alert alert-danger" role="alert">
+                            <div *ngIf="loginForm.get('username')?.errors?.['required']">
+                                L'usuari és obligatòri
+                            </div>
+                        </div>
+                        <div class=" input-group mb-3">                         
+                            <input class="form-control" type="password" placeholder="Contrasenya" name="password"
+                                formControlName="password">
+                        </div>
+                        <div *ngIf="(loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)) || (loginForm.get('password')?.invalid && submitted)"
+                            class="alert alert-danger" role="alert">
+                            <div *ngIf="loginForm.get('password')?.errors?.['required']">
+                                La contrasenya és obligatòria
+                            </div>
+                            <div *ngIf="loginForm.get('password')?.errors?.['pattern']">
+                                La contrasenya ha de contenir almenys 8 caracters, minim un num, May i Min
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-3">Inicia Sessió</button>
+                        <div *ngIf="message" class="alert alert-success" role="alert">
+                            {{message}}
+                        </div>
+                    </div>
+                </form>
+                <p>No tens usuari? <a href="/register">Registra't</a></p>
+             </div>
+        </div>
+    </div>
+  </div>
+
+
+ 
