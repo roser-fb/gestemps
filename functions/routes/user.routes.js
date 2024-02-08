@@ -11,11 +11,11 @@ router.post("/login", async (req, res) => {
     if (!newuser) {
       return res.status(400).json({ msg: "Invalid user or pwd" });
     }
-    const pwdMatch = await bcrypt.compare(pwd, newuser.password);
+    const pwdMatch = await bcrypt.compare(password, newuser.pwd);
     if (!pwdMatch) {
       return res.status(400).json({ msg: "Invalid user or pwd" });
     }
-    const token = jwt.sign({ user: newuser.username }, newuser.password);
+    const token = jwt.sign({ user: newuser.user }, newuser.pwd);
     return res.json({
       msg: "Successfully logged in",
       user: newuser._id,
@@ -28,14 +28,14 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const { user, pwd } = req.body;
+  const { username, password } = req.body;
   try {
-    const existingUser = await User.findOne({ user });
+    const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).json({ msg: "User already exists, please login." });
     }
-    const hashedPassword = await bcrypt.hash(pwd, 10); // 10 salt rounds
-    const newUser = new User({ user, pwd: hashedPassword });
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 salt rounds
+    const newUser = new User({ username, password: hashedPassword });
     await newUser.save();
     return res.json({ msg: "Successfully created user, please login" });
   } catch (error) {
