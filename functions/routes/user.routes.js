@@ -5,17 +5,17 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models/user.model.js');
 
 router.post("/login", async (req, res) => {
-  const { user, pwd } = req.body;
+  const { username, password } = req.body;
   try {
-    const newuser = await User.findOne({ user });
+    const newuser = await User.findOne({ username });
     if (!newuser) {
       return res.status(400).json({ msg: "Invalid user or pwd" });
     }
-    const pwdMatch = await bcrypt.compare(pwd, newuser.pwd);
+    const pwdMatch = await bcrypt.compare(pwd, newuser.password);
     if (!pwdMatch) {
       return res.status(400).json({ msg: "Invalid user or pwd" });
     }
-    const token = jwt.sign({ user: newuser.user }, newuser.pwd);
+    const token = jwt.sign({ user: newuser.username }, newuser.password);
     return res.json({
       msg: "Successfully logged in",
       user: newuser._id,
