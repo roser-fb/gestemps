@@ -5,13 +5,14 @@ const jwt = require('jsonwebtoken');
 const { User } = require('../models/user.model.js');
 
 router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  const user =  req.body.username;
+  const pwd =  req.body.password;
   try {
-    const newuser = await User.findOne({ username });
+    const newuser = await User.findOne({ user });
     if (!newuser) {
       return res.status(400).json({ msg: "Invalid user or pwd" });
     }
-    const pwdMatch = await bcrypt.compare(password, newuser.pwd);
+    const pwdMatch = await bcrypt.compare(pwd, newuser.pwd);
     if (!pwdMatch) {
       return res.status(400).json({ msg: "Invalid user or pwd" });
     }
@@ -28,14 +29,15 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  const user =  req.body.username;
+  const pwd =  req.body.passwor
   try {
-    const existingUser = await User.findOne({ username });
+    const existingUser = await User.findOne({ user });
     if (existingUser) {
       return res.status(400).json({ msg: "User already exists, please login." });
     }
-    const hashedPassword = await bcrypt.hash(password, 10); // 10 salt rounds
-    const newUser = new User({ username, password: hashedPassword });
+    const hashedPassword = await bcrypt.hash(pwd, 10); // 10 salt rounds
+    const newUser = new User({ user, pwd: hashedPassword });
     await newUser.save();
     return res.json({ msg: "Successfully created user, please login" });
   } catch (error) {
