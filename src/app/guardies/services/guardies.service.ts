@@ -58,7 +58,7 @@ export class GuardiesService {
   }
 
   delete(id: number): Observable<any> {
-    return this.http.get<any>("/api/guardia/delete/" + id);
+    return this.http.get<any>("api/guardia/delete/" + id);
   }
 
   submitEvent: EventEmitter<void> = new EventEmitter<void>();
