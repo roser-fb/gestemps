@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { EventInput } from '@fullcalendar/core';
-import { DateInput } from 'fullcalendar';
-import { UserStoreService } from 'src/app/user/services/user-store.service';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable, map } from "rxjs";
+import { EventInput } from "@fullcalendar/core";
+import { DateInput } from "fullcalendar";
+import { UserStoreService } from "src/app/user/services/user-store.service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class CalendariService {
   private user: string | null;
@@ -17,7 +17,7 @@ export class CalendariService {
     this.user = userStoreService.getUserId();
   }
   getPeriodeVacances(): Observable<EventInput[]> {
-    return this.http.get<EventInput[]>('/api/calendari/' + this.user).pipe(
+    return this.http.get<EventInput[]>("/api/calendari/" + this.user).pipe(
       map((data: EventInput[]) => {
         const esdevenimentsModificats: EventInput[] = [];
         let esdv_next: EventInput = {};
@@ -34,8 +34,8 @@ export class CalendariService {
           }
 
           let data_start: string | undefined =
-            esdv.start?.toLocaleString('en-US');
-          let data_end: string | undefined = esdv.end?.toLocaleString('en-US');
+            esdv.start?.toLocaleString("en-US");
+          let data_end: string | undefined = esdv.end?.toLocaleString("en-US");
 
           let start_date_current: Date;
           let end_date_current: Date;
@@ -61,28 +61,28 @@ export class CalendariService {
               start_date_last.setFullYear(currentYear - 1);
 
               esdv.start =
-                start_date_current.toISOString().replace(/T.*$/, '') +
-                'T23:00:00.000Z';
+                start_date_current.toISOString().replace(/T.*$/, "") +
+                "T23:00:00.000Z";
               esdv_next.start =
-                start_date_next.toISOString().replace(/T.*$/, '') +
-                'T23:00:00.000Z';
+                start_date_next.toISOString().replace(/T.*$/, "") +
+                "T23:00:00.000Z";
               esdv_last.start =
-                start_date_last.toISOString().replace(/T.*$/, '') +
-                'T23:00:00.000Z';
+                start_date_last.toISOString().replace(/T.*$/, "") +
+                "T23:00:00.000Z";
 
               end_date_current.setFullYear(currentYear);
               end_date_next.setFullYear(currentYear + 1);
               end_date_last.setFullYear(currentYear - 1);
 
               esdv.end =
-                end_date_current.toISOString().replace(/T.*$/, '') +
-                'T23:00:00.000Z';
+                end_date_current.toISOString().replace(/T.*$/, "") +
+                "T23:00:00.000Z";
               esdv_next.end =
-                end_date_next.toISOString().replace(/T.*$/, '') +
-                'T23:00:00.000Z';
+                end_date_next.toISOString().replace(/T.*$/, "") +
+                "T23:00:00.000Z";
               esdv_last.end =
-                end_date_last.toISOString().replace(/T.*$/, '') +
-                'T23:00:00.000Z';
+                end_date_last.toISOString().replace(/T.*$/, "") +
+                "T23:00:00.000Z";
 
               esdevenimentsModificats.push(esdv_next);
               esdevenimentsModificats.push(esdv_last);

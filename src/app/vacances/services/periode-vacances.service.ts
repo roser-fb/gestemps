@@ -1,11 +1,11 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map, of, throwError } from 'rxjs';
-import { PeriodeVacances } from '../models/periode-vacances.dto';
-import { UserStoreService } from 'src/app/user/services/user-store.service';
+import { EventEmitter, Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable, map, of, throwError } from "rxjs";
+import { PeriodeVacances } from "../models/periode-vacances.dto";
+import { UserStoreService } from "src/app/user/services/user-store.service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class PeriodeVacancesService {
   private periodes: PeriodeVacances[];
@@ -19,7 +19,7 @@ export class PeriodeVacancesService {
   }
 
   getPeriodeVacances(): Observable<PeriodeVacances[]> {
-    return this.http.get<PeriodeVacances[]>('/api/periodes');
+    return this.http.get<PeriodeVacances[]>("/api/periodes");
   }
   getPeriodeVacancesByUser(): Observable<PeriodeVacances[]> {
     return this.getPeriodeVacances().pipe(
@@ -36,7 +36,7 @@ export class PeriodeVacancesService {
     );
   }
   getPeriodeVacancesByYear(year: number): Observable<PeriodeVacances[]> {
-    return this.http.get<PeriodeVacances[]>('/api/periodes/' + year);
+    return this.http.get<PeriodeVacances[]>("/api/periodes/" + year);
   }
   getPeriodeVacancesByUserAndYear(year: number): Observable<PeriodeVacances[]> {
     return this.getPeriodeVacancesByYear(year).pipe(
@@ -50,10 +50,10 @@ export class PeriodeVacancesService {
     periode.num_dies = num_dies;
 
     this.periodes.push(periode);
-    return this.http.post('/api/periodes', periode);
+    return this.http.post("/api/periodes", periode);
   }
   delete(id: number): Observable<any> {
-    return this.http.get<any>('/api/periodes/delete/' + id);
+    return this.http.get<any>("/api/periodes/delete/" + id);
   }
   submitEvent: EventEmitter<void> = new EventEmitter<void>();
 

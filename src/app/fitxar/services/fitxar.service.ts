@@ -1,12 +1,12 @@
-import { formatDate } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { UserStoreService } from 'src/app/user/services/user-store.service';
-import { PeriodeTreball } from '../models/periode-treball.dto';
+import { formatDate } from "@angular/common";
+import { HttpClient } from "@angular/common/http";
+import { EventEmitter, Injectable } from "@angular/core";
+import { map, Observable } from "rxjs";
+import { UserStoreService } from "src/app/user/services/user-store.service";
+import { PeriodeTreball } from "../models/periode-treball.dto";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class FitxarService {
   private user: string | null;
@@ -17,10 +17,10 @@ export class FitxarService {
     this.user = userStoreService.getUserId();
   }
   getPeriodeTreball(): Observable<PeriodeTreball[]> {
-    return this.http.get<PeriodeTreball[]>('/api/fitxar');
+    return this.http.get<PeriodeTreball[]>("/api/fitxar");
   }
   getPeriodeTreballByYear(year: number): Observable<PeriodeTreball[]> {
-    return this.http.get<PeriodeTreball[]>('/api/fitxar/' + year);
+    return this.http.get<PeriodeTreball[]>("/api/fitxar/" + year);
   }
   getPeriodeTreballByUserAndYear(year: number): Observable<PeriodeTreball[]> {
     return this.getPeriodeTreballByYear(year).pipe(
@@ -44,14 +44,14 @@ export class FitxarService {
   }
   create(periode: PeriodeTreball): Observable<any> {
     if (this.user) periode.user = this.user;
-    return this.http.post('/api/fitxar', periode);
+    return this.http.post("/api/fitxar", periode);
   }
   update(periode: PeriodeTreball): Observable<any> {
     if (this.user) periode.user = this.user;
-    return this.http.patch('/api/fitxar/' + periode.id, periode);
+    return this.http.patch("/api/fitxar/" + periode.id, periode);
   }
   delete(id: number): Observable<any> {
-    return this.http.get<any>('/api/fitxar/delete/' + id);
+    return this.http.get<any>("/api/fitxar/delete/" + id);
   }
   submitEvent: EventEmitter<void> = new EventEmitter<void>();
 

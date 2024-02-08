@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://localhost:3000",
+    "target": "https://gestemps-api.netlify.app",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"

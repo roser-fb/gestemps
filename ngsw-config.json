@@ -26,11 +26,12 @@
         ]
       }
     }
-  ], "dataGroups": [
+  ],
+  "dataGroups": [
     {
-      "name": "data-api", 
-      "urls":[
-        "http://localhost:8080/api/**"
+      "name": "data-api",
+      "urls": [
+        "https://gestemps-api.netlify.app/api/**"
       ],
       "cacheConfig": {
         "maxSize": 10,
