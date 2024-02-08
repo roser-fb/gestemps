@@ -19,7 +19,7 @@ export class GuardiesService {
   }
 
   getGuardia(): Observable<Guardia[]> {
-    return this.http.get<Guardia[]>("api/guardia");
+    return this.http.get<Guardia[]>("/api/guardia");
   }
   getGuardiaById(id: number): Observable<Guardia | undefined> {
     return this.getGuardia().pipe(
@@ -29,7 +29,7 @@ export class GuardiesService {
     );
   }
   getGuardiaByYear(any: number): Observable<Guardia[]> {
-    return this.http.get<Guardia[]>("api/guardia/" + any);
+    return this.http.get<Guardia[]>("/api/guardia/" + any);
   }
   getGuardiaByUser(): Observable<Guardia[]> {
     return this.getGuardia().pipe(
@@ -54,11 +54,11 @@ export class GuardiesService {
     }
     guardia.festiu = festiu;
     this.guardies.push(guardia);
-    return this.http.post("api/guardia", guardia);
+    return this.http.post("/api/guardia", guardia);
   }
 
   delete(id: number): Observable<any> {
-    return this.http.get<any>("api/guardia/delete/" + id);
+    return this.http.get<any>("/api/guardia/delete/" + id);
   }
 
   submitEvent: EventEmitter<void> = new EventEmitter<void>();

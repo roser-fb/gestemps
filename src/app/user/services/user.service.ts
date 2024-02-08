@@ -12,10 +12,10 @@ export class UserService {
     this.users = [new User("", "")];
   }
   login(user: User): Observable<any> {
-    return this.http.post("api/user/login", user);
+    return this.http.post("/api/user/login", user);
   }
   register(user: User): Observable<any> {
     this.users.push(user);
-    return this.http.post("api/user/register", user);
+    return this.http.post("/api/user/register", user);
   }
 }
