@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://gestemps-api.netlify.app",
+    "target": "https://gestemps-api.netlify.app/api",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
