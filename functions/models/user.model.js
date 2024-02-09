@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  id:Number,
   user: {
     type: String,
     required: true,
@@ -14,7 +13,7 @@ const userSchema = new mongoose.Schema({
 });
 userSchema.method("toJSON", function() {
   const { __v, _id, ...object } = this.toObject();
-  object.id = _id;
+  object._id = _id;
   return object;
 });
 const User = mongoose.model('users', userSchema);
