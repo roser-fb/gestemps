@@ -1,5 +1,5 @@
 export interface Guardia {
-  id: number;
+  _id: string;
   data: Date;
   n_hores: number;
   festiu: number;
@@ -8,14 +8,14 @@ export interface Guardia {
 }
 export class Guardia implements Guardia {
   constructor(
-    public id: number,
+    public id: string,
     public data: Date,
     public n_hores: number,
     public festiu: number,
     public motiu: number,
     public user: string
   ) {
-    this.id = id;
+    this._id = id;
     this.data = data;
     this.n_hores = n_hores;
     this.festiu = festiu;
