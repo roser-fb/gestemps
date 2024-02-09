@@ -24,13 +24,13 @@ router.post("/login", async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ status: 'error' });
+    return res.status(500).json({ status: error });
   }
 });
 
 router.post("/register", async (req, res) => {
   const user =  req.body.username;
-  const pwd =  req.body.passwor
+  const pwd =  req.body.password;
   try {
     const existingUser = await User.findOne({ user });
     if (existingUser) {
@@ -42,7 +42,7 @@ router.post("/register", async (req, res) => {
     return res.json({ msg: "Successfully created user, please login" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ status: 'error' });
+    return res.status(500).json({ status: error });
   }
 });
 
