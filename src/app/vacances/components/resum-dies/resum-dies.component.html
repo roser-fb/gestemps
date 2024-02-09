@@ -2,46 +2,46 @@
     <div class="col">
         <table class="table">
             <thead>
-            <tr>
-                <th class="table-vacances-r" colspan="2">Dies LD {{ today | date:"YYYY"}}</th>
-            </tr>
+                <tr>
+                    <th class="table-vacances-r" colspan="2">Dies LD {{ today | date:"YYYY"}}</th>
+                </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Disfrutats</td>
-                    <td  class="table-vacances">{{resum.num_disf_ld}}</td>
+                    <td class="table-vacances">{{resum.num_disf_ld}}</td>
                 </tr>
-            <tr>
-                <td>Sol·licitats</td>
-                <td  class="table-guardia-r">{{resum.num_sol_ld}}</td>
-            </tr>
-            <tr>
-                <td>Disponibles</td>
-                <td  class="table-guardia">{{6-(resum.num_sol_ld+resum.num_disf_ld)}}</td>
-            </tr>
+                <tr>
+                    <td>Sol·licitats</td>
+                    <td class="table-guardia-r">{{resum.num_sol_ld}}</td>
+                </tr>
+                <tr>
+                    <td>Disponibles</td>
+                    <td class="table-guardia">{{6-(resum.num_sol_ld+resum.num_disf_ld)}}</td>
+                </tr>
             </tbody>
         </table>
     </div>
     <div class="col">
         <table class="table">
             <thead>
-            <tr>
-                <th class="table-vacances-r" colspan="2">Dies Vacances {{ today | date:"YYYY"}}</th>
-            </tr>
+                <tr>
+                    <th class="table-vacances-r" colspan="2">Dies Vacances {{ today | date:"YYYY"}}</th>
+                </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Disfrutats</td>
-                    <td  class="table-vacances">{{resum.num_disf_vacances}}</td>
+                    <td class="table-vacances">{{resum.num_disf_vacances}}</td>
                 </tr>
-            <tr>
-                <td>Sol·licitats</td>
-                <td  class="table-guardia-r">{{resum.num_sol_vacances}}</td>
-            </tr>
-            <tr>
-                <td>Disponibles</td>
-                <td  class="table-guardia">{{22-(resum.num_sol_vacances+resum.num_disf_vacances)}}</td>
-            </tr>
+                <tr>
+                    <td>Sol·licitats</td>
+                    <td class="table-guardia-r">{{resum.num_sol_vacances}}</td>
+                </tr>
+                <tr>
+                    <td>Disponibles</td>
+                    <td class="table-guardia">{{22-(resum.num_sol_vacances+resum.num_disf_vacances)}}</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -50,23 +50,25 @@
     <div class="col">
         <table class="table">
             <thead>
-            <tr>
-                <th class="table-vacances">Data inici</th>
-                <th class="table-vacances">Data fi</th>
-                <th class="table-vacances">Data Total Dies</th>
-                <th class="table-vacances">Tipus Permís</th>
-                <th class="table-vacances"></th>
-            </tr>
+                <tr>
+                    <th class="table-vacances">Data inici</th>
+                    <th class="table-vacances">Data fi</th>
+                    <th class="table-vacances">Data Total Dies</th>
+                    <th class="table-vacances">Tipus Permís</th>
+                    <th class="table-vacances"></th>
+                </tr>
             </thead>
             <tbody class="table-group-divider">
-                
-            <tr *ngFor="let periode of llista_periodes$ | async" >
-                <td>{{periode.data_ini | date: 'dd/MM/YYY'}}</td>
-                <td>{{periode.data_fi | date: 'dd/MM/YYY'}}</td>
-                <td>{{periode.num_dies}}</td>
-                <td>{{periode.motiu=="1"?"Vacances":periode.motiu=="2"?"LD":"LDAA"}}</td>
-                <td><button class="btn" type="button"  (click)="esborra(periode.id)"><fa-icon  class="text-danger" [icon]="faTrashCan"></fa-icon></button></td>
-            </tr>
+
+                <tr *ngFor="let periode of llista_periodes$ | async">
+                    <td>{{periode.data_ini | date: 'dd/MM/YYY'}}</td>
+                    <td>{{periode.data_fi | date: 'dd/MM/YYY'}}</td>
+                    <td>{{periode.num_dies}}</td>
+                    <td>{{periode.motiu=="1"?"Vacances":periode.motiu=="2"?"LD":"LDAA"}}</td>
+                    <td><button class="btn" type="button" (click)="esborra(periode._id)">
+                            <fa-icon class="text-danger" [icon]="faTrashCan"></fa-icon>
+                        </button></td>
+                </tr>
             </tbody>
         </table>
     </div>

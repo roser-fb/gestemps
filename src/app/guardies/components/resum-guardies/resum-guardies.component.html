@@ -79,7 +79,7 @@
                         <tr *ngFor="let guardia of llista_guardies$ | async">
                             <td>{{guardia.data | date: 'dd/MM/YYY'}}</td>
                             <td>{{guardia.n_hores}}</td>
-                            <td><button class="btn" type="button" (click)="esborra(guardia.id)">
+                            <td><button class="btn" type="button" (click)="esborra(guardia._id)">
                                     <fa-icon class="text-danger" [icon]="faTrashCan"></fa-icon>
                                 </button></td>
                         </tr>
