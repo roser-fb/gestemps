@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { PeriodeTreball } from '../../models/periode-treball.dto';
-import { FitxarService } from '../../services/fitxar.service';
+import { Component } from "@angular/core";
+import { Observable } from "rxjs";
+import { PeriodeTreball } from "../../models/periode-treball.dto";
+import { FitxarService } from "../../services/fitxar.service";
 
 @Component({
-  selector: 'app-resum-fitxar',
-  templateUrl: './resum-fitxar.component.html',
-  styleUrls: ['./resum-fitxar.component.css'],
+  selector: "app-resum-fitxar",
+  templateUrl: "./resum-fitxar.component.html",
+  styleUrls: ["./resum-fitxar.component.css"],
 })
 export class ResumFitxarComponent {
   public llista_periodes$: Observable<PeriodeTreball[]> = new Observable<
@@ -40,9 +40,9 @@ export class ResumFitxarComponent {
       location.reload();
     });
   }
-  esborra(id: number): void {
+  esborra(id: string): void {
     this.fitxarService.delete(id).subscribe((res) => {
-      if (res.status == 'ok') {
+      if (res.status == "ok") {
         location.reload();
       }
     });
@@ -68,7 +68,7 @@ export class ResumFitxarComponent {
     return setmanaToday == setmanaDataIni;
   }
   aplicarFiltre(filtre: { startDate: string; endDate: string }) {
-    if (!filtre.startDate) filtre.startDate = '2024-01-01';
+    if (!filtre.startDate) filtre.startDate = "2024-01-01";
     if (!filtre.endDate) filtre.endDate = new Date().toDateString();
     const startDate = new Date(filtre.startDate);
     const endDate = new Date(filtre.endDate);

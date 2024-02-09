@@ -82,7 +82,7 @@ export class PeriodeFestiusService {
     return this.http.post("/api/festius", periode);
   }
 
-  delete(id: number): Observable<any> {
+  delete(id: string): Observable<any> {
     return this.http.get<any>("/api/festius/delete/" + id);
   }
 

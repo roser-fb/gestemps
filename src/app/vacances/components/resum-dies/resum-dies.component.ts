@@ -1,18 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Input, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
 //import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { PeriodeVacancesService } from '../../services/periode-vacances.service';
-import * as moment from 'moment';
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { PeriodeVacancesService } from "../../services/periode-vacances.service";
+import * as moment from "moment";
 import {
   ResumVacances,
   PeriodeVacances,
-} from '../../models/periode-vacances.dto';
+} from "../../models/periode-vacances.dto";
 
 @Component({
-  selector: 'app-resum-dies',
-  templateUrl: './resum-dies.component.html',
-  styleUrls: ['./resum-dies.component.css'],
+  selector: "app-resum-dies",
+  templateUrl: "./resum-dies.component.html",
+  styleUrls: ["./resum-dies.component.css"],
 })
 export class ResumDiesComponent implements OnInit {
   @Input() resum: ResumVacances = {
@@ -38,9 +38,9 @@ export class ResumDiesComponent implements OnInit {
       location.reload();
     });
   }
-  esborra(id: number): void {
+  esborra(id: string): void {
     this.periodeVacancesService.delete(id).subscribe((res) => {
-      if (res.status == 'ok') {
+      if (res.status == "ok") {
         location.reload();
       }
     });
@@ -48,7 +48,7 @@ export class ResumDiesComponent implements OnInit {
   num_dies_solicitats() {
     this.llista_periodes$.subscribe((periodes) => {
       periodes.forEach((periode) => {
-        const ini_aux = moment(periode.data_ini, 'YYYY-MM-DD');
+        const ini_aux = moment(periode.data_ini, "YYYY-MM-DD");
         const today = moment();
         if (this.dia_computable(periode, today, ini_aux)) {
           if (ini_aux.isAfter(today)) {
@@ -68,20 +68,20 @@ export class ResumDiesComponent implements OnInit {
     dia: moment.Moment
   ) {
     return (
-      ((periode.motiu == '1' || periode.motiu == '2') &&
+      ((periode.motiu == "1" || periode.motiu == "2") &&
         hui.year() === dia.year()) ||
-      (periode.motiu == '9' && hui.year() === dia.year() - 1)
+      (periode.motiu == "9" && hui.year() === dia.year() - 1)
     );
   }
   dies_solicitats(periode: PeriodeVacances) {
-    if (periode.motiu == '1') {
+    if (periode.motiu == "1") {
       this.resum.num_sol_vacances += periode.num_dies;
     } else {
       this.resum.num_sol_ld += periode.num_dies;
     }
   }
   dies_disfrutats(periode: PeriodeVacances) {
-    if (periode.motiu == '1') {
+    if (periode.motiu == "1") {
       this.resum.num_disf_vacances += periode.num_dies;
     } else {
       this.resum.num_disf_ld += periode.num_dies;

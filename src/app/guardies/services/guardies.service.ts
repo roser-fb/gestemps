@@ -57,7 +57,7 @@ export class GuardiesService {
     return this.http.post("/api/guardia", guardia);
   }
 
-  delete(id: number): Observable<any> {
+  delete(id: string): Observable<any> {
     return this.http.get<any>("/api/guardia/delete/" + id);
   }
 

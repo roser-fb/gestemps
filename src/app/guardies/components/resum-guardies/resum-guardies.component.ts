@@ -1,14 +1,14 @@
-import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Guardia, ResumGuardies } from '../../models/guardies.dto';
-import { GuardiesService } from '../../services/guardies.service';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { DatePipe } from "@angular/common";
+import { Component } from "@angular/core";
+import { Observable } from "rxjs";
+import { Guardia, ResumGuardies } from "../../models/guardies.dto";
+import { GuardiesService } from "../../services/guardies.service";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-  selector: 'app-resum-guardies',
-  templateUrl: './resum-guardies.component.html',
-  styleUrls: ['./resum-guardies.component.css'],
+  selector: "app-resum-guardies",
+  templateUrl: "./resum-guardies.component.html",
+  styleUrls: ["./resum-guardies.component.css"],
 })
 export class ResumGuardiesComponent {
   faTrashCan = faTrashCan;
@@ -59,9 +59,9 @@ export class ResumGuardiesComponent {
     });
   }
 
-  esborra(id: number): void {
+  esborra(id: string): void {
     this.guardiesService.delete(id).subscribe((res) => {
-      if (res.status == 'ok') {
+      if (res.status == "ok") {
         location.reload();
       }
     });
