@@ -1,13 +1,13 @@
-import { Component, OnDestroy } from '@angular/core';
-import { Subscription, interval } from 'rxjs';
-import { ApiResponse } from 'src/app/shared/models/api-response.dto';
-import { PeriodeTreball } from '../../models/periode-treball.dto';
-import { FitxarService } from '../../services/fitxar.service';
-import { TempsStoreService } from '../../services/temps-store.service';
+import { Component, OnDestroy } from "@angular/core";
+import { Subscription, interval } from "rxjs";
+import { ApiResponse } from "src/app/shared/models/api-response.dto";
+import { PeriodeTreball } from "../../models/periode-treball.dto";
+import { FitxarService } from "../../services/fitxar.service";
+import { TempsStoreService } from "../../services/temps-store.service";
 @Component({
-  selector: 'app-fitxar',
-  templateUrl: './fitxar.component.html',
-  styleUrls: ['./fitxar.component.css'],
+  selector: "app-fitxar",
+  templateUrl: "./fitxar.component.html",
+  styleUrls: ["./fitxar.component.css"],
 })
 export class FitxarComponent implements OnDestroy {
   temps = 0;
@@ -23,15 +23,15 @@ export class FitxarComponent implements OnDestroy {
     private fitxarService: FitxarService,
     private tmpsStoreService: TempsStoreService
   ) {
-    this.fitxa = new PeriodeTreball(0, '', '', 0, '');
-    this.apiRes = new ApiResponse(false, false, '');
+    this.fitxa = new PeriodeTreball("", "", "", 0, "");
+    this.apiRes = new ApiResponse(false, false, "");
   }
   ngOnInit() {
     this.isRunning = this.tmpsStoreService.isTempRunning();
     this.isPaused = this.tmpsStoreService.isTempPaused();
     const temps = this.tmpsStoreService.getTmps();
     const data_inici_storage = this.tmpsStoreService.getTimeInit();
-    this.fitxa.data_ini = data_inici_storage + '';
+    this.fitxa.data_ini = data_inici_storage + "";
     if (this.isRunning) {
       if (temps) {
         this.temps = parseInt(temps) + this.calculaTemps(data_inici_storage);
@@ -52,7 +52,7 @@ export class FitxarComponent implements OnDestroy {
     if (!this.isRunning) {
       this.isRunning = true;
       this.isPaused = false;
-      this.fitxa.data_ini = data_ini.slice(0, 19).replace('T', ' ');
+      this.fitxa.data_ini = data_ini.slice(0, 19).replace("T", " ");
       this.cronometroSubscription = interval(1000).subscribe(() => {
         this.temps++;
       });
@@ -77,10 +77,10 @@ export class FitxarComponent implements OnDestroy {
     const data_fi = new Date(data_aux).toISOString();
     this.isRunning = false;
     this.isPaused = false;
-    this.fitxa.data_fi = data_fi.slice(0, 19).replace('T', ' ');
+    this.fitxa.data_fi = data_fi.slice(0, 19).replace("T", " ");
     this.fitxa.temps = this.temps;
     this.fitxarService.create(this.fitxa).subscribe((res) => {
-      if (res.status == 'ok') {
+      if (res.status == "ok") {
         this.apiRes.alertOK = true;
         setTimeout(() => {
           this.apiRes.alertOK = false;
@@ -110,15 +110,15 @@ export class FitxarComponent implements OnDestroy {
     return temps_aux;
   }
   storeTempsInit() {
-    this.tmpsStoreService.setRunningToken('true');
+    this.tmpsStoreService.setRunningToken("true");
     this.tmpsStoreService.setTimeInit(this.fitxa.data_ini);
     this.tmpsStoreService.setTmps(this.temps);
-    this.tmpsStoreService.setPausedToken('false');
+    this.tmpsStoreService.setPausedToken("false");
   }
   storeTempsPause() {
-    this.tmpsStoreService.setRunningToken('false');
+    this.tmpsStoreService.setRunningToken("false");
     this.tmpsStoreService.setTmps(this.temps);
-    this.tmpsStoreService.setPausedToken('true');
+    this.tmpsStoreService.setPausedToken("true");
   }
   storeTempsFin() {
     this.tmpsStoreService.deleteRunningToken();

@@ -21,7 +21,7 @@ export class GuardiesService {
   getGuardia(): Observable<Guardia[]> {
     return this.http.get<Guardia[]>("/api/guardia");
   }
-  getGuardiaById(id: number): Observable<Guardia | undefined> {
+  getGuardiaById(id: string): Observable<Guardia | undefined> {
     return this.getGuardia().pipe(
       map((guardies: Guardia[]) =>
         guardies.find((guardia) => guardia.id === id)

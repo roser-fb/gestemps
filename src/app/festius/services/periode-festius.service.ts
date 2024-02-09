@@ -20,7 +20,7 @@ export class PeriodeFestiusService {
         const currentYear: number = new Date().getFullYear();
         for (const festiu of data) {
           let nextFestiu: PeriodeFestius = new PeriodeFestius(
-            0,
+            "",
             new Date(),
             "0",
             0
@@ -56,7 +56,7 @@ export class PeriodeFestiusService {
       })
     );
   }
-  getPeriodeFestiusById(id: number): Observable<PeriodeFestius | undefined> {
+  getPeriodeFestiusById(id: string): Observable<PeriodeFestius | undefined> {
     return this.getPeriodeFestius().pipe(
       map((periodes: PeriodeFestius[]) =>
         periodes.find((periode) => periode.id === id)

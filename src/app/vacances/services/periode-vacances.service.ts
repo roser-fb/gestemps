@@ -28,7 +28,7 @@ export class PeriodeVacancesService {
       )
     );
   }
-  getPeriodeVacancesById(id: number): Observable<PeriodeVacances | undefined> {
+  getPeriodeVacancesById(id: string): Observable<PeriodeVacances | undefined> {
     return this.getPeriodeVacances().pipe(
       map((periodes: PeriodeVacances[]) =>
         periodes.find((periode) => periode.id === id)
