@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const periodeId = req.params.id;
-    await Festiu.deleteOne({ _id: periodeId });
+    await Festiu.findByIdAndDelete(periodeId);
     res.status(200).json({ status: 'ok' });
   } catch (error) {
     console.error(error);

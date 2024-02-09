@@ -1,5 +1,5 @@
 export interface PeriodeFestius {
-  _id: string;
+  id: string;
   data_ini: Date;
   motiu: string;
   fix: number;
@@ -11,7 +11,7 @@ export class PeriodeFestius implements PeriodeFestius {
     public motiu: string,
     public fix: number
   ) {
-    this._id = id;
+    this.id = id;
     this.data_ini = data_ini;
     this.motiu = motiu;
     this.fix = fix;

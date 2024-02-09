@@ -1,5 +1,5 @@
 export interface PeriodeTreball {
-  _id: string;
+  id: string;
   data_ini: string;
   data_fi: string;
   temps: number;
@@ -13,7 +13,7 @@ export class PeriodeTreball implements PeriodeTreball {
     public temps: number,
     public user: string
   ) {
-    this._id = id;
+    this.id = id;
     this.data_ini = data_ini;
     this.data_fi = data_fi;
     this.temps = temps;

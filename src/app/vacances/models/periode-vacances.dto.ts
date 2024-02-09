@@ -1,5 +1,5 @@
 export interface PeriodeVacances {
-  _id: string;
+  id: string;
   data_ini: Date;
   data_fi: Date;
   motiu: string;
@@ -15,7 +15,7 @@ export class PeriodeVacances implements PeriodeVacances {
     public num_dies: number,
     public user: string
   ) {
-    this._id = id;
+    this.id = id;
     this.data_ini = data_ini;
     this.data_fi = data_fi;
     this.motiu = motiu;

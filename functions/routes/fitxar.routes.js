@@ -51,7 +51,7 @@ router.patch('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const fitxaId = req.params.id;
-    await Fitxa.deleteOne({ _id: fitxaId });
+    await Fitxa.findByIdAndDelete(fitxaId);
     res.status(200).json({ status: 'ok' });
   } catch (error) {
     console.error(error);

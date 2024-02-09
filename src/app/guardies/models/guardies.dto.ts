@@ -1,5 +1,5 @@
 export interface Guardia {
-  _id: string;
+  id: string;
   data: Date;
   n_hores: number;
   festiu: number;
@@ -15,7 +15,7 @@ export class Guardia implements Guardia {
     public motiu: number,
     public user: string
   ) {
-    this._id = id;
+    this.id = id;
     this.data = data;
     this.n_hores = n_hores;
     this.festiu = festiu;
