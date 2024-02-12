@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
 });
 userSchema.method("toJSON", function() {
   const { __v, _id, ...object } = this.toObject();
-  object._id = _id;
+  object.id = _id;
   return object;
 });
 const User = mongoose.model('users', userSchema);

@@ -9,7 +9,7 @@ const calendariSchema = new mongoose.Schema({
 });
 calendariSchema.method("toJSON", function() {
   const { __v, _id, ...object } = this.toObject();
-  object._id = _id;
+  object.id = _id;
   return object;
 });
 const Calendari = mongoose.model('calendari', calendariSchema);
