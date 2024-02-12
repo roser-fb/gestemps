@@ -20,7 +20,6 @@ router.get('/:id', async (req, res) => {
       },
       {
         $project: {
-          id: { $toString: '$_id' },
           title: '$motiu.motiu_desc',
           start: '$data_ini',
           end: '$data_fi',
@@ -39,7 +38,6 @@ router.get('/:id', async (req, res) => {
       },
       {
         $project: {
-          id: { $toString: '$_id' },
           title: '$motiu.motiu_desc',
           start: '$data_ini',
           end: '$data_ini',
@@ -59,7 +57,6 @@ router.get('/:id', async (req, res) => {
       },
       {
         $project: {
-          id: { $toString: '$_id' },
           title: '$motiu.motiu_desc',
           start: '$data',
           end: '$data',
