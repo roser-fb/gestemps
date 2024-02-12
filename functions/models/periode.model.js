@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const periodeSchema = new mongoose.Schema({
   data_ini: String,
   data_fi: String,
-  motiu: String,
+  motiu: Number,
   num_dies: Number,
   user: String
 });

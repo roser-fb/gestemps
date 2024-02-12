@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const festiuSchema = new mongoose.Schema({
 
   data_ini: String,
-  motiu: String,
+  motiu: Number,
   fix: Number
 });
 festiuSchema.method("toJSON", function() {
