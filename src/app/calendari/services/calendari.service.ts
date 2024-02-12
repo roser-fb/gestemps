@@ -25,7 +25,6 @@ export class CalendariService {
 
         const currentYear: number = new Date().getFullYear();
         for (const esdv of data) {
-          console.log(esdv);
           if (esdv.id) {
             esdv_next.id = currentYear + 1 + esdv.id;
             esdv_next.title = esdv.title;
@@ -62,22 +61,22 @@ export class CalendariService {
               start_date_last.setFullYear(currentYear - 1);
 
               esdv.start =
-                start_date_current.toLocaleString("en-US");
+                start_date_current.toISOString();
               esdv_next.start =
-                start_date_next.toLocaleString("en-US");
+                start_date_next.toISOString();
               esdv_last.start =
-                start_date_last.toLocaleString("en-US");
+                start_date_last.toISOString();
 
               end_date_current.setFullYear(currentYear);
               end_date_next.setFullYear(currentYear + 1);
               end_date_last.setFullYear(currentYear - 1);
 
               esdv.end =
-                end_date_current.toLocaleString("en-US");
+                end_date_current.toISOString();
               esdv_next.end =
-                end_date_next.toLocaleString("en-US");
+                end_date_next.toISOString();
               esdv_last.end =
-                end_date_last.toLocaleString("en-US");
+                end_date_last.toISOString();
 
               esdevenimentsModificats.push(esdv_next);
               esdevenimentsModificats.push(esdv_last);
