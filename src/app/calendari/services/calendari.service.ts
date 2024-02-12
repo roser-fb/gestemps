@@ -25,6 +25,7 @@ export class CalendariService {
 
         const currentYear: number = new Date().getFullYear();
         for (const esdv of data) {
+          console.log(esdv);
           if (esdv.id) {
             esdv_next.id = currentYear + 1 + esdv.id;
             esdv_next.title = esdv.title;
@@ -50,40 +51,33 @@ export class CalendariService {
             start_date_current = new Date(data_start);
             start_date_next = new Date(data_start);
             start_date_last = new Date(data_start);
-            console.log(start_date_current);
+          
             end_date_current = new Date(data_end);
             end_date_next = new Date(data_end);
             end_date_last = new Date(data_end);
-            console.log(end_date_current);
-            
+
             if (start_date_current.getFullYear() == 2020) {
               start_date_current.setFullYear(currentYear);
               start_date_next.setFullYear(currentYear + 1);
               start_date_last.setFullYear(currentYear - 1);
 
               esdv.start =
-                start_date_current.toISOString().replace(/T.*$/, "") +
-                "T23:00:00.000Z";
+                start_date_current.toLocaleString("en-US");
               esdv_next.start =
-                start_date_next.toISOString().replace(/T.*$/, "") +
-                "T23:00:00.000Z";
+                start_date_next.toLocaleString("en-US");
               esdv_last.start =
-                start_date_last.toISOString().replace(/T.*$/, "") +
-                "T23:00:00.000Z";
+                start_date_last.toLocaleString("en-US");
 
               end_date_current.setFullYear(currentYear);
               end_date_next.setFullYear(currentYear + 1);
               end_date_last.setFullYear(currentYear - 1);
 
               esdv.end =
-                end_date_current.toISOString().replace(/T.*$/, "") +
-                "T23:00:00.000Z";
+                end_date_current.toLocaleString("en-US");
               esdv_next.end =
-                end_date_next.toISOString().replace(/T.*$/, "") +
-                "T23:00:00.000Z";
+                end_date_next.toLocaleString("en-US");
               esdv_last.end =
-                end_date_last.toISOString().replace(/T.*$/, "") +
-                "T23:00:00.000Z";
+                end_date_last.toLocaleString("en-US");
 
               esdevenimentsModificats.push(esdv_next);
               esdevenimentsModificats.push(esdv_last);
