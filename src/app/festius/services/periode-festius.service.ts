@@ -83,7 +83,7 @@ export class PeriodeFestiusService {
   }
 
   delete(id: string): Observable<any> {
-    return this.http.get<any>("/api/festius/delete/" + id);
+    return this.http.get<any>("/api/festius/" + id);
   }
 
   submitEvent: EventEmitter<void> = new EventEmitter<void>();

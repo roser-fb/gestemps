@@ -86,7 +86,7 @@ export class CalendariService {
           }
           esdevenimentsModificats.push(esdv);
         }
-        console.log(esdevenimentsModificats);
+        
         return esdevenimentsModificats;
       })
     );

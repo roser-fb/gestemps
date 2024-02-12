@@ -53,7 +53,7 @@ export class PeriodeVacancesService {
     return this.http.post("/api/periodes", periode);
   }
   delete(id: string): Observable<any> {
-    return this.http.get<any>("/api/periodes/delete/" + id);
+    return this.http.get<any>("/api/periodes/" + id);
   }
   submitEvent: EventEmitter<void> = new EventEmitter<void>();
 
