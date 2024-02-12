@@ -10,7 +10,7 @@ const periodeSchema = new mongoose.Schema({
 
 periodeSchema.method("toJSON", function() {
   const { __v, _id, ...object } = this.toObject();
-  object._id = _id;
+  object._id = id;
   return object;
 });
 const Periode = mongoose.model('periodes', periodeSchema);

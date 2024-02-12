@@ -40,7 +40,7 @@ router.patch('/:id', async (req, res) => {
   try {
     const fitxaId = req.params.id;
     const fitxa = req.body;
-    await Fitxa.updateOne({ _id: fitxaId, user: fitxa.user }, { $set: { data_fi: fitxa.data_fi.toString(), temps: fitxa.temps } });
+    await Fitxa.updateOne({ id: fitxaId, user: fitxa.user }, { $set: { data_fi: fitxa.data_fi.toString(), temps: fitxa.temps } });
     res.status(200).json({ status: 'ok' });
   } catch (error) {
     console.error(error);

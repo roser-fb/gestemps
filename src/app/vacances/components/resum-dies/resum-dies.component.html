@@ -65,7 +65,7 @@
                     <td>{{periode.data_fi | date: 'dd/MM/YYY'}}</td>
                     <td>{{periode.num_dies}}</td>
                     <td>{{periode.motiu=="1"?"Vacances":periode.motiu=="2"?"LD":"LDAA"}}</td>
-                    <td><button class="btn" type="button" (click)="esborra(periode._id)">
+                    <td><button class="btn" type="button" (click)="esborra(periode.id)">
                             <fa-icon class="text-danger" [icon]="faTrashCan"></fa-icon>
                         </button></td>
                 </tr>
