@@ -50,11 +50,12 @@ export class CalendariService {
             start_date_current = new Date(data_start);
             start_date_next = new Date(data_start);
             start_date_last = new Date(data_start);
-
+            console.log(start_date_current);
             end_date_current = new Date(data_end);
             end_date_next = new Date(data_end);
             end_date_last = new Date(data_end);
-
+            console.log(end_date_current);
+            
             if (start_date_current.getFullYear() == 2020) {
               start_date_current.setFullYear(currentYear);
               start_date_next.setFullYear(currentYear + 1);
@@ -92,6 +93,7 @@ export class CalendariService {
           }
           esdevenimentsModificats.push(esdv);
         }
+        console.log(esdevenimentsModificats);
         return esdevenimentsModificats;
       })
     );
