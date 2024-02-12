@@ -56,8 +56,9 @@ export class CalendariComponent {
       events.forEach((event)=>{  
         event.allDay=true;
         event.textColor='#fff';
-
+        console.log(event);
         let titol = event.title[0];
+        console.log(titol);
         if(titol?.includes('Nadal')){
           event.textColor='#000';
           event.color='#EDD3F3';
