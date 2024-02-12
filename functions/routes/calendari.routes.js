@@ -1,5 +1,4 @@
 const express = require('express');
-const moment = require('moment');
 const router = express.Router();
 
 const { Guardia } = require('../models/guardia.model');
@@ -15,17 +14,16 @@ router.get('/:id', async (req, res) => {
         $lookup: {
           from: 'motius',
           localField: 'motiu',
-          foreignField: '_id',
+          foreignField: 'motiu_id',
           as: 'motiu'
         }
       },
       {
         $project: {
-          id: { $concat: [{ $toString: '$_id' }, '$data_ini'] },
-          title: { $arrayElemAt: ['$motiu.motiu_desc', 0] },
+          id: { $toString: '$_id' },
+          title: '$motiu.motiu_desc',
           start: '$data_ini',
-          end: { $add: ['$data_fi', 86400000] },
-          fix: 0
+          end: '$data_fi',
         }
       }
     ]);
@@ -35,17 +33,16 @@ router.get('/:id', async (req, res) => {
         $lookup: {
           from: 'motius',
           localField: 'motiu',
-          foreignField: '_id',
+          foreignField: 'motiu_id',
           as: 'motiu'
         }
       },
       {
         $project: {
-          id: { $concat: [{ $toString: '$_id' }, '$data_ini'] },
-          title: { $arrayElemAt: ['$motiu.motiu_desc', 0] },
+          id: { $toString: '$_id' },
+          title: '$motiu.motiu_desc',
           start: '$data_ini',
-          end: { $add: ['$data_ini', 86400000] },
-          fix: 1
+          end: '$data_ini',
         }
       }
     ]);
@@ -56,17 +53,16 @@ router.get('/:id', async (req, res) => {
         $lookup: {
           from: 'motius',
           localField: 'motiu',
-          foreignField: '_id',
+          foreignField: 'motiu_id',
           as: 'motiu'
         }
       },
       {
         $project: {
-          id: { $concat: [{ $toString: '$_id' }, '$data'] },
-          title: { $arrayElemAt: ['$motiu.motiu_desc', 0] },
+          id: { $toString: '$_id' },
+          title: '$motiu.motiu_desc',
           start: '$data',
-          end: { $add: ['$data', 86400000] },
-          fix: 0
+          end: '$data',
         }
       }
     ]);
