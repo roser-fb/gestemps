@@ -11,7 +11,7 @@ const guardiaSchema = new mongoose.Schema({
 
 guardiaSchema.method("toJSON", function() {
   const { __v, _id, ...object } = this.toObject();
-  object._id = id;
+  object._id = _id;
   return object;
 });
 const Guardia = mongoose.model('guardies', guardiaSchema);

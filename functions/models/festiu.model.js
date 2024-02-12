@@ -8,7 +8,7 @@ const festiuSchema = new mongoose.Schema({
 });
 festiuSchema.method("toJSON", function() {
   const { __v, _id, ...object } = this.toObject();
-  object._id = id;
+  object._id = _id;
   return object;
 });
 const Festiu = mongoose.model('festius', festiuSchema);
