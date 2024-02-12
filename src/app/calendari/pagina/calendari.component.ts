@@ -56,23 +56,21 @@ export class CalendariComponent {
       events.forEach((event)=>{  
         event.allDay=true;
         event.textColor='#fff';
-        console.log(event);
         let titol = event.title;
-        console.log(titol);
-        if(titol?.includes('Nadal')){
+        if(titol?.includes('Nadal/Reis')){
           event.textColor='#000';
           event.color='#EDD3F3';
         }else if(titol?.includes('Pascua')){
           event.color='#BD9CCD';
           event.textColor='#000';
-        }else if(titol?.includes('Nac')){
+        }else if(titol?.includes('Fest. Nac.')){
           event.color='#5B3970';
-        }else if(titol?.includes('Aut')){
+        }else if(titol?.includes('Fest. Aut.')){
           event.color='#DBBBE4';
           event.textColor='#000';
-        }else if(titol?.includes('Loc')){
+        }else if(titol?.includes('Fest. Loc.')){
           event.color='#A17EB0';
-        }else if(titol?.includes('GUARD')){
+        }else if(titol?.includes('GUARDIA')){
           event.color='#C2817C';
         }else{
           event.color='#EAB59E';
