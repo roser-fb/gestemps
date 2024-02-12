@@ -16,8 +16,9 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const fitxaId = req.params.id + '%';
-    const results = await Fitxa.find({ data_ini: { $regex: fitxaId, $options: 'i' } }).sort({ data_ini: -1 });
+    const year = req.params.id;
+    var condition = year ? { data_ini: { $regex: new RegExp(year), $options: "i" } } : {};
+    const results = await Fitxa.find(condition).sort({ data_ini: 1 });
     res.status(200).json(results);
   } catch (error) {
     console.error(error);
