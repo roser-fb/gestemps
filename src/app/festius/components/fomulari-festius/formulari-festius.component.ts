@@ -40,7 +40,7 @@ export class FormulariFestiusComponent {
     this.submitted = true;
 
     if (this.festiusForm.valid) {
-      if (this.festiusForm.value.fix) {
+      if (this.festiusForm.value.fix == 1) {
         this.festiusForm.value.fix = 0;
       } else {
         this.festiusForm.value.fix = 1;
