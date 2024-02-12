@@ -19,4 +19,4 @@ app.use('/api/guardia', require('./routes/guardia.routes'));
 app.use('/api/fitxar', require('./routes/fitxar.routes'));
 
 app.use("/.netlify/functions/api/", router);
-module.exports.handler = serverless(app)
+module.exports.handler = serverless(app);

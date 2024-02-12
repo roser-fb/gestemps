@@ -1,14 +1,12 @@
-
-
 <div class="row justify-content-center">
-    <div class="col-5">  
+    <div class="col-12 col-sm-8 col-md-5">
         <div class="card m-5">
             <div class="card-body">
                 <h2 class="card-title mb-3">Inici de sessió</h2>
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                     <div class="container">
                         <div class="input-group  mb-3">
-                 
+
                             <input class="form-control" type="text" placeholder="Usuari" name="username"
                                 formControlName="username">
                         </div>
@@ -18,7 +16,7 @@
                                 L'usuari és obligatòri
                             </div>
                         </div>
-                        <div class=" input-group mb-3">                         
+                        <div class=" input-group mb-3">
                             <input class="form-control" type="password" placeholder="Contrasenya" name="password"
                                 formControlName="password">
                         </div>
@@ -38,10 +36,7 @@
                     </div>
                 </form>
                 <p>No tens usuari? <a href="/register">Registra't</a></p>
-             </div>
+            </div>
         </div>
     </div>
-  </div>
-
-
- 
+</div>
