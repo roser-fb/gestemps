@@ -51,7 +51,7 @@ export class FitxarService {
     return this.http.patch("/api/fitxar/" + periode.id, periode);
   }
   delete(id: string): Observable<any> {
-    return this.http.get<any>("/api/fitxar/" + id);
+    return this.http.delete<any>("/api/fitxar/" + id);
   }
   submitEvent: EventEmitter<void> = new EventEmitter<void>();
 

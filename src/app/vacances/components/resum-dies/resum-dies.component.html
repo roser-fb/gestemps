@@ -63,7 +63,7 @@
                 <tr *ngFor="let periode of llista_periodes$ | async">
                     <td>{{periode.data_ini | date: 'dd/MM/YYY'}}</td>
                     <td>{{periode.data_fi | date: 'dd/MM/YYY'}}</td>
-                    <td>{{periode.num_dies}}-{{periode.id}}</td>
+                    <td>{{periode.num_dies}}</td>
                     <td>{{periode.motiu=="1"?"Vacances":periode.motiu=="2"?"LD":"LDAA"}}</td>
                     <td><button class="btn" type="button" (click)="esborra(periode.id)">
                             <fa-icon class="text-danger" [icon]="faTrashCan"></fa-icon>
