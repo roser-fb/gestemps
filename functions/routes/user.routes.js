@@ -1,12 +1,12 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { User } = require('../models/user.model.js');
-const secretKey = require('./config/jwt.config.js');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { User } = require("../models/user.model.js");
+const secretKey = require("../config/jwt.config.js");
 router.post("/login", async (req, res) => {
-  const user =  req.body.username;
-  const pwd =  req.body.password;
+  const user = req.body.username;
+  const pwd = req.body.password;
 
   try {
     const newuser = await User.findOne({ user });
@@ -17,11 +17,14 @@ router.post("/login", async (req, res) => {
     if (!pwdMatch) {
       return res.status(400).json({ msg: "Invalid user or pwd" });
     }
-    const token = jwt.sign({ id:Date.now(), user: newuser.user, password:newuser.pwd }, secretKey);
+    const token = jwt.sign(
+      { id: Date.now(), user: newuser.user, password: newuser.pwd },
+      secretKey
+    );
     return res.json({
       msg: "Successfully logged in",
       user: newuser._id,
-      token
+      token,
     });
   } catch (error) {
     console.error(error);
@@ -30,12 +33,14 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const user =  req.body.username;
-  const pwd =  req.body.password;
+  const user = req.body.username;
+  const pwd = req.body.password;
   try {
     const existingUser = await User.findOne({ user });
     if (existingUser) {
-      return res.status(400).json({ msg: "User already exists, please login." });
+      return res
+        .status(400)
+        .json({ msg: "User already exists, please login." });
     }
     const hashedPassword = await bcrypt.hash(pwd, 10); // 10 salt rounds
     const newUser = new User({ user, pwd: hashedPassword });
