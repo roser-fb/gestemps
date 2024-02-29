@@ -17,10 +17,9 @@ router.post("/login", async (req, res) => {
     if (!pwdMatch) {
       return res.status(400).json({ msg: "Invalid user or pwd" });
     }
-    const token = jwt.sign(
-      { id: Date.now(), user: newuser.user, password: newuser.pwd },
-      secretKey
-    );
+    const token = jwt.sign({ id: newuser._id, user: newuser.user }, secretKey, {
+      expiresIn: "1w",
+    });
     return res.json({
       msg: "Successfully logged in",
       user: newuser._id,
