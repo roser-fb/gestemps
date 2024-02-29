@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormulariDiesComponent } from './components/formulari-dies/formulari-dies.component';
-import { ResumDiesComponent } from './components/resum-dies/resum-dies.component';
-import { VacancesComponent } from './components/pagina/vacances.component';
-import { CalculaDiesPipe } from './pipes/calcula-dies.pipe';
-import { AppComponent } from '../app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { NgModule } from "@angular/core";
+import { CommonModule, LocationStrategy } from "@angular/common";
+import { FormulariDiesComponent } from "./components/formulari-dies/formulari-dies.component";
+import { ResumDiesComponent } from "./components/resum-dies/resum-dies.component";
+import { VacancesComponent } from "./components/pagina/vacances.component";
+import { CalculaDiesPipe } from "./pipes/calcula-dies.pipe";
+import { AppComponent } from "../app.component";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { AppInterceptor } from "../shared/services/app.interceptor";
 
 @NgModule({
   declarations: [
@@ -22,8 +22,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: { HTTP_INTERCEPTORS, LocationStrategy },
+      useClass: AppInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class VacancesModule { }
+export class VacancesModule {}

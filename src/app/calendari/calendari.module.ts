@@ -1,17 +1,21 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CalendariComponent } from './pagina/calendari.component';
-import { FullCalendarModule } from '@fullcalendar/angular';
-import { AppComponent } from '../app.component';
+import { NgModule } from "@angular/core";
+import { CommonModule, LocationStrategy } from "@angular/common";
+import { CalendariComponent } from "./pagina/calendari.component";
+import { FullCalendarModule } from "@fullcalendar/angular";
+import { AppComponent } from "../app.component";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { AppInterceptor } from "../shared/services/app.interceptor";
 
 @NgModule({
-  declarations: [
-    CalendariComponent,
+  declarations: [CalendariComponent],
+  imports: [CommonModule, FullCalendarModule],
+  providers: [
+    {
+      provide: { HTTP_INTERCEPTORS, LocationStrategy },
+      useClass: AppInterceptor,
+      multi: true,
+    },
   ],
-  imports: [
-    CommonModule,
-    FullCalendarModule,
-  ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class CalendariModule { }
+export class CalendariModule {}
