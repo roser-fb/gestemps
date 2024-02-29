@@ -3,10 +3,11 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { User } = require('../models/user.model.js');
-
+const secretKey = require('./config/jwt.config.js');
 router.post("/login", async (req, res) => {
   const user =  req.body.username;
   const pwd =  req.body.password;
+
   try {
     const newuser = await User.findOne({ user });
     if (!newuser) {
@@ -16,7 +17,7 @@ router.post("/login", async (req, res) => {
     if (!pwdMatch) {
       return res.status(400).json({ msg: "Invalid user or pwd" });
     }
-    const token = jwt.sign({ user: newuser.user }, newuser.pwd);
+    const token = jwt.sign({ id:Date.now(), user: newuser.user, password:newuser.pwd }, secretKey);
     return res.json({
       msg: "Successfully logged in",
       user: newuser._id,

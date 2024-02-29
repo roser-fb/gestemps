@@ -1,5 +1,5 @@
 import { DatePipe } from "@angular/common";
-import { HttpClient } from "@angular/common/http";
+import { HttpHeaders, HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { PeriodeFestius } from "../models/periode-festius.dto";
