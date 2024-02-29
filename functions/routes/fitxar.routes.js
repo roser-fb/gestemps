@@ -4,7 +4,7 @@ const router = express.Router();
 
 const { Fitxa } = require("../models/fitxar.model.js");
 const verifyToken = require("../config/jwt.config.js");
-const secretKey = require("../config/jwt.config.js");
+const secretKey = "1312@JaNoEnsAlimentenLesMolles@:@AraVolemElPaSencer@1312";
 router.get("/", verifyToken, async (req, res) => {
   jwt.verify(req.token, secretKey, async (err, authData) => {
     if (err) {

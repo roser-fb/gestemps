@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-
+const jwt = require("jsonwebtoken");
 const { Guardia } = require("../models/guardia.model");
 const { Festiu } = require("../models/festiu.model");
 const { Periode } = require("../models/periode.model");
 const verifyToken = require("../config/jwt.config.js");
-const secretKey = require("../config/jwt.config.js");
-const jwt = require("jsonwebtoken");
+const secretKey = "1312@JaNoEnsAlimentenLesMolles@:@AraVolemElPaSencer@1312";
+
 router.get("/:id", verifyToken, async (req, res) => {
   jwt.verify(req.token, secretKey, async (err, authData) => {
     if (err) {
