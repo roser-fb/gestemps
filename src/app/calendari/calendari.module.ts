@@ -11,7 +11,7 @@ import { AppInterceptor } from "../shared/services/app.interceptor";
   imports: [CommonModule, FullCalendarModule],
   providers: [
     {
-      provide: { HTTP_INTERCEPTORS, LocationStrategy },
+      provide: HTTP_INTERCEPTORS,
       useClass: AppInterceptor,
       multi: true,
     },

@@ -26,7 +26,7 @@ import { AppInterceptor } from "../shared/services/app.interceptor";
   ],
   providers: [
     {
-      provide: { HTTP_INTERCEPTORS, LocationStrategy },
+      provide: HTTP_INTERCEPTORS,
       useClass: AppInterceptor,
       multi: true,
     },
