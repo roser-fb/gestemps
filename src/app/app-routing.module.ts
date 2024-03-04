@@ -18,14 +18,7 @@ const routes: Routes = [
   { path: "guardies", component: GuardiesComponent, canActivate: [AuthGuard] },
   { path: "fitxar", component: ResumFitxarComponent, canActivate: [AuthGuard] },
   { path: "login", component: LoginComponent },
-  {
-    path: "manage",
-    component: ManageComponent,
-    canActivate: [HasRoleGuard],
-    data: {
-      allowedRoles: ["Admin"],
-    },
-  },
+  { path: "manage", component: ManageComponent, canActivate: [AuthGuard] },
   { path: "logout", component: LogoutComponent },
 ];
 
