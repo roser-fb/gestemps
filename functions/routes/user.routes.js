@@ -43,7 +43,7 @@ router.post("/register", async (req, res) => {
         .json({ msg: "User already exists, please login." });
     }
     const hashedPassword = await bcrypt.hash(pwd, 10); // 10 salt rounds
-    const newUser = new User({ user, mail, pwd: hashedPassword });
+    const newUser = new User({ username, mail, pwd: hashedPassword });
     await newUser.save();
     return res.json({ msg: "Successfully created user, please login" });
   } catch (error) {
@@ -78,8 +78,15 @@ router.put("/:id", verifyToken, async (req, res) => {
         .json({ status: "error", message: "Token de autorización inválido" });
     } else {
       try {
+        const hashedPassword = await bcrypt.hash(pwd, 10);
+        const { id, username, password, mail, role } = req.body;
         const userId = req.params.id;
-        const userUpdate = await User.findByIdAndUpdate(userId, req.body);
+        const userUpdate = await User.findByIdAndUpdate(userId, {
+          username,
+          mail,
+          password: hashedPassword,
+          role,
+        });
         res.status(200).json(userUpdate);
       } catch (error) {
         console.error(error);
