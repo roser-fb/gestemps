@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { User } = require("../models/user.model.js");
+const verifyToken = require("../config/jwt.config.js");
 const secretKey = "1312@JaNoEnsAlimentenLesMolles@:@AraVolemElPaSencer@1312";
 router.post("/login", async (req, res) => {
   const user = req.body.username;
@@ -32,9 +33,10 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const user = req.body.username;
-  const pwd = req.body.password;
+  const username = req.body.username;
+  const password = req.body.password;
   const mail = req.body.mail;
+  const role = "Role.admin";
   try {
     const existingUser = await User.findOne({ user });
     if (existingUser) {
@@ -43,7 +45,12 @@ router.post("/register", async (req, res) => {
         .json({ msg: "User already exists, please login." });
     }
     const hashedPassword = await bcrypt.hash(pwd, 10); // 10 salt rounds
-    const newUser = new User({ username, mail, pwd: hashedPassword });
+    const newUser = new User({
+      username,
+      mail,
+      password: hashedPassword,
+      role,
+    });
     await newUser.save();
     return res.json({ msg: "Successfully created user, please login" });
   } catch (error) {
