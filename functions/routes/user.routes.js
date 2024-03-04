@@ -55,7 +55,7 @@ router.post("/register", async (req, res) => {
     return res.json({ msg: "Successfully created user, please login" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ status: error });
+    return res.status(500).json({ status: "error", error: error });
   }
 });
 
@@ -71,7 +71,7 @@ router.get("/", verifyToken, async (req, res) => {
         res.status(200).json(results);
       } catch (error) {
         console.error(error);
-        res.status(500).json({ status: "error" });
+        res.status(500).json({ status: "error", error: error });
       }
     }
   });
@@ -97,7 +97,7 @@ router.put("/:id", verifyToken, async (req, res) => {
         res.status(200).json(userUpdate);
       } catch (error) {
         console.error(error);
-        res.status(500).json({ status: "error" });
+        res.status(500).json({ status: "error", error: error });
       }
     }
   });

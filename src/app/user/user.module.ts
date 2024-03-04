@@ -11,10 +11,15 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppInterceptor } from "../shared/services/app.interceptor";
 import { AppComponent } from "../app.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from "./components/profile/profile.component";
 
 @NgModule({
-  declarations: [LoginComponent, ManageComponent, LogoutComponent, ProfileComponent],
+  declarations: [
+    LoginComponent,
+    ManageComponent,
+    LogoutComponent,
+    ProfileComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -26,7 +31,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     UserStoreService,
     UserService,
     {
-      provide: { HTTP_INTERCEPTORS, LocationStrategy },
+      provide: HTTP_INTERCEPTORS,
       useClass: AppInterceptor,
       multi: true,
     },
