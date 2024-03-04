@@ -1,21 +1,39 @@
-import { Injectable } from "@angular/core";
+import { EventEmitter, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { User } from "../models/user.dto";
-import { Observable, of, throwError } from "rxjs";
+import { map, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class UserService {
-  private users: User[];
-  constructor(private http: HttpClient) {
-    this.users = [new User("", "")];
-  }
+  constructor(private http: HttpClient) {}
   login(user: User): Observable<any> {
     return this.http.post("/api/user/login", user);
   }
   register(user: User): Observable<any> {
-    this.users.push(user);
     return this.http.post("/api/user/register", user);
   }
+  updateUser(id: string, user: User): Observable<any> {
+    return this.http.put("/api/user/" + id, user);
+  }
+
+  getUser(): Observable<User[]> {
+    return this.http.get<User[]>("/api/user");
+  }
+
+  getUserById(id: string): Observable<User | undefined> {
+    return this.getUser().pipe(
+      map((guardies: User[]) => guardies.find((user) => user.id === id))
+    );
+  }
+  getUserByMail(mail: string): Observable<User | undefined> {
+    return this.getUser().pipe(
+      map((guardies: User[]) => guardies.find((user) => user.mail === mail))
+    );
+  }
+  delete(id: string): Observable<any> {
+    return this.http.delete<any>("/api/user/" + id);
+  }
+  submitEvent: EventEmitter<void> = new EventEmitter<void>();
 }

@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserStoreService } from '../../services/user-store.service';
-import { UserService } from '../../services/user.service';
+import { Component } from "@angular/core";
+import { FormGroup, FormBuilder } from "@angular/forms";
+import { Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { UserStoreService } from "../../services/user-store.service";
+import { UserService } from "../../services/user.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"],
 })
 export class LoginComponent {
   public loginForm!: FormGroup;
@@ -35,17 +35,17 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.userService.login(this.loginForm.value).subscribe(
         (result: any) => {
+          this.message = result.msg;
           this.userStoreService.setToken(result.token);
           this.userStoreService.setUserId(result.user);
-          this.message = result.msg;
-          this.router.navigate(['/']);
+          this.router.navigate(["/"]);
         },
         (err) => {
           this.message = err.error.msg;
         }
       );
     } else {
-      console.log('El formulari és invàlid');
+      console.log("El formulari és invàlid");
     }
   }
 }

@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-12 col-sm-8 col-md-5">
+        <div class="card m-5">
+            <div class="card-body">
+                <h2 class="card-title mb-3">Registre</h2>
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <div class="container">
+                        <div class="form-group mb-3">
+                            <input class="form-control" type="text" placeholder="Nou usuari" name="username"
+                                formControlName="username">
+                        </div>
+                        <div *ngIf="(registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)) || (registerForm.get('username')?.invalid && submitted)"
+                            class="alert alert-danger" role="alert">
+                            <div *ngIf="registerForm.get('username')?.errors?.['required']">
+                                L'usuari és obligatòri
+                            </div>
+                        </div>
+                        <input class="form-control" type="email" placeholder="Nou email" name="mail"
+                            formControlName="mail">
+
+                        <div *ngIf="(registerForm.get('mail')?.invalid && (registerForm.get('mail')?.dirty || registerForm.get('mail')?.touched)) || (registerForm.get('mail')?.invalid && submitted)"
+                            class="alert alert-danger" role="alert">
+                            <div *ngIf="registerForm.get('mail')?.errors?.['required']">
+                                El correu és obligatòri
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <input class="form-control" type="password" placeholder="Nova contrasenya" name="password"
+                                formControlName="password">
+                        </div>
+                        <div *ngIf="(registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)) || (registerForm.get('password')?.invalid && submitted)"
+                            class="alert alert-danger" role="alert">
+                            <div *ngIf="registerForm.get('password')?.errors?.['required']">
+                                La contrasenya és obligatòria
+                            </div>
+                            <div *ngIf="registerForm.get('password')?.errors?.['pattern']">
+                                La contrasenya ha de contenir almenys 8 caracters, minim un num, May i Min
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-3">Registrar</button>
+                        <div *ngIf="message" class="alert alert-success" role="alert">
+                            {{message}}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -23,6 +23,8 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a *ngIf="!haIniciatSessio()" class="nav-link" href="/login"><i class="fa-solid fa-user"></i></a>
+          <a *ngIf="haIniciatSessio() && userRoleIn([Role.Admin])" class="nav-link" href="/manage"><i
+              class="fa-solid fa-gear"></i></a>
           <a *ngIf="haIniciatSessio()" class="nav-link" href="/logout"><i
               class="fa-solid fa-arrow-right-from-bracket"></i></a>
         </li>

@@ -6,16 +6,17 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from "@angular/router";
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 import { UserService } from "../services/user.service";
 import { UserStoreService } from "../services/user-store.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
 @Injectable({
   providedIn: "root",
 })
-export class AuthGuard implements CanActivate {
+export class HasRoleGuard implements CanActivate {
   constructor(
     private userStoreService: UserStoreService,
+    private userService: UserService,
     private router: Router,
     private jwtHelper: JwtHelperService
   ) {}
@@ -27,18 +28,18 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.usuariAutenticat();
-  }
-  usuariAutenticat(): true | UrlTree {
-    const token = this.userStoreService.getToken();
-    if (token) {
-      if (!this.tokenCaducat(token)) {
-        return true;
-      }
+    const allowedRoles = route.data?.["allowedRoles"];
+    const id = this.userStoreService.getUserId();
+    if (id && !this.tokenCaducat()) {
+      return this.userService
+        .getUserById(id)
+        .pipe(map((user) => Boolean(user && allowedRoles.includes(user.role))));
     }
-    return this.router.parseUrl("/login");
+    return false && alert("Acceso Denegado");
   }
-  tokenCaducat(token: string) {
+
+  tokenCaducat() {
+    const token = this.userStoreService.getToken();
     if (this.jwtHelper.isTokenExpired(token)) {
       this.userStoreService.deleteToken();
       this.userStoreService.deleteUserId();

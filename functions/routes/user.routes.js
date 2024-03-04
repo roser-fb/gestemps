@@ -42,7 +42,7 @@ router.post("/register", async (req, res) => {
         .json({ msg: "User already exists, please login." });
     }
     const hashedPassword = await bcrypt.hash(pwd, 10); // 10 salt rounds
-    const newUser = new User({ user, pwd: hashedPassword });
+    const newUser = new User({ user, mail, pwd: hashedPassword });
     await newUser.save();
     return res.json({ msg: "Successfully created user, please login" });
   } catch (error) {
@@ -51,4 +51,21 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.get("/", verifyToken, async (req, res) => {
+  jwt.verify(req.token, secretKey, async (err, authData) => {
+    if (err) {
+      res
+        .status(401)
+        .json({ status: "error", message: "Token de autorización inválido" });
+    } else {
+      try {
+        const results = await User.find();
+        res.status(200).json(results);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: "error" });
+      }
+    }
+  });
+});
 module.exports = router;
