@@ -34,6 +34,7 @@ router.post("/login", async (req, res) => {
 router.post("/register", async (req, res) => {
   const user = req.body.username;
   const pwd = req.body.password;
+  const mail = req.body.mail;
   try {
     const existingUser = await User.findOne({ user });
     if (existingUser) {
@@ -61,6 +62,44 @@ router.get("/", verifyToken, async (req, res) => {
       try {
         const results = await User.find();
         res.status(200).json(results);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: "error" });
+      }
+    }
+  });
+});
+
+router.put("/:id", verifyToken, async (req, res) => {
+  jwt.verify(req.token, secretKey, async (err, authData) => {
+    if (err) {
+      res
+        .status(401)
+        .json({ status: "error", message: "Token de autorización inválido" });
+    } else {
+      try {
+        const userId = req.params.id;
+        const userUpdate = await User.findByIdAndUpdate(userId, req.body);
+        res.status(200).json(userUpdate);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: "error" });
+      }
+    }
+  });
+});
+
+router.delete("/:id", verifyToken, async (req, res) => {
+  jwt.verify(req.token, secretKey, async (err, authData) => {
+    if (err) {
+      res
+        .status(401)
+        .json({ status: "error", message: "Token de autorización inválido" });
+    } else {
+      try {
+        const userId = req.params.id;
+        await User.findByIdAndDelete(userId);
+        res.status(200).json({ status: "ok" });
       } catch (error) {
         console.error(error);
         res.status(500).json({ status: "error" });
