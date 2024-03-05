@@ -7,7 +7,7 @@ const { User } = require("../models/user.model.js");
 router.post("/login", async (req, res) => {
   const user = req.body.username;
   const pwd = req.body.password;
-
+  const newuser = await User.findOne({ user });
   try {
     const newuser = await User.findOne({ user });
     if (!newuser) {
@@ -26,7 +26,6 @@ router.post("/login", async (req, res) => {
       token,
     });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({
       status: error,
       user: newuser,
