@@ -90,7 +90,7 @@
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="role"
                             formControlName="role">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Admin</label>
+                            <label class="form-check-label" for="flexSwitchCheckDefault" ng-change="isChecked()">Admin</label>
                           </div>
                         <button type="submit" class="btn btn-primary mb-3">Registrar</button>
                         <div *ngIf="message" class="alert alert-success" role="alert">

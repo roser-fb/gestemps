@@ -17,6 +17,7 @@ export class ManageComponent {
   public llista_usuaris$: Observable<User[]> = new Observable<User[]>();
   public registerForm!: FormGroup;
   public submitted = false;
+  public checked = false;
   public message = null;
   public messagePassword: string | null = null;
   faTrashCan = faTrashCan;
@@ -51,8 +52,10 @@ export class ManageComponent {
   onSubmit() {
     this.submitted = true;
     if (this.registerForm.valid) {
-      console.log(this.registerForm.value);
-       this.userService.register(this.registerForm.value).subscribe(
+      let newuser = this.registerForm.value;
+      newuser.role = Role.User;
+      if(this.checked) newuser.role = Role.Admin
+       this.userService.register(newuser).subscribe(
         (result: any) => {
           this.message = result.msg;
         },
@@ -80,11 +83,12 @@ export class ManageComponent {
     const characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
     let result = "";
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < 8; i++) {
       result += characters.charAt(
         Math.floor(Math.random() * characters.length)
       );
     }
+    console.log(result);
     return result;
   }
   esborra(id: string): void {
@@ -94,8 +98,12 @@ export class ManageComponent {
       }
     });
   }
-  checkIfAdmin(role: Role){
-    return role === Role.Admin;
+  isCkecked(){
+    return !this.checked;
+  }
+  
+  checkIfAdmin(role: string){
+    return role == Role.Admin;
   }
   changeRole(id:string){
     this.userService.getUserById(id).subscribe((user) => {
