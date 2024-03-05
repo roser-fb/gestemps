@@ -33,7 +33,7 @@
                     <th scope="row">{{ user.username }}</th>
                     <td>    
                         <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchRole" name="role"  ng-checked="checkIfAdmin(user.role)" ng-change="changeRole(user.id)">
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchRole" name="role"  checked="checkIfAdmin(user.role)" onchange=changeRole(user.id)>
                       </div></td>
                     <td><button class="btn btn-sm btn-secondary float-end" (click)="resetPassword(user.id)">Resetear
                         Contraseña</button>
@@ -90,7 +90,7 @@
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="role"
                             formControlName="role">
-                            <label class="form-check-label" for="flexSwitchCheckDefault" ng-change="isChecked()">Admin</label>
+                            <label class="form-check-label" for="flexSwitchCheckDefault" (change)="isChecked()">Admin</label>
                           </div>
                         <button type="submit" class="btn btn-primary mb-3">Registrar</button>
                         <div *ngIf="message" class="alert alert-success" role="alert">

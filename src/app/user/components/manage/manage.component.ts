@@ -52,7 +52,7 @@ export class ManageComponent {
   onSubmit() {
     this.submitted = true;
     if (this.registerForm.valid) {
-      let newuser = this.registerForm.value;
+      let newuser: User = this.registerForm.value;
       newuser.role = Role.User;
       if(this.checked) newuser.role = Role.Admin
        this.userService.register(newuser).subscribe(
@@ -101,7 +101,7 @@ export class ManageComponent {
   isCkecked(){
     return !this.checked;
   }
-  
+
   checkIfAdmin(role: string){
     return role == Role.Admin;
   }
