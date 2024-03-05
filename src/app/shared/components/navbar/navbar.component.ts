@@ -28,13 +28,13 @@ export class NavbarComponent {
     let res = false;
     let usera;
     let aRoles;
-    let uRole;
+    let uRole: Role | undefined = undefined;
     if (!id) return res;
     this.userService.getUserById(id).pipe(
-      map((user: User) => {
+      map((user) => {
         usera = user;
         aRoles = allowedRoles;
-        uRole = user.role;
+        if(user) uRole = user.role;
         res = Boolean(user && allowedRoles.includes(user.role));
       })
     );
