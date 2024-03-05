@@ -26,12 +26,22 @@ export class NavbarComponent {
   userRoleIn(allowedRoles: Role[]): boolean {
     const id = this.AuthStoreService.getUserId();
     let res = false;
+    let usera = "";
+    let aRoles;
+    let uRole;
     if (!id) return res;
     this.userService.getUserById(id).pipe(
       map((user) => {
+        usera = user;
+        aRoles = allowedRoles;
+        uRole = user.role;
         res = Boolean(user && allowedRoles.includes(user.role));
       })
     );
+    console.log(res);
+    console.log(usera);
+    console.log(aRoles);
+    console.log(uRole);    
     return res;
   }
 
