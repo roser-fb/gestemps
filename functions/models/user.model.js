@@ -21,8 +21,10 @@ const userSchema = new mongoose.Schema({
   },
 });
 userSchema.method("toJSON", function () {
-  const { __v, _id, ...object } = this.toObject();
+  const { __v, _id, user, pwd, ...object } = this.toObject();
   object.id = _id;
+  object.username = user;
+  object.password = pwd;
   return object;
 });
 const User = mongoose.model("users", userSchema);
