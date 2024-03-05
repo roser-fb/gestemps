@@ -53,6 +53,7 @@ export class GuardiesService {
       guardia.n_hores = 17;
     }
     guardia.festiu = festiu;
+    guardia.motiu = 8;
     this.guardies.push(guardia);
     return this.http.post("/api/guardia", guardia);
   }
