@@ -7,7 +7,6 @@ const secretKey = "1312@JaNoEnsAlimentenLesMolles@:@AraVolemElPaSencer@1312";
 router.post("/login", async (req, res) => {
   const user = req.body.username;
   const pwd = req.body.password;
-  const newuser = await User.findOne({ user });
   try {
     const newuser = await User.findOne({ user });
     if (!newuser) {

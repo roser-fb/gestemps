@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { AppComponent } from "../app.component";
 import { AppInterceptor } from "../shared/services/app.interceptor";
+import { PeriodeFestiusService } from "./services/periode-festius.service";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AppInterceptor } from "../shared/services/app.interceptor";
     FontAwesomeModule,
   ],
   providers: [
+    PeriodeFestiusService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AppInterceptor,

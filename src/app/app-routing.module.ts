@@ -17,8 +17,8 @@ const routes: Routes = [
   { path: "festius", component: FestiusComponent, canActivate: [AuthGuard] },
   { path: "guardies", component: GuardiesComponent, canActivate: [AuthGuard] },
   { path: "fitxar", component: ResumFitxarComponent, canActivate: [AuthGuard] },
-  { path: "login", component: LoginComponent },
   { path: "manage", component: ManageComponent, canActivate: [AuthGuard] },
+  { path: "login", component: LoginComponent },
   { path: "logout", component: LogoutComponent },
 ];
 

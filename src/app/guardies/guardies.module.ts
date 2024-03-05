@@ -9,6 +9,7 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { AppComponent } from "../app.component";
 import { AnteriorPipe } from "./pipes/anterior.pipe";
 import { AppInterceptor } from "../shared/services/app.interceptor";
+import { GuardiesService } from "./services/guardies.service";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AppInterceptor } from "../shared/services/app.interceptor";
     FontAwesomeModule,
   ],
   providers: [
+    GuardiesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AppInterceptor,

@@ -9,6 +9,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { AppInterceptor } from "../shared/services/app.interceptor";
+import { PeriodeVacancesService } from "./services/periode-vacances.service";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { AppInterceptor } from "../shared/services/app.interceptor";
     FontAwesomeModule,
   ],
   providers: [
+    PeriodeVacancesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AppInterceptor,
