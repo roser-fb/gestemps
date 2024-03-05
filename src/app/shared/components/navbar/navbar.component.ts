@@ -8,6 +8,7 @@ import { AuthStoreService } from "src/app/auth/services/auth-store.service";
 import { UserService } from "src/app/user/services/user.service";
 import { Observable, map, of } from "rxjs";
 import { Role } from "src/app/user/models/roles.dto";
+import { User } from "src/app/user/models/user.dto";
 
 @Component({
   selector: "app-navbar",
@@ -18,7 +19,6 @@ export class NavbarComponent {
   faUser = faUser;
   faCalendarDays = faCalendarDays;
   faArrowRightFromBracket = faArrowRightFromBracket;
-  Role = Role;
   constructor(
     private AuthStoreService: AuthStoreService,
     private userService: UserService
@@ -26,12 +26,12 @@ export class NavbarComponent {
   userRoleIn(allowedRoles: Role[]): boolean {
     const id = this.AuthStoreService.getUserId();
     let res = false;
-    let usera = "";
+    let usera;
     let aRoles;
     let uRole;
     if (!id) return res;
     this.userService.getUserById(id).pipe(
-      map((user) => {
+      map((user: User) => {
         usera = user;
         aRoles = allowedRoles;
         uRole = user.role;
