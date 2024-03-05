@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { User } = require("../models/user.model.js");
+const { Auth } = require("../models/auth.model.js");
 
 router.post("/login", async (req, res) => {
   const user = req.body.username;
   const pwd = req.body.password;
 
   try {
-    const newuser = await User.findOne({ user });
+    const newuser = await Auth.findOne({ user });
     if (!newuser) {
       return res.status(400).json({ msg: "Invalid user or pwd" });
     }

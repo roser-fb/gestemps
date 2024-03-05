@@ -31,9 +31,10 @@ export class AuthGuard implements CanActivate {
   usuariAutenticat(): true | UrlTree {
     const token = this.AuthStoreService.getToken();
     if (token) {
-      if (!this.tokenCaducat(token)) {
+      return true;
+      /*  if (!this.tokenCaducat(token)) {
         return true;
-      }
+      }*/
     }
     return this.router.parseUrl("/login");
   }
