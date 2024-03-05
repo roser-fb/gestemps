@@ -18,7 +18,7 @@ export class ManageComponent {
   public registerForm!: FormGroup;
   public submitted = false;
   public message = null;
-  public messagePassword = "";
+  public messagePassword: string | null = null;
   faTrashCan = faTrashCan;
   constructor(
     private formbuilder: FormBuilder,
@@ -51,10 +51,10 @@ export class ManageComponent {
   onSubmit() {
     this.submitted = true;
     if (this.registerForm.valid) {
-      this.userService.register(this.registerForm.value).subscribe(
+      console.log(this.registerForm.value);
+       this.userService.register(this.registerForm.value).subscribe(
         (result: any) => {
           this.message = result.msg;
-          this.router.navigate(["/login"]);
         },
         (err) => {
           this.message = err.error.msg;
@@ -94,4 +94,22 @@ export class ManageComponent {
       }
     });
   }
+  checkIfAdmin(role: Role){
+    return role === Role.Admin;
+  }
+  changeRole(id:string){
+    this.userService.getUserById(id).subscribe((user) => {
+      if (user){
+        if(user.role ==  Role.Admin) {
+          user.role = Role.User;
+        }
+        else user.role = Role.Admin;
+      this.userService.updateUser(id, user).subscribe((res) => {
+        if (res.status == "ok") {
+          location.reload();
+        }
+      });}
+    });
+  }
+
 }
