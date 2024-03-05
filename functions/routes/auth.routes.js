@@ -27,7 +27,10 @@ router.post("/login", async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ status: error });
+    return res.status(500).json({
+      status: error,
+      user: newuser,
+    });
   }
 });
 
