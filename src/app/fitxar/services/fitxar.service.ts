@@ -2,7 +2,7 @@ import { formatDate } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
-import { UserStoreService } from "src/app/user/services/user-store.service";
+import { AuthStoreService } from "src/app/auth/services/auth-store.service";
 import { PeriodeTreball } from "../models/periode-treball.dto";
 
 @Injectable({
@@ -11,10 +11,10 @@ import { PeriodeTreball } from "../models/periode-treball.dto";
 export class FitxarService {
   private user: string | null;
   constructor(
-    private userStoreService: UserStoreService,
+    private AuthStoreService: AuthStoreService,
     private http: HttpClient
   ) {
-    this.user = userStoreService.getUserId();
+    this.user = AuthStoreService.getUserId();
   }
   getPeriodeTreball(): Observable<PeriodeTreball[]> {
     return this.http.get<PeriodeTreball[]>("/api/fitxar");

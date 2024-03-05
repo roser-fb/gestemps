@@ -7,15 +7,15 @@ import {
   UrlTree,
 } from "@angular/router";
 import { map, Observable } from "rxjs";
-import { UserService } from "../services/user.service";
-import { UserStoreService } from "../services/user-store.service";
+import { UserService } from "../../user/services/user.service";
+import { AuthStoreService } from "../services/auth-store.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
 @Injectable({
   providedIn: "root",
 })
 export class HasRoleGuard implements CanActivate {
   constructor(
-    private userStoreService: UserStoreService,
+    private AuthStoreService: AuthStoreService,
     private userService: UserService,
     private router: Router,
     private jwtHelper: JwtHelperService
@@ -29,7 +29,7 @@ export class HasRoleGuard implements CanActivate {
     | boolean
     | UrlTree {
     const allowedRoles = route.data?.["allowedRoles"];
-    const id = this.userStoreService.getUserId();
+    const id = this.AuthStoreService.getUserId();
     if (id && !this.tokenCaducat()) {
       return this.userService
         .getUserById(id)
@@ -39,10 +39,10 @@ export class HasRoleGuard implements CanActivate {
   }
 
   tokenCaducat() {
-    const token = this.userStoreService.getToken();
+    const token = this.AuthStoreService.getToken();
     if (this.jwtHelper.isTokenExpired(token)) {
-      this.userStoreService.deleteToken();
-      this.userStoreService.deleteUserId();
+      this.AuthStoreService.deleteToken();
+      this.AuthStoreService.deleteUserId();
       return true;
     }
     return false;

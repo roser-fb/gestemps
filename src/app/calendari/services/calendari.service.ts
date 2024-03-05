@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { EventInput } from "@fullcalendar/core";
 import { DateInput } from "fullcalendar";
-import { UserStoreService } from "src/app/user/services/user-store.service";
+import { AuthStoreService } from "src/app/auth/services/auth-store.service";
 
 @Injectable({
   providedIn: "root",
@@ -11,10 +11,10 @@ import { UserStoreService } from "src/app/user/services/user-store.service";
 export class CalendariService {
   private user: string | null;
   constructor(
-    private userStoreService: UserStoreService,
+    private AuthStoreService: AuthStoreService,
     private http: HttpClient
   ) {
-    this.user = userStoreService.getUserId();
+    this.user = AuthStoreService.getUserId();
   }
   getPeriodeVacances(): Observable<EventInput[]> {
     return this.http.get<EventInput[]>("/api/calendari/" + this.user).pipe(
@@ -50,7 +50,7 @@ export class CalendariService {
             start_date_current = new Date(data_start);
             start_date_next = new Date(data_start);
             start_date_last = new Date(data_start);
-          
+
             end_date_current = new Date(data_end);
             end_date_next = new Date(data_end);
             end_date_last = new Date(data_end);
@@ -60,23 +60,17 @@ export class CalendariService {
               start_date_next.setFullYear(currentYear + 1);
               start_date_last.setFullYear(currentYear - 1);
 
-              esdv.start =
-                start_date_current.toISOString();
-              esdv_next.start =
-                start_date_next.toISOString();
-              esdv_last.start =
-                start_date_last.toISOString();
+              esdv.start = start_date_current.toISOString();
+              esdv_next.start = start_date_next.toISOString();
+              esdv_last.start = start_date_last.toISOString();
 
               end_date_current.setFullYear(currentYear);
               end_date_next.setFullYear(currentYear + 1);
               end_date_last.setFullYear(currentYear - 1);
 
-              esdv.end =
-                end_date_current.toISOString();
-              esdv_next.end =
-                end_date_next.toISOString();
-              esdv_last.end =
-                end_date_last.toISOString();
+              esdv.end = end_date_current.toISOString();
+              esdv_next.end = end_date_next.toISOString();
+              esdv_last.end = end_date_last.toISOString();
 
               esdevenimentsModificats.push(esdv_next);
               esdevenimentsModificats.push(esdv_last);
@@ -86,7 +80,7 @@ export class CalendariService {
           }
           esdevenimentsModificats.push(esdv);
         }
-        
+
         return esdevenimentsModificats;
       })
     );

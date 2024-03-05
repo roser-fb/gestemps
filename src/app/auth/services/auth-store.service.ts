@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
-export class UserStoreService {
+export class AuthStoreService {
   private usuariToken: string | null = null;
   private usuariId: string | null = null;
 
@@ -18,27 +18,27 @@ export class UserStoreService {
     }
   }
   getToken(): string | null {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     return token !== null ? token : null;
   }
 
   setToken(usuariToken: string): void {
     this.usuariToken = usuariToken;
-    localStorage.setItem('token', usuariToken);
+    localStorage.setItem("token", usuariToken);
   }
   deleteToken(): void {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
   }
   getUserId(): string | null {
-    const user = localStorage.getItem('userId');
+    const user = localStorage.getItem("userId");
     return user !== null ? user : null;
   }
 
   setUserId(usuariId: string): void {
     this.usuariId = usuariId;
-    localStorage.setItem('userId', usuariId);
+    localStorage.setItem("userId", usuariId);
   }
   deleteUserId(): void {
-    localStorage.removeItem('userId');
+    localStorage.removeItem("userId");
   }
 }

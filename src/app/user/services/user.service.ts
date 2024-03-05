@@ -8,9 +8,6 @@ import { map, Observable } from "rxjs";
 })
 export class UserService {
   constructor(private http: HttpClient) {}
-  login(user: User): Observable<any> {
-    return this.http.post("/api/user/login", user);
-  }
   register(user: User): Observable<any> {
     return this.http.post("/api/user/register", user);
   }

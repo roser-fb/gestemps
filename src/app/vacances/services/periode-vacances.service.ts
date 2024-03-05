@@ -2,7 +2,7 @@ import { EventEmitter, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, map, of, throwError } from "rxjs";
 import { PeriodeVacances } from "../models/periode-vacances.dto";
-import { UserStoreService } from "src/app/user/services/user-store.service";
+import { AuthStoreService } from "src/app/auth/services/auth-store.service";
 
 @Injectable({
   providedIn: "root",
@@ -11,11 +11,11 @@ export class PeriodeVacancesService {
   private periodes: PeriodeVacances[];
   private user: string | null;
   constructor(
-    private userStoreService: UserStoreService,
+    private AuthStoreService: AuthStoreService,
     private http: HttpClient
   ) {
     this.periodes = [];
-    this.user = userStoreService.getUserId();
+    this.user = AuthStoreService.getUserId();
   }
 
   getPeriodeVacances(): Observable<PeriodeVacances[]> {

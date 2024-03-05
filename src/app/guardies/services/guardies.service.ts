@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { UserStoreService } from "src/app/user/services/user-store.service";
+import { AuthStoreService } from "src/app/auth/services/auth-store.service";
 import { Guardia } from "../models/guardies.dto";
 
 @Injectable({
@@ -11,11 +11,11 @@ export class GuardiesService {
   private guardies: Guardia[];
   private user: string | null;
   constructor(
-    private userStoreService: UserStoreService,
+    private AuthStoreService: AuthStoreService,
     private http: HttpClient
   ) {
     this.guardies = [];
-    this.user = userStoreService.getUserId();
+    this.user = AuthStoreService.getUserId();
   }
 
   getGuardia(): Observable<Guardia[]> {

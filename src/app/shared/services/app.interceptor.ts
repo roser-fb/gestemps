@@ -7,17 +7,17 @@ import {
 } from "@angular/common/http";
 
 import { Observable } from "rxjs";
-import { UserStoreService } from "src/app/user/services/user-store.service";
+import { AuthStoreService } from "src/app/auth/services/auth-store.service";
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
-  constructor(private userStoreService: UserStoreService) {}
+  constructor(private AuthStoreService: AuthStoreService) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = this.userStoreService.getToken();
+    const token = this.AuthStoreService.getToken();
     if (token) {
       req = req.clone({
         setHeaders: {

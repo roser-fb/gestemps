@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FitxarModule } from "./fitxar/fitxar.module";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { FooterComponent } from "./shared/components/footer/footer.component";
+import { AuthModule } from "./auth/auth.module";
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, FooterComponent],
@@ -27,6 +28,7 @@ import { FooterComponent } from "./shared/components/footer/footer.component";
     FestiusModule,
     GuardiesModule,
     UserModule,
+    AuthModule,
     VacancesModule,
     FitxarModule,
     BrowserModule,

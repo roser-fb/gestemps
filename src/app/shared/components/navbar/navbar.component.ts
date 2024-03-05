@@ -4,7 +4,7 @@ import {
   faArrowRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
-import { UserStoreService } from "src/app/user/services/user-store.service";
+import { AuthStoreService } from "src/app/auth/services/auth-store.service";
 import { UserService } from "src/app/user/services/user.service";
 import { Observable, map, of } from "rxjs";
 import { Role } from "src/app/user/models/roles.dto";
@@ -20,11 +20,11 @@ export class NavbarComponent {
   faArrowRightFromBracket = faArrowRightFromBracket;
   Role = Role;
   constructor(
-    private userStoreService: UserStoreService,
+    private AuthStoreService: AuthStoreService,
     private userService: UserService
   ) {}
   userRoleIn(allowedRoles: Role[]): Observable<boolean> {
-    const id = this.userStoreService.getUserId();
+    const id = this.AuthStoreService.getUserId();
     if (!id) return of(false);
 
     return this.userService
@@ -33,6 +33,6 @@ export class NavbarComponent {
   }
 
   haIniciatSessio() {
-    return this.userStoreService.isUsuariAutenticat();
+    return this.AuthStoreService.isUsuariAutenticat();
   }
 }

@@ -7,15 +7,14 @@ import {
   UrlTree,
 } from "@angular/router";
 import { Observable } from "rxjs";
-import { UserService } from "../services/user.service";
-import { UserStoreService } from "../services/user-store.service";
+import { AuthStoreService } from "../services/auth-store.service";
 import { JwtHelperService } from "@auth0/angular-jwt";
 @Injectable({
   providedIn: "root",
 })
 export class AuthGuard implements CanActivate {
   constructor(
-    private userStoreService: UserStoreService,
+    private AuthStoreService: AuthStoreService,
     private router: Router,
     private jwtHelper: JwtHelperService
   ) {}
@@ -30,7 +29,7 @@ export class AuthGuard implements CanActivate {
     return this.usuariAutenticat();
   }
   usuariAutenticat(): true | UrlTree {
-    const token = this.userStoreService.getToken();
+    const token = this.AuthStoreService.getToken();
     if (token) {
       if (!this.tokenCaducat(token)) {
         return true;
@@ -40,8 +39,8 @@ export class AuthGuard implements CanActivate {
   }
   tokenCaducat(token: string) {
     if (this.jwtHelper.isTokenExpired(token)) {
-      this.userStoreService.deleteToken();
-      this.userStoreService.deleteUserId();
+      this.AuthStoreService.deleteToken();
+      this.AuthStoreService.deleteUserId();
       return true;
     }
     return false;

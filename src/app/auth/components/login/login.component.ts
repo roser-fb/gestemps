@@ -2,8 +2,8 @@ import { Component } from "@angular/core";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { UserStoreService } from "../../services/user-store.service";
-import { UserService } from "../../services/user.service";
+import { AuthStoreService } from "../../services/auth-store.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: "app-login",
@@ -17,8 +17,8 @@ export class LoginComponent {
 
   constructor(
     private formbuilder: FormBuilder,
-    private userService: UserService,
-    private userStoreService: UserStoreService,
+    private authService: AuthService,
+    private AuthStoreService: AuthStoreService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -33,11 +33,11 @@ export class LoginComponent {
   onSubmit() {
     this.submitted = true;
     if (this.loginForm.valid) {
-      this.userService.login(this.loginForm.value).subscribe(
+      this.authService.login(this.loginForm.value).subscribe(
         (result: any) => {
           this.message = result.msg;
-          this.userStoreService.setToken(result.token);
-          this.userStoreService.setUserId(result.user);
+          this.AuthStoreService.setToken(result.token);
+          this.AuthStoreService.setUserId(result.user);
           this.router.navigate(["/"]);
         },
         (err) => {
