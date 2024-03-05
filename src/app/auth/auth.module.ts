@@ -2,11 +2,16 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { AuthStoreService } from "./services/auth-store.service";
 import { AuthService } from "./services/auth.service";
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppComponent } from "../app.component";
 import { LoginComponent } from "./components/login/login.component";
-import { JwtModule, JWT_OPTIONS } from "@auth0/angular-jwt";
+import { JwtModule } from "@auth0/angular-jwt";
+
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
+
 @NgModule({
   declarations: [LoginComponent],
   imports: [
@@ -15,9 +20,8 @@ import { JwtModule, JWT_OPTIONS } from "@auth0/angular-jwt";
     ReactiveFormsModule,
     HttpClientModule,
     JwtModule.forRoot({
-      jwtOptionsProvider: {
-        provide: JWT_OPTIONS,
-        useValue: {},
+      config: {
+        tokenGetter: tokenGetter,
       },
     }),
   ],

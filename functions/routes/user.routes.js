@@ -10,7 +10,7 @@ router.post("/register", verifyToken, async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const mail = req.body.mail;
-  const role = "Role.admin";
+  const role = "Role.Admin";
   jwt.verify(req.token, secretKey, async (err, authData) => {
     if (err) {
       res
@@ -67,8 +67,8 @@ router.put("/:id", verifyToken, async (req, res) => {
         .json({ status: "error", message: "Token de autorización inválido" });
     } else {
       try {
-        const hashedPassword = await bcrypt.hash(pwd, 10);
         const { id, username, password, mail, role } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
         const userId = req.params.id;
         const userUpdate = await User.findByIdAndUpdate(userId, {
           username,

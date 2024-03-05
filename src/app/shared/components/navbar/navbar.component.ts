@@ -23,13 +23,16 @@ export class NavbarComponent {
     private AuthStoreService: AuthStoreService,
     private userService: UserService
   ) {}
-  userRoleIn(allowedRoles: Role[]): Observable<boolean> {
+  userRoleIn(allowedRoles: Role[]): boolean {
     const id = this.AuthStoreService.getUserId();
-    if (!id) return of(false);
-
-    return this.userService
-      .getUserById(id)
-      .pipe(map((user) => Boolean(user && allowedRoles.includes(user.role))));
+    let res = false;
+    if (!id) return res;
+    this.userService.getUserById(id).pipe(
+      map((user) => {
+        res = Boolean(user && allowedRoles.includes(user.role));
+      })
+    );
+    return res;
   }
 
   haIniciatSessio() {

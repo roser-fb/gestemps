@@ -10,6 +10,7 @@ import { LogoutComponent } from "./user/components/logout/logout.component";
 import { ManageComponent } from "./user/components/manage/manage.component";
 import { VacancesComponent } from "./vacances/components/pagina/vacances.component";
 import { ResumFitxarComponent } from "./fitxar/components/resum-fitxar/resum-fitxar.component";
+import { Role } from "./user/models/roles.dto";
 
 const routes: Routes = [
   { path: "", component: CalendariComponent, canActivate: [AuthGuard] },
@@ -17,7 +18,14 @@ const routes: Routes = [
   { path: "festius", component: FestiusComponent, canActivate: [AuthGuard] },
   { path: "guardies", component: GuardiesComponent, canActivate: [AuthGuard] },
   { path: "fitxar", component: ResumFitxarComponent, canActivate: [AuthGuard] },
-  { path: "manage", component: ManageComponent, canActivate: [AuthGuard] },
+  {
+    path: "manage",
+    component: ManageComponent,
+    canActivate: [AuthGuard, HasRoleGuard],
+    data: {
+      allowedRoles: [Role.Admin],
+    },
+  },
   { path: "login", component: LoginComponent },
   { path: "logout", component: LogoutComponent },
 ];

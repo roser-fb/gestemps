@@ -31,9 +31,13 @@ export class HasRoleGuard implements CanActivate {
     const allowedRoles = route.data?.["allowedRoles"];
     const id = this.AuthStoreService.getUserId();
     if (id && !this.tokenCaducat()) {
-      return this.userService
-        .getUserById(id)
-        .pipe(map((user) => Boolean(user && allowedRoles.includes(user.role))));
+      return this.userService.getUserById(id).pipe(
+        map((user) => {
+          console.log(user);
+          console.log(allowedRoles);
+          return Boolean(user && allowedRoles.includes(user.role));
+        })
+      );
     }
     return false && alert("Acceso Denegado");
   }

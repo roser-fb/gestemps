@@ -12,8 +12,10 @@ const authSchema = new mongoose.Schema({
   },
 });
 authSchema.method("toJSON", function () {
-  const { __v, _id, ...object } = this.toObject();
+  const { __v, _id, user, pwd, ...object } = this.toObject();
   object.id = _id;
+  object.username = user;
+  object.password = pwd;
   return object;
 });
 const Auth = mongoose.model("users", authSchema);
