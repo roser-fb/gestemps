@@ -1,8 +1,5 @@
 import { Component } from "@angular/core";
-import { FormGroup, FormBuilder } from "@angular/forms";
-import { Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { Role } from "../../models/roles.dto";
 import { User } from "../../models/user.dto";
 import { UserService } from "../../services/user.service";
@@ -15,68 +12,23 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 })
 export class ManageComponent {
   public llista_usuaris$: Observable<User[]> = new Observable<User[]>();
-  public registerForm!: FormGroup;
-  public submitted = false;
   public checked = false;
-  public message = null;
-  public messagePassword: string | null = null;
+  public passwordResetMessages$: BehaviorSubject<string | null> =
+    new BehaviorSubject<string | null>(null);
+
   faTrashCan = faTrashCan;
-  constructor(
-    private formbuilder: FormBuilder,
-    private userService: UserService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
-    this.creaFormulari();
-  }
+  constructor(private userService: UserService) {}
   ngOnInit() {
     this.llista_usuaris$ = this.userService.getUser();
-    this.userService.submitEvent.subscribe(() => {
-      location.reload();
-    });
   }
-
-  creaFormulari() {
-    this.registerForm = this.formbuilder.group({
-      username: [null, Validators.required],
-      mail: [null, Validators.required],
-      password: [
-        null,
-        [
-          Validators.required,
-          Validators.pattern("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$"),
-        ],
-      ],
-    });
-  }
-  onSubmit() {
-    this.submitted = true;
-    if (this.registerForm.valid) {
-      let newuser: User = this.registerForm.value;
-      newuser.role = Role.User;
-      if(this.checked) newuser.role = Role.Admin
-       this.userService.register(newuser).subscribe(
-        (result: any) => {
-          this.message = result.msg;
-        },
-        (err) => {
-          this.message = err.error.msg;
-        }
-      );
-    } else {
-      console.log("El formulari és invàlid");
-    }
-  }
-  resetPassword(id: string) {
-    const newPassword = this.randomPassword();
+  resetPassword(id: string, username: string) {
+    const newPassword = this.userService.newPassword(username);
     this.userService.getUserById(id).subscribe((user) => {
       if (user) {
         user.password = newPassword;
         this.userService.updateUser(id, user);
       }
     });
-    this.messagePassword =
-      "La nova contrasenya és " + newPassword + " . Canvia-la al teu perfil";
   }
 
   randomPassword(): string {
@@ -88,7 +40,6 @@ export class ManageComponent {
         Math.floor(Math.random() * characters.length)
       );
     }
-    console.log(result);
     return result;
   }
   esborra(id: string): void {
@@ -98,26 +49,25 @@ export class ManageComponent {
       }
     });
   }
-  isCkecked(){
+  isCkecked() {
     return !this.checked;
   }
 
-  checkIfAdmin(role: string){
+  checkIfAdmin(role: string) {
     return role == Role.Admin;
   }
-  changeRole(id:string){
+  changeRole(id: string) {
     this.userService.getUserById(id).subscribe((user) => {
-      if (user){
-        if(user.role ==  Role.Admin) {
+      if (user) {
+        if (user.role == Role.Admin) {
           user.role = Role.User;
-        }
-        else user.role = Role.Admin;
-      this.userService.updateUser(id, user).subscribe((res) => {
-        if (res.status == "ok") {
-          location.reload();
-        }
-      });}
+        } else user.role = Role.Admin;
+        this.userService.updateUser(id, user).subscribe((res) => {
+          if (res.status == "ok") {
+            location.reload();
+          }
+        });
+      }
     });
   }
-
 }

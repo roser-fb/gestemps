@@ -11,6 +11,7 @@ import { ManageComponent } from "./user/components/manage/manage.component";
 import { VacancesComponent } from "./vacances/components/pagina/vacances.component";
 import { ResumFitxarComponent } from "./fitxar/components/resum-fitxar/resum-fitxar.component";
 import { Role } from "./user/models/roles.dto";
+import { ProfileComponent } from "./user/components/profile/profile.component";
 
 const routes: Routes = [
   { path: "", component: CalendariComponent, canActivate: [AuthGuard] },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: "festius", component: FestiusComponent, canActivate: [AuthGuard] },
   { path: "guardies", component: GuardiesComponent, canActivate: [AuthGuard] },
   { path: "fitxar", component: ResumFitxarComponent, canActivate: [AuthGuard] },
+  { path: "profile", component: ProfileComponent, canActivate: [AuthGuard] },
   {
     path: "manage",
     component: ManageComponent,

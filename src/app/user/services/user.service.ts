@@ -2,12 +2,14 @@ import { EventEmitter, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { User } from "../models/user.dto";
 import { map, Observable } from "rxjs";
+import { Role } from "../models/roles.dto";
 
 @Injectable({
   providedIn: "root",
 })
 export class UserService {
   constructor(private http: HttpClient) {}
+
   register(user: User): Observable<any> {
     return this.http.post("/api/user/register", user);
   }
@@ -33,4 +35,19 @@ export class UserService {
     return this.http.delete<any>("/api/user/" + id);
   }
   submitEvent: EventEmitter<void> = new EventEmitter<void>();
+
+  newPassword(username: string): string {
+    let result = "@";
+    for (let i = 0; i < username.length; i++) {
+      const char = username[i];
+      if (char >= "A" && char <= "Z") {
+        result += char.toLowerCase();
+      } else if (char >= "a" && char <= "z") {
+        result += char.toUpperCase();
+      } else {
+        result += char;
+      }
+    }
+    return result;
+  }
 }
