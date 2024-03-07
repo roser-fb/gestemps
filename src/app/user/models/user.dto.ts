@@ -7,6 +7,7 @@ export interface User {
   password: string;
   role: Role;
   token?: string;
+  img: string;
 }
 export class User implements User {
   constructor(
@@ -14,6 +15,7 @@ export class User implements User {
     public username: string,
     public mail: string,
     public password: string,
-    public role: Role
+    public role: Role,
+    public img: string
   ) {}
 }

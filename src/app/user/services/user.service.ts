@@ -23,7 +23,7 @@ export class UserService {
 
   getUserById(id: string): Observable<User | undefined> {
     return this.getUser().pipe(
-      map((guardies: User[]) => guardies.find((user) => user.id === id))
+      map((guardies: User[]) => guardies.find((user) => user.id == id))
     );
   }
   getUserByMail(mail: string): Observable<User | undefined> {

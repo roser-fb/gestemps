@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  img: {
+    type: String,
+    required: false,
+  },
 });
 userSchema.method("toJSON", function () {
   const { __v, _id, user, pwd, ...object } = this.toObject();

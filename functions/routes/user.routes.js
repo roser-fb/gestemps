@@ -10,7 +10,8 @@ router.post("/register", verifyToken, async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const mail = req.body.mail;
-  const role = "Role.Admin";
+  const role = req.body.role;
+  const img = req.body.img;
   jwt.verify(req.token, secretKey, async (err, authData) => {
     if (err) {
       res
@@ -30,6 +31,7 @@ router.post("/register", verifyToken, async (req, res) => {
           mail,
           password: hashedPassword,
           role,
+          img,
         });
         await newUser.save();
         return res.json({ msg: "Successfully created user, please login" });
@@ -60,6 +62,7 @@ router.get("/", verifyToken, async (req, res) => {
 });
 
 router.put("/:id", verifyToken, async (req, res) => {
+  const hashedPasswordPattern = /^\$2a\$10\$/;
   jwt.verify(req.token, secretKey, async (err, authData) => {
     if (err) {
       res
@@ -68,13 +71,15 @@ router.put("/:id", verifyToken, async (req, res) => {
     } else {
       try {
         const { id, username, password, mail, role } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
+        let hashedPassword = password;
+        if (!hashedPasswordPattern.test(password)) {
+          hashedPassword = await bcrypt.hash(password, 10);
+        }
         const userId = req.params.id;
         const userUpdate = await User.findByIdAndUpdate(userId, {
           username,
           mail,
           password: hashedPassword,
-          role,
         });
         res.status(200).json(userUpdate);
       } catch (error) {

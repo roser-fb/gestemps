@@ -9,18 +9,19 @@ import { AppInterceptor } from "../shared/services/app.interceptor";
 import { AppComponent } from "../app.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { ProfileComponent } from "./components/profile/profile.component";
-import { RegisterComponent } from "./components/register/register.component";
+
 import { PopoverDirective } from "../shared/directives/popover.directive";
 import { NewPasswordPipe } from "./pipes/newpassword.pipe";
+import { RegisterFormComponent } from "./components/register-form/register-form.component";
 
 @NgModule({
   declarations: [
     ManageComponent,
     LogoutComponent,
     ProfileComponent,
-    RegisterComponent,
     PopoverDirective,
     NewPasswordPipe,
+    RegisterFormComponent,
   ],
   imports: [
     CommonModule,

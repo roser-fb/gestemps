@@ -1,62 +1,77 @@
 <div class="row justify-content-center">
     <!-- Columna 1: Lista de Usuarios y Botón para restablecer contraseña -->
-    <div class="col-12 col-md-8 col-lg-9">
+    <div class="col-12">
         <div class="card m-3 mx-md-1 ">
             <div class="card-body">
-                <h2 class="card-title mb-3">Llista de membres</h2>
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th scope="col">Info</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Admin</th>
-                            <th scope="col">Password</th>
-                            <th scope="col">Delete</th>
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#registerModal">Afegir
+                            membre</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h2 class="card-title mb-3">Llista de membres</h2>
+                    </div>
+                </div>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of llista_usuaris$ | async">
-                            <td>
-                                <div appPopover class="btn" data-bs-toggle="popover" data-bs-placement="right"
-                                    data-bs-custom-class="custom-popover" data-bs-title="Informacio de l'usuari"
-                                    [attr.data-bs-content]="user.mail">
-                                    <i class="fa-solid fa-circle-info text-success"></i>
-                                </div>
-                            </td>
-                            <th scope="row">{{ user.username }}</th>
-                            <td>
-                                <div>
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchRole"
-                                        name="role" [checked]="checkIfAdmin(user.role)"
-                                        (onchange)="changeRole(user.id)">
-                                </div>
-                            </td>
-                            <td>
+                <div class="row">
+                    <div class="col">
 
-                                <div appPopover class="btn" data-bs-toggle="popover" data-bs-placement="right"
-                                    data-bs-custom-class="custom-popover" data-bs-title="Nova contrasenya"
-                                    [attr.data-bs-content]="user.username | newPassword"
-                                    (click)="resetPassword(user.id, user.username)">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Info</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Admin</th>
+                                    <th scope="col">Password</th>
+                                    <th scope="col">Delete</th>
 
-                                    <i class="fa-solid fa-rotate text-danger"></i>
-                                </div>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of llista_usuaris$ | async">
+                                    <td>
+                                        <div appPopover class="btn" data-bs-toggle="popover" data-bs-placement="right"
+                                            data-bs-custom-class="custom-popover" data-bs-title="Informacio de l'usuari"
+                                            [attr.data-bs-content]="user.mail">
+                                            <img src="./assets/profiles/{{user.img}}.png"
+                                                alt="avatar de {{user.username}}" style="max-width: 80px;">
+                                        </div>
+                                    </td>
+                                    <th scope="row">{{ user.username }}</th>
+                                    <td>
+                                        <div>
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                id="flexSwitchRole" name="role" [checked]="checkIfAdmin(user.role)"
+                                                (onchange)="changeRole(user.id)">
+                                        </div>
+                                    </td>
+                                    <td>
 
-                            </td>
-                            <td><button class="btn" type="button" (click)="esborra(user.id)">
-                                    <fa-icon class="text-danger" [icon]="faTrashCan"></fa-icon>
-                                </button>
-                            </td>
+                                        <div appPopover class="btn" data-bs-toggle="popover" data-bs-placement="right"
+                                            data-bs-custom-class="custom-popover" data-bs-title="Nova contrasenya"
+                                            [attr.data-bs-content]="user.username | newPassword"
+                                            (click)="resetPassword(user.id, user.username)">
 
-                        </tr>
-                    </tbody>
-                </table>
+                                            <i class="fa-solid fa-rotate text-danger"></i>
+                                        </div>
+
+                                    </td>
+                                    <td><button class="btn" type="button" (click)="esborra(user.id)">
+                                            <fa-icon class="text-danger" [icon]="faTrashCan"></fa-icon>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Columna 2: Formulario de Registro -->
-    <div class="col-12 col-md-4 col-lg-3">
-        <app-register></app-register>
+        <!-- Modal -->
+        <app-register-form></app-register-form>
     </div>
 </div>

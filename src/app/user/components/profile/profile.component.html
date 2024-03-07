@@ -1,16 +1,130 @@
-<p>
-  <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-    aria-controls="collapseExample">
-    Link with href
-  </a>
-  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-    aria-expanded="false" aria-controls="collapseExample">
-    Button with data-bs-target
-  </button>
-</p>
-<div class="collapse" id="collapseExample">
-  <div class="card card-body">
-    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user
-    activates the relevant trigger.
+<div class="container py-5">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col col-lg-6 mb-4 mb-lg-0">
+      <div class="card mb-3">
+        <div class="row">
+          <div class="col-md-4 text-center">
+            <img src="./assets/profiles/{{user.img}}.png" alt="Avatar" class="img-fluid my-5"
+              style="max-width: 80px;" />
+            <h5>{{user.username}}</h5>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body p-4">
+              <h6>Informació</h6>
+              <hr class="mt-0 mb-4">
+              <div class="row pt-1">
+                <div class="col-6 mb-3">
+                  <h6>Email</h6>
+                  <p class="text-muted">{{user.mail}}</p>
+                </div>
+                <div class="col-6 mb-3">
+                  <h6>Rol</h6>
+                  <p class="text-muted">{{user.role}}</p>
+                </div>
+                <h6>Edita el perfil</h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-6">
+                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                      (click)="openModal('profile')" data-bs-target="#profileModal"><i class="fa-solid fa-user"> </i><i
+                        class="fa-solid fa-pencil"></i></button>
+                  </div>
+                  <div class="col-6">
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                      (click)="openModal('password')" data-bs-target="#profileModal"><i class="fa-solid fa-lock"></i> <i
+                        class="fa-solid fa-pencil"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 *ngIf="editProfile" class="modal-title fs-5" id="vacancesModalLabel">Edita les teues dades</h1>
+          <h1 *ngIf="changePassword" class="modal-title fs-5" id="vacancesModalLabel">Canvia la contrasenya</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form *ngIf="editProfile" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="username">Usuari</span>
+              <input type="text" class="form-control" aria-label="Username" aria-describedby="username"
+                formControlName="username">
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="email">Email</span>
+              <input type="email" class="form-control" aria-label="Email" aria-describedby="email"
+                formControlName="email">
+            </div>
+            <div class="row justify-center mb-3">
+              <div class="col-6">
+                <select class="form-select" aria-label="Tria una imatge" name="img" formControlName="img">
+                  <option *ngFor="let imatge of range(6)" [value]="imatge">
+                    Opció {{imatge}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row  mb-3">
+              <div class="d-flex">
+                <div *ngFor="let imatge of range(6)">
+                  <img src="./assets/profiles/{{imatge}}.png " alt="Avatar" style="max-width: 40px;">
+                  Opció {{imatge}}
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Desa</button>
+          </form>
+
+          <form *ngIf="changePassword" [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <div class="input-group mb-3">
+                <span class="input-group-text " id="username">Contrasenya Actual</span>
+                <input type="password" class="form-control" aria-label="currentPassword"
+                  aria-describedby="currentPassword" formControlName="currentPassword">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text " id="newPassword">Nova contrasenya</span>
+                <input type="password" class="form-control" aria-label="newPassword" aria-describedby="newPassword"
+                  formControlName="newPassword">
+              </div>
+              <div
+                *ngIf="(changePasswordForm.get('newPassword')?.invalid && (changePasswordForm.get('newPassword')?.dirty || changePasswordForm.get('newPassword')?.touched)) || (changePasswordForm.get('newPassword')?.invalid && submitted)"
+                class="alert alert-danger" role="alert">
+                <div *ngIf="changePasswordForm.get('newPassword')?.errors?.['required']">
+                  La nova contrasenya és obligatoria
+                </div>
+                <div *ngIf="changePasswordForm.controls['newPassword'].hasError('passwordValidator')">
+                  La contrasenya no pot ser la mateixa que l'actual
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text " id="confirmPassword">Repeteix contrasenya</span>
+                <input type="password" class="form-control" aria-label="confirmPassword"
+                  aria-describedby="confirmPassword" formControlName="confirmPassword">
+              </div>
+            </div>
+
+            <div
+              *ngIf="(changePasswordForm.get('confirmPassword')?.invalid && (changePasswordForm.get('confirmPassword')?.dirty || changePasswordForm.get('confirmPassword')?.touched)) || (changePasswordForm.get('confirmPassword')?.invalid && submitted)"
+              class="alert alert-danger" role="alert">
+              <div *ngIf="changePasswordForm.get('confirmPassword')?.errors?.['required']">
+                Repeteix la contrasenya
+              </div>
+              <div *ngIf="changePasswordForm.controls['confirmPassword'].hasError('newPasswordValidator')">
+                Les contrasenyes no coincideixen
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Desa</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule, LocationStrategy } from "@angular/common";
 import { FormulariGuardiesComponent } from "./components/formulari-guardies/formulari-guardies.component";
-import { GuardiesComponent } from "./components/pagina/guardies.component";
+
 import { ResumGuardiesComponent } from "./components/resum-guardies/resum-guardies.component";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -14,7 +14,7 @@ import { GuardiesService } from "./services/guardies.service";
 @NgModule({
   declarations: [
     FormulariGuardiesComponent,
-    GuardiesComponent,
+
     ResumGuardiesComponent,
     AnteriorPipe,
   ],

@@ -1,25 +1,33 @@
-<div class="row justify-content-center">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title mb-3">Registre de festius</h2>
-                <form [formGroup]="festiusForm" (ngSubmit)="onSubmit()">
-                    <div formControlGroup="periodeFestius">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text w-25 bg-autonomic" for="data_ini">Data Inici</span>
-                            <input type="date" class="form-control" name="data_ini" id="data_ini"
-                                formControlName="data_ini" required>
-                        </div>
-                        <div *ngIf="(festiusForm.get('data_ini')?.invalid && (festiusForm.get('data_ini')?.dirty || festiusForm.get('data_ini')?.touched)) || (festiusForm.get('data_ini')?.invalid && submitted)"
-                            class="alert alert-danger" role="alert">
-                            <div *ngIf="festiusForm.get('data_ini')?.errors?.['required']">
-                                La data d'inici és obligatòria
+<div class="modal fade" id="festiusModal" tabindex="-1" aria-labelledby="festiusModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form [formGroup]="festiusForm" (ngSubmit)="onSubmit()">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="festiusModalLabel">Registre de festius</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row mb-3">
+                        <div formControlGroup="periodeFestius">
+                            <div class="input-group">
+                                <span class="input-group-text w-25 bg-autonomic" for="data_ini">Data Inici</span>
+                                <input type="date" class="form-control" name="data_ini" id="data_ini"
+                                    formControlName="data_ini" required>
                             </div>
-                            <div *ngIf="festiusForm.controls['data_ini'].hasError('dataValidator')">
-                                La data no té un formàt vàlid o és menor a 2023
+                            <div *ngIf="(festiusForm.get('data_ini')?.invalid && (festiusForm.get('data_ini')?.dirty || festiusForm.get('data_ini')?.touched)) || (festiusForm.get('data_ini')?.invalid && submitted)"
+                                class="alert alert-danger" role="alert">
+                                <div *ngIf="festiusForm.get('data_ini')?.errors?.['required']">
+                                    La data d'inici és obligatòria
+                                </div>
+                                <div *ngIf="festiusForm.controls['data_ini'].hasError('dataValidator')">
+                                    La data no té un formàt vàlid o és menor a 2023
+                                </div>
                             </div>
                         </div>
-                        <div class="input-group mb-3">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="input-group ">
                             <label class="input-group-text w-25 bg-autonomic" for="motiu">Motiu</label>
                             <select class="form-select" id="motiu" formControlName="motiu">
                                 <option value=0 selected>Selecciona...</option>
@@ -39,18 +47,19 @@
                                 Selecciona un motiu vàlid
                             </div>
                         </div>
-                        <div class="form-group mb-3">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="form-group">
                             <input class="form-check-input" type="checkbox" id="fix" formControlName="fix" value=1
                                 checked>
                             <label class="mx-3 form-check-label" for="fix">Festiu Variable</label>
                         </div>
-                        <button type="submit" class="btn btn-outline-success">Registra</button>
-                        <div *ngIf="(submitted)" class="alert alert-succes" role="alert">
-                            Festiu registrat
-                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Desa</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

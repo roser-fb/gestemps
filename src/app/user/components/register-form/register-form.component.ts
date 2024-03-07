@@ -7,11 +7,11 @@ import { Role } from "../../models/roles.dto";
 import { User } from "../../models/user.dto";
 
 @Component({
-  selector: "app-register",
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.css"],
+  selector: "app-register-form",
+  templateUrl: "./register-form.component.html",
+  styleUrls: ["./register-form.component.css"],
 })
-export class RegisterComponent {
+export class RegisterFormComponent {
   public registerForm!: FormGroup;
   public submitted = false;
   public checked = false;
@@ -32,6 +32,7 @@ export class RegisterComponent {
       username: [null, Validators.required],
       mail: [null, Validators.required],
       role: [],
+      img: ["user1", Validators.required],
     });
   }
   onSubmit() {
@@ -45,6 +46,7 @@ export class RegisterComponent {
       this.userService.register(newuser).subscribe(
         (result: any) => {
           this.message = result.msg;
+          location.reload();
         },
         (err) => {
           this.message = err.error.msg;
@@ -56,5 +58,8 @@ export class RegisterComponent {
   }
   changeChecked(): void {
     this.checked = !this.checked;
+  }
+  range(length: number): string[] {
+    return Array.from({ length }, (_, index) => "user" + (index + 1));
   }
 }

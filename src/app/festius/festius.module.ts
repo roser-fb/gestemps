@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule, LocationStrategy } from "@angular/common";
-import { FestiusComponent } from "./components/pagina/festius.component";
+
 import { ResumFestiusComponent } from "./components/resum-festius/resum-festius.component";
 import { FormulariFestiusComponent } from "./components/fomulari-festius/formulari-festius.component";
 import { OrdenaDirective } from "./directiva/ordena.directive";
@@ -19,7 +19,7 @@ import { PeriodeFestiusService } from "./services/periode-festius.service";
     ResumFestiusComponent,
     TipusFestiuPipe,
     FormulariFestiusComponent,
-    FestiusComponent,
+
     OrdenaDirective,
     NextYearPipe,
     DiaSetmanaPipe,

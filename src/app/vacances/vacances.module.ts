@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule, LocationStrategy } from "@angular/common";
 import { FormulariDiesComponent } from "./components/formulari-dies/formulari-dies.component";
 import { ResumDiesComponent } from "./components/resum-dies/resum-dies.component";
-import { VacancesComponent } from "./components/pagina/vacances.component";
+
 import { CalculaDiesPipe } from "./pipes/calcula-dies.pipe";
 import { AppComponent } from "../app.component";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -12,12 +12,7 @@ import { AppInterceptor } from "../shared/services/app.interceptor";
 import { PeriodeVacancesService } from "./services/periode-vacances.service";
 
 @NgModule({
-  declarations: [
-    FormulariDiesComponent,
-    ResumDiesComponent,
-    VacancesComponent,
-    CalculaDiesPipe,
-  ],
+  declarations: [FormulariDiesComponent, ResumDiesComponent, CalculaDiesPipe],
   imports: [
     CommonModule,
     FormsModule,
