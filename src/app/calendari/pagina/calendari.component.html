@@ -1,14 +1,10 @@
 <div class="row my-5 mx-md-5 mx-lg-5">
   <div class="col">
-    <div class='demo-app'>
-      <div class='demo-app-main'>
-        <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions'>
-          <ng-template #eventContent let-arg>
-            <b>{{ arg.timeText }}</b>
-            <i>{{ arg.event.title }}</i>
-          </ng-template>
-        </full-calendar>
-      </div>
-    </div>
+    <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions'>
+      <ng-template #eventContent let-arg>
+        <b>{{ arg.timeText }}</b>
+        <i>{{ arg.event.title }}</i>
+      </ng-template>
+    </full-calendar>
   </div>
 </div>
