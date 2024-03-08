@@ -7,8 +7,8 @@ const verifyToken = require("../config/jwt.config.js");
 const secretKey = "1312@JaNoEnsAlimentenLesMolles@:@AraVolemElPaSencer@1312";
 
 router.post("/register", verifyToken, async (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
+  const user = req.body.username;
+  const pwd = req.body.password;
   const mail = req.body.mail;
   const role = req.body.role;
   const img = req.body.img;
@@ -25,11 +25,11 @@ router.post("/register", verifyToken, async (req, res) => {
             .status(400)
             .json({ msg: "User already exists, please login." });
         }
-        const hashedPassword = await bcrypt.hash(password, 10); // 10 salt rounds
+        const hashedPassword = await bcrypt.hash(pwd, 10); // 10 salt rounds
         const newUser = new User({
-          username,
+          user,
           mail,
-          password: hashedPassword,
+          hashedPassword,
           role,
           img,
         });
