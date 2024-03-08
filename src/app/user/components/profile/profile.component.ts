@@ -75,7 +75,7 @@ export class ProfileComponent {
       this.user.img = this.profileForm.value.img;
       this.userService.updateUser(this.user.id, this.user).subscribe((res) => {
         console.log(res);
-        if (res.affectedRows > 0) {
+        if (res.id) {
           location.reload();
         }
       });
@@ -83,7 +83,7 @@ export class ProfileComponent {
     if (this.changePasswordForm.valid && this.changePassword) {
       this.user.password = this.profileForm.value.newPassword;
       this.userService.updateUser(this.user.id, this.user).subscribe((res) => {
-        if (res.affectedRows > 0) {
+        if (res.id) {
           location.reload();
         }
       });

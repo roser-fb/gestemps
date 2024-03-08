@@ -77,9 +77,9 @@ router.put("/:id", verifyToken, async (req, res) => {
         }
         const userId = req.params.id;
         const userUpdate = await User.findByIdAndUpdate(userId, {
-          username,
+          user,
           mail,
-          password: hashedPassword,
+          pwd: hashedPassword,
           role,
           img,
         });
