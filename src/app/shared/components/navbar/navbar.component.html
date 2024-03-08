@@ -16,19 +16,17 @@
         <li class="nav-item">
           <a class="nav-link" href="/guardies">Guardies</a>
         </li>
-        <!--li class="nav-item">
-          <a class="nav-link" href="/fitxar">Control de temps</a>
-        </li-->
+        <li *ngIf="isAdmin" class="nav-item">
+          <a class="nav-link" href="/manage">Gestió d'usuaris</a>
+        </li>
       </ul>
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0  d-flex align-items-lg-center">
         <li class="nav-item">
-          <a *ngIf="haIniciatSessio()" class="nav-link" href="/profile"><i class="fa-solid fa-circle-user"></i></a>
+          <a *ngIf="haIniciatSessio()" class="nav-link align-middle" href="/profile"> <img
+              src="./assets/profiles/{{imatge}}.png " alt="Avatar" style="max-width: 40px;"></a>
         </li>
-        <li class="nav-item">
-          <a *ngIf="haIniciatSessio() && isAdmin" class="nav-link" href="/manage"><i class="fa-solid fa-gear"></i></a>
-        </li>
-        <li class="nav-item">
-          <a *ngIf="!haIniciatSessio()" class="nav-link" href="/login"><i class="fa-solid fa-user"></i></a>
+        <li class="nav-item ">
+          <a *ngIf="!haIniciatSessio()" class="nav-link " href="/login"><i class="fa-solid fa-user"></i></a>
           <a *ngIf="haIniciatSessio()" class="nav-link" href="/logout"><i
               class="fa-solid fa-arrow-right-from-bracket"></i></a>
         </li>

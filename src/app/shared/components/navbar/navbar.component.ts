@@ -22,18 +22,24 @@ export class NavbarComponent {
   faArrowRightFromBracket = faArrowRightFromBracket;
   Role = Role;
   isAdmin: boolean | null = null;
+  imatge: string | null = null;
   constructor(
     private AuthStoreService: AuthStoreService,
     private userService: UserService
   ) {
-    this.userRoleIn([Role.Admin]);
+    this.userRoleIn();
   }
-  userRoleIn(allowedRole: Role[]) {
+  userRoleIn() {
     const id = this.AuthStoreService.getUserId();
     if (id)
       this.userService
         .getUserById(id)
-        .pipe(map((user) => Boolean(user && allowedRole.includes(user.role))))
+        .pipe(
+          map((user) => {
+            if (user) this.imatge = user.img;
+            return Boolean(user?.role == Role.Admin);
+          })
+        )
         .subscribe((val) => (this.isAdmin = val));
   }
   haIniciatSessio() {

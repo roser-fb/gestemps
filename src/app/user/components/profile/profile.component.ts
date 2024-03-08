@@ -18,6 +18,7 @@ export class ProfileComponent {
   editProfile: boolean = false;
   changePassword: boolean = false;
   submitted: boolean = false;
+  isAdmin: boolean | null = null;
   user: User = new User("", "", "", "", Role.User, "");
   constructor(
     private formBuilder: FormBuilder,
@@ -48,8 +49,7 @@ export class ProfileComponent {
     if (id)
       this.userService.getUserById(id).subscribe((user) => {
         if (user) this.user = user;
-        console.log(user);
-
+        this.isAdmin = this.user.role == Role.Admin;
         this.profileForm = this.formBuilder.group({
           username: [this.user.username, Validators.required],
           email: [this.user.mail, [Validators.required, Validators.email]],

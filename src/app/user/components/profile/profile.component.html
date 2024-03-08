@@ -1,38 +1,40 @@
 <div class="container py-5">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col col-lg-6 mb-4 mb-lg-0">
-      <div class="card mb-3">
-        <div class="row">
-          <div class="col-md-4 text-center">
-            <img src="./assets/profiles/{{user.img}}.png" alt="Avatar" class="img-fluid my-5"
-              style="max-width: 80px;" />
-            <h5>{{user.username}}</h5>
-          </div>
-          <div class="col-md-8">
-            <div class="card-body p-4">
-              <h6>Informació</h6>
-              <hr class="mt-0 mb-4">
-              <div class="row pt-1">
-                <div class="col-6 mb-3">
-                  <h6>Email</h6>
-                  <p class="text-muted">{{user.mail}}</p>
-                </div>
-                <div class="col-6 mb-3">
-                  <h6>Rol</h6>
-                  <p class="text-muted">{{user.role}}</p>
-                </div>
-                <h6>Edita el perfil</h6>
+      <div class="row">
+        <div class="card mb-3">
+          <div class="row">
+            <div class="col-md-4 text-center">
+              <img src="./assets/profiles/{{user.img}}.png" alt="Avatar" class="img-fluid my-5"
+                style="max-width: 80px;" />
+              <h5>{{user.username}}</h5>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h6>Informació</h6>
                 <hr class="mt-0 mb-4">
                 <div class="row pt-1">
-                  <div class="col-6">
-                    <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                      (click)="openModal('profile')" data-bs-target="#profileModal"><i class="fa-solid fa-user"> </i><i
-                        class="fa-solid fa-pencil"></i></button>
+                  <div class="col-6 mb-3">
+                    <h6>Email</h6>
+                    <p class="text-muted">{{user.mail}}</p>
                   </div>
-                  <div class="col-6">
-                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                      (click)="openModal('password')" data-bs-target="#profileModal"><i class="fa-solid fa-lock"></i> <i
-                        class="fa-solid fa-pencil"></i></button>
+                  <div class="col-6 mb-3">
+                    <h6>Rol</h6>
+                    <p class="text-muted">{{user.role}}</p>
+                  </div>
+                  <h6>Edita el perfil</h6>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                        (click)="openModal('profile')" data-bs-target="#profileModal"><i class="fa-solid fa-user">
+                        </i></button>
+                    </div>
+                    <div class="col-6">
+                      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                        (click)="openModal('password')" data-bs-target="#profileModal"><i class="fa-solid fa-lock"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -42,7 +44,6 @@
       </div>
     </div>
   </div>
-
   <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

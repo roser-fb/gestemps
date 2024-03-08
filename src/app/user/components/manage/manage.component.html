@@ -6,8 +6,7 @@
                 <div class="row">
                     <div class="col d-flex justify-content-end">
                         <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                            data-bs-target="#registerModal">Afegir
-                            membre</button>
+                            data-bs-target="#registerModal"><i class="fa-solid fa-plus"></i></button>
                     </div>
                 </div>
                 <div class="row">
@@ -18,55 +17,58 @@
 
                 <div class="row">
                     <div class="col">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Info</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Admin</th>
+                                        <th scope="col">Password</th>
+                                        <th scope="col">Delete</th>
 
-                        <table class="table table-sm">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Info</th>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Admin</th>
-                                    <th scope="col">Password</th>
-                                    <th scope="col">Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let user of llista_usuaris$ | async">
+                                        <td>
+                                            <div appPopover class="btn" data-bs-toggle="popover"
+                                                data-bs-placement="right" data-bs-custom-class="custom-popover"
+                                                data-bs-title="Informacio de l'usuari"
+                                                [attr.data-bs-content]="user.mail">
+                                                <img src="./assets/profiles/{{user.img}}.png" class="img-fluid"
+                                                    alt="avatar de {{user.username}}">
+                                            </div>
+                                        </td>
+                                        <th scope="row">{{ user.username }}</th>
+                                        <td>
+                                            <div>
+                                                <input class="form-check-input" type="checkbox" role="switch"
+                                                    id="flexSwitchRole" name="role" [checked]="checkIfAdmin(user.role)"
+                                                    (onchange)="changeRole(user.id)">
+                                            </div>
+                                        </td>
+                                        <td>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let user of llista_usuaris$ | async">
-                                    <td>
-                                        <div appPopover class="btn" data-bs-toggle="popover" data-bs-placement="right"
-                                            data-bs-custom-class="custom-popover" data-bs-title="Informacio de l'usuari"
-                                            [attr.data-bs-content]="user.mail">
-                                            <img src="./assets/profiles/{{user.img}}.png"
-                                                alt="avatar de {{user.username}}" style="max-width: 80px;">
-                                        </div>
-                                    </td>
-                                    <th scope="row">{{ user.username }}</th>
-                                    <td>
-                                        <div>
-                                            <input class="form-check-input" type="checkbox" role="switch"
-                                                id="flexSwitchRole" name="role" [checked]="checkIfAdmin(user.role)"
-                                                (onchange)="changeRole(user.id)">
-                                        </div>
-                                    </td>
-                                    <td>
+                                            <div appPopover class="btn" data-bs-toggle="popover"
+                                                data-bs-placement="right" data-bs-custom-class="custom-popover"
+                                                data-bs-title="Nova contrasenya"
+                                                [attr.data-bs-content]="user.username | newPassword"
+                                                (click)="resetPassword(user.id, user.username)">
 
-                                        <div appPopover class="btn" data-bs-toggle="popover" data-bs-placement="right"
-                                            data-bs-custom-class="custom-popover" data-bs-title="Nova contrasenya"
-                                            [attr.data-bs-content]="user.username | newPassword"
-                                            (click)="resetPassword(user.id, user.username)">
+                                                <i class="fa-solid fa-rotate text-danger"></i>
+                                            </div>
 
-                                            <i class="fa-solid fa-rotate text-danger"></i>
-                                        </div>
+                                        </td>
+                                        <td><button class="btn" type="button" (click)="esborra(user.id)">
+                                                <fa-icon class="text-danger" [icon]="faTrashCan"></fa-icon>
+                                            </button>
+                                        </td>
 
-                                    </td>
-                                    <td><button class="btn" type="button" (click)="esborra(user.id)">
-                                            <fa-icon class="text-danger" [icon]="faTrashCan"></fa-icon>
-                                        </button>
-                                    </td>
-
-                                </tr>
-                            </tbody>
-                        </table>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
