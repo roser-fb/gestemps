@@ -25,7 +25,7 @@ router.post("/register", verifyToken, async (req, res) => {
             .status(400)
             .json({ msg: "User already exists, please login." });
         }
-        const hashedPassword = await bcrypt.hash(pwd, 10); // 10 salt rounds
+        const hashedPassword = await bcrypt.hash(password, 10); // 10 salt rounds
         const newUser = new User({
           username,
           mail,
