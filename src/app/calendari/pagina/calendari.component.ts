@@ -56,9 +56,25 @@ export class CalendariComponent {
 
         event.textColor = "#000";
         let titol = event.title;
+        let user = event["user"];
         if (titol?.includes("Vacances") || titol?.includes("LD")) {
           event.color = "#80cfa8";
         } else if (titol?.includes("GUARDIA")) {
+          event.color = "#f4c93d";
+        } else if (
+          titol?.includes("DISP.") &&
+          user?.includes("65c35a5159d33117334282ae")
+        ) {
+          event.color = "#f4c93d";
+        } else if (
+          titol?.includes("DISP.") &&
+          user?.includes("662b9aec35d178a02c38bbff")
+        ) {
+          event.color = "#f4c93d";
+        } else if (
+          titol?.includes("DISP.") &&
+          user?.includes("662b9b1235d178a02c38bc05")
+        ) {
           event.color = "#f4c93d";
         } else {
           event.color = "#efa7a7";
