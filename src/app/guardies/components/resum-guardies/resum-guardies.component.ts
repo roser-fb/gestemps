@@ -3,7 +3,7 @@ import { Component } from "@angular/core";
 import { Observable } from "rxjs";
 import { Guardia, ResumGuardies } from "../../models/guardies.dto";
 import { GuardiesService } from "../../services/guardies.service";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 @Component({
   selector: "app-resum-guardies",

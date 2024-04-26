@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 //import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { PeriodeVacancesService } from "../../services/periode-vacances.service";
 import * as moment from "moment";
 import {

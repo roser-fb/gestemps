@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { Role } from "../../models/roles.dto";
 import { User } from "../../models/user.dto";
 import { UserService } from "../../services/user.service";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 @Component({
   selector: "app-manage",

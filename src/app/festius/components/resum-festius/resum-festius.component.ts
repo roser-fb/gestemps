@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { Observable } from "rxjs";
 import { PeriodeFestius } from "src/app/festius/models/periode-festius.dto";
 import { PeriodeFestiusService } from "src/app/festius/services/periode-festius.service";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 @Component({
   selector: "app-resum-festius",
