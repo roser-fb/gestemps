@@ -68,6 +68,7 @@ export class ResumDispComponent {
             opcions: [{ tipus: tipus, num: 1 }],
           });
         }
+        console.log(this.disponibilitats);
       });
     });
   }
