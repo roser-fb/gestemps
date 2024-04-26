@@ -51,7 +51,7 @@
           <tbody class="table-group-divider">
 
             <tr *ngFor="let d of disponibilitats">
-              <td *ngFor="let p of d.opcions">{{d.data | date: 'dd/MM/YYY'}}</td>
+              <td>{{d.data | date: 'dd/MM/YYY'}}</td>
               <td *ngFor="let p of d.opcions">
                 {{p.tipus=="11"?"Total":p.tipus=="12"?"Mati":"Vesprada"}}</td>
               <td *ngFor="let p of d.opcions">
