@@ -51,12 +51,11 @@
           <tbody class="table-group-divider">
 
             <tr *ngFor="let d of disponibilitats">
-              <td>{{d.data | date: 'dd/MM/YYY'}}</td>
-              <td *ngFor="let p of d.opcions">
-                {{p.tipus=="11"?"Total":p.tipus=="12"?"Mati":"Vesprada"}}</td>
-              <td *ngFor="let p of d.opcions">
-                {{p.num}}
-              </td>
+              <ng-container *ngFor="let o of d.opcions">
+                <td>{{ d.data }}</td>
+                <td>{{ o.tipus }}</td>
+                <td>{{ o.num }}</td>
+              </ng-container>
             </tr>
           </tbody>
         </table>
