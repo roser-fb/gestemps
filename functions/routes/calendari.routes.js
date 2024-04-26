@@ -5,6 +5,7 @@ const { Guardia } = require("../models/guardia.model");
 const { Festiu } = require("../models/festiu.model");
 const { Periode } = require("../models/periode.model");
 const verifyToken = require("../config/jwt.config.js");
+const { Disponible } = require("../models/disponible.model");
 const secretKey = "1312@JaNoEnsAlimentenLesMolles@:@AraVolemElPaSencer@1312";
 
 router.get("/:id", verifyToken, async (req, res) => {
@@ -71,8 +72,31 @@ router.get("/:id", verifyToken, async (req, res) => {
             },
           },
         ]);
+        const disponible = await Disponible.aggregate([
+          {
+            $lookup: {
+              from: "motius",
+              localField: "motiu",
+              foreignField: "motiu_id",
+              as: "motiu",
+            },
+            $lookup: {
+              from: "users",
+              localField: "user",
+              foreignField: "user_id",
+              as: "user",
+            },
+          },
+          {
+            $project: {
+              title: "$user.user $motiu.motiu_desc",
+              start: "$data_ini",
+              end: "$data_ini",
+            },
+          },
+        ]);
 
-        const events = [...periodes, ...festius, ...guardies];
+        const events = [...periodes, ...festius, ...guardies, ...disponible];
 
         res.status(200).json(events);
       } catch (error) {
