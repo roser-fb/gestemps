@@ -83,7 +83,7 @@ router.get("/:id", verifyToken, async (req, res) => {
             $lookup: {
               from: "users",
               localField: "user",
-              foreignField: "user_id",
+              foreignField: "user",
               as: "user",
             },
           },
