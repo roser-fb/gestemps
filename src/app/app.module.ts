@@ -16,6 +16,7 @@ import { FitxarModule } from "./fitxar/fitxar.module";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { FooterComponent } from "./shared/components/footer/footer.component";
 import { AuthModule } from "./auth/auth.module";
+import { DisponibilitatModule } from "./disponibilitat/disponibilitat.module";
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, FooterComponent],
@@ -31,6 +32,7 @@ import { AuthModule } from "./auth/auth.module";
     AuthModule,
     VacancesModule,
     FitxarModule,
+    DisponibilitatModule,
     BrowserModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register("ngsw-worker.js", {

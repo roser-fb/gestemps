@@ -1,0 +1,53 @@
+<div class="modal fade" id="disponibleModal" tabindex="-1" aria-labelledby="disponibleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form [formGroup]="disponibleForm" (ngSubmit)="onSubmit()">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="disponibleModalLabel">Registrar Disponibilitat</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div formControlGroup="periodeDisponible">
+                        <div class="row mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text w-25 bg-disponible" for="data_ini">Data</span>
+                                <input type="date" class="form-control" name="data_ini" id="data_ini"
+                                    formControlName="data_ini" required>
+                            </div>
+                            <div *ngIf="(disponibleForm.get('data_ini')?.invalid && (disponibleForm.get('data_ini')?.dirty || disponibleForm.get('data_ini')?.touched)) || (disponibleForm.get('data_ini')?.invalid && submitted)"
+                                class="alert alert-danger" role="alert">
+                                <div *ngIf="disponibleForm.get('data_ini')?.errors?.['required']">
+                                    La data és obligatòria
+                                </div>
+                                <div *ngIf="disponibleForm.controls['data_ini'].hasError('dataValidator')">
+                                    La data no té un formàt vàlid o és menor a 2023
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="input-group">
+                                <label class="input-group-text w-25 bg-disponible" for="motiu">Disponibilitat</label>
+                                <select class="form-select" id="motiu" formControlName="motiu">
+                                    <option value=0 selected>Selecciona...</option>
+                                    <option value=11>Total</option>
+                                    <option value=12>Mati</option>
+                                    <option value=13>Vesprada</option>
+                                </select>
+                            </div>
+                            <div *ngIf="(disponibleForm.get('motiu')?.invalid && (disponibleForm.get('motiu')?.dirty || disponibleForm.get('motiu')?.touched)) || (disponibleForm.get('motiu')?.invalid && submitted)"
+                                class="alert alert-danger" role="alert">
+                                <div *ngIf="disponibleForm.get('motiu')?.errors?.['required']">
+                                    Selecciona una opció
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Desa</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

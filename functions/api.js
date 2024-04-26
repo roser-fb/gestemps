@@ -18,6 +18,7 @@ app.use("/api/festius", require("./routes/festius.routes"));
 app.use("/api/calendari", require("./routes/calendari.routes"));
 app.use("/api/guardia", require("./routes/guardia.routes"));
 app.use("/api/fitxar", require("./routes/fitxar.routes"));
+app.use("/api/disponible", require("./routes/disponible.routes"));
 
 app.use("/.netlify/functions/api/", router);
 module.exports.handler = serverless(app);

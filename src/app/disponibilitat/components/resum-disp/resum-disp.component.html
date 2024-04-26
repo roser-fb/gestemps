@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+  <!-- Columna 1: Lista de Usuarios y Botón para restablecer contraseña -->
+  <div class="col-12">
+    <div class="row my-3">
+      <div class="col d-flex justify-content-end">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#disponibleModal"><i
+            class="fa-solid fa-plus"></i></button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h2 class="mb-3">Disponibilitat</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="table-vacances">Data inici</th>
+              <th class="table-vacances">Tipus Disponibilitat</th>
+              <th class="table-vacances"></th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+
+            <tr *ngFor="let periode of llista_periodes$ | async">
+              <td>{{periode.data_ini | date: 'dd/MM/YYY'}}</td>
+              <td>{{periode.motiu=="11"?"Total":periode.motiu=="12"?"Mati":"Vesprada"}}</td>
+              <td><button class="btn" type="button" (click)="esborra(periode.id)">
+                  <fa-icon class="text-danger" [icon]="faTrashCan"></fa-icon>
+                </button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <app-formulari-disp></app-formulari-disp>
+    </div>
+  </div>

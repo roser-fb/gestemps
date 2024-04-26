@@ -12,6 +12,7 @@ import { ResumDiesComponent } from "./vacances/components/resum-dies/resum-dies.
 import { ResumFitxarComponent } from "./fitxar/components/resum-fitxar/resum-fitxar.component";
 import { Role } from "./user/models/roles.dto";
 import { ProfileComponent } from "./user/components/profile/profile.component";
+import { ResumDispComponent } from "./disponibilitat/components/resum-disp/resum-disp.component";
 
 const routes: Routes = [
   { path: "", component: CalendariComponent, canActivate: [AuthGuard] },
@@ -24,6 +25,11 @@ const routes: Routes = [
   {
     path: "guardies",
     component: ResumGuardiesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "disponible",
+    component: ResumDispComponent,
     canActivate: [AuthGuard],
   },
   { path: "fitxar", component: ResumFitxarComponent, canActivate: [AuthGuard] },
