@@ -89,7 +89,7 @@ router.get("/:id", verifyToken, async (req, res) => {
           },
           {
             $project: {
-              title: "$user.user $motiu.motiu_desc",
+              title: "$user.user" + "-" + "$motiu.motiu_desc",
               start: "$data_ini",
               end: "$data_ini",
             },
