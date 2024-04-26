@@ -46,13 +46,14 @@ export class ResumDispComponent {
         const existingGroupIndex = this.disponibilitats.findIndex(
           (group) => group.data === data
         );
-
+        console.log(existingGroupIndex);
         if (existingGroupIndex !== -1) {
           const existingOpcioIndex = this.disponibilitats[
             existingGroupIndex
           ].opcions.findIndex(
             (opc: any) => opc.tipus == tipus || opc.tipus == 12
           );
+          console.log(existingOpcioIndex);
           if (existingOpcioIndex !== -1) {
             this.disponibilitats[existingGroupIndex].opcions[existingOpcioIndex]
               .num++;
