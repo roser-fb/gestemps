@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col-8">
         <table class="table">
           <thead>
             <tr>
@@ -39,7 +39,30 @@
           </tbody>
         </table>
       </div>
-      <p>{{disponibilitats}}</p>
+      <div class="col-3">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="table-vacances">Dia quedable</th>
+              <th class="table-vacances">Disponibilitat</th>
+              <th class="table-vacances">Quan</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+
+            <tr *ngFor="let d of disponibilitats">
+              <td *ngFor="let p of d.opcions">{{d.data | date: 'dd/MM/YYY'}}</td>
+              <td *ngFor="let p of d.opcions">
+                {{p.tipus=="11"?"Total":p.tipus=="12"?"Mati":"Vesprada"}}</td>
+              <td *ngFor="let p of d.opcions">
+                {{p.num}}
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <app-formulari-disp></app-formulari-disp>
     </div>
   </div>
