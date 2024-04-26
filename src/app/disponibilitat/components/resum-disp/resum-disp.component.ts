@@ -37,9 +37,12 @@ export class ResumDispComponent {
   }
   dies_quedables() {
     this.llista_periodes$.subscribe((periodes) => {
+      console.log(periodes);
       periodes.forEach((periode) => {
         const data = new Date(periode.data_ini).toISOString().split("T")[0];
         const tipus = periode.motiu;
+        console.log(data);
+        console.log(tipus);
         const existingGroupIndex = this.disponibilitats.findIndex(
           (group) => group.data === data
         );
