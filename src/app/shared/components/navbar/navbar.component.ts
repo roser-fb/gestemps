@@ -28,15 +28,16 @@ export class NavbarComponent {
     private userService: UserService
   ) {
     this.userRoleIn();
+    this.imatge = this.AuthStoreService.getUserImg();
   }
   userRoleIn() {
     const id = this.AuthStoreService.getUserId();
+
     if (id)
       this.userService
         .getUserById(id)
         .pipe(
           map((user) => {
-            if (user) this.imatge = user.img;
             return Boolean(user?.role == Role.Admin);
           })
         )

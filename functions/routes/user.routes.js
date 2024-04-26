@@ -70,14 +70,18 @@ router.put("/:id", verifyToken, async (req, res) => {
         .json({ status: "error", message: "Token de autorización inválido" });
     } else {
       try {
-        const { id, username, password, mail, role, img } = req.body;
+        const user = req.body.username;
+        const password = req.body.password;
+        const mail = req.body.mail;
+        const role = req.body.role;
+        const img = req.body.img;
         let hashedPassword = password;
         if (!hashedPasswordPattern.test(password)) {
           hashedPassword = await bcrypt.hash(password, 10);
         }
         const userId = req.params.id;
         const userUpdate = await User.findByIdAndUpdate(userId, {
-          user: username,
+          user,
           mail,
           pwd: hashedPassword,
           role,
@@ -85,7 +89,6 @@ router.put("/:id", verifyToken, async (req, res) => {
         });
         res.status(200).json(userUpdate);
       } catch (error) {
-        console.error(error);
         res.status(500).json({ status: "error", error: error });
       }
     }

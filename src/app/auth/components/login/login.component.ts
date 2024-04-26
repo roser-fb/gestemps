@@ -38,6 +38,7 @@ export class LoginComponent {
           this.message = result.msg;
           this.AuthStoreService.setToken(result.token);
           this.AuthStoreService.setUserId(result.user);
+          this.AuthStoreService.setUserImg(result.img);
           this.router.navigate(["/"]);
         },
         (err) => {

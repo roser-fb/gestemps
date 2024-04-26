@@ -6,11 +6,13 @@ import { Injectable } from "@angular/core";
 export class AuthStoreService {
   private usuariToken: string | null = null;
   private usuariId: string | null = null;
+  private usuariImg: string | null = null;
 
   constructor() {}
   isUsuariAutenticat(): boolean {
     this.usuariToken = this.getToken();
     this.usuariId = this.getUserId();
+    this.usuariImg = this.getUserImg();
     if (this.usuariToken && this.usuariId) {
       return true;
     } else {
@@ -38,7 +40,22 @@ export class AuthStoreService {
     this.usuariId = usuariId;
     localStorage.setItem("userId", usuariId);
   }
+
   deleteUserId(): void {
     localStorage.removeItem("userId");
+  }
+
+  getUserImg(): string | null {
+    const image = localStorage.getItem("userImg");
+    return image !== null ? image : null;
+  }
+
+  setUserImg(usuariImg: string): void {
+    this.usuariImg = usuariImg;
+    localStorage.setItem("userImg", usuariImg);
+  }
+
+  deleteUserImgd(): void {
+    localStorage.removeItem("userImg");
   }
 }

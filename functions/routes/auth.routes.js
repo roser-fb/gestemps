@@ -22,6 +22,7 @@ router.post("/login", async (req, res) => {
     return res.json({
       msg: "Successfully logged in",
       user: newuser._id,
+      img: newuser.img,
       token,
     });
   } catch (error) {
