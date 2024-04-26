@@ -80,17 +80,11 @@ router.get("/:id", verifyToken, async (req, res) => {
               foreignField: "motiu_id",
               as: "motiu",
             },
-            $lookup: {
-              from: "users",
-              localField: "user",
-              foreignField: "user",
-              as: "user",
-            },
           },
           {
             $project: {
               title: "$motiu.motiu_desc",
-              user: "$user.user",
+              user: "$user",
               start: "$data_ini",
               end: "$data_ini",
             },
