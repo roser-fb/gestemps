@@ -67,14 +67,14 @@
             <div class="row justify-center mb-3">
               <div class="col-6">
                 <select class="form-select" aria-label="Tria una imatge" name="img" formControlName="img">
-                  <option *ngFor="let imatge of range(6)" [value]="imatge">
+                  <option *ngFor="let imatge of range(7)" [value]="imatge">
                     Opció {{imatge}}</option>
                 </select>
               </div>
             </div>
             <div class="row  mb-3">
               <div class="d-flex">
-                <div *ngFor="let imatge of range(6)">
+                <div *ngFor="let imatge of range(7)">
                   <img src="./assets/profiles/{{imatge}}.png " alt="Avatar" style="max-width: 40px;">
                   Opció {{imatge}}
                 </div>

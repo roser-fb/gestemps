@@ -19,6 +19,8 @@
             <tr>
               <th class="table-vacances">Data inici</th>
               <th class="table-vacances">Tipus Disponibilitat</th>
+              <th class="table-vacances">Minion</th>
+              <!--th class="table-vacances">Dia Quedable</th-->
               <th class="table-vacances"></th>
             </tr>
           </thead>
@@ -27,6 +29,10 @@
             <tr *ngFor="let periode of llista_periodes$ | async">
               <td>{{periode.data_ini | date: 'dd/MM/YYY'}}</td>
               <td>{{periode.motiu=="11"?"Total":periode.motiu=="12"?"Mati":"Vesprada"}}</td>
+              <td>
+                {{periode.user=="65c35a5159d33117334282ae"?"Roser":periode.user=="662b9aec35d178a02c38bbff"?"Clara":"Irene"}}
+              </td>
+
               <td><button class="btn" type="button" (click)="esborra(periode.id)">
                   <fa-icon class="text-danger" [icon]="faTrashCan"></fa-icon>
                 </button></td>
@@ -34,6 +40,7 @@
           </tbody>
         </table>
       </div>
+      <p>disponibilitats</p>
       <app-formulari-disp></app-formulari-disp>
     </div>
   </div>

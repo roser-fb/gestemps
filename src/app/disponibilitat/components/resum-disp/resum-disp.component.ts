@@ -15,22 +15,57 @@ export class ResumDispComponent {
   public llista_periodes$: Observable<PeriodeDisponible[]> = new Observable<
     PeriodeDisponible[]
   >();
-  constructor(private periodeVacancesService: DisponibleService) {}
+  public disponibilitats: any[] = [];
+  constructor(private periodeDisponibleService: DisponibleService) {}
 
   ngOnInit() {
     this.llista_periodes$ =
-      this.periodeVacancesService.getPeriodeDisponibleByYear(
+      this.periodeDisponibleService.getPeriodeDisponibleByYear(
         this.today.getFullYear()
       );
-    this.periodeVacancesService.submitEvent.subscribe(() => {
+    this.dies_quedables();
+    this.periodeDisponibleService.submitEvent.subscribe(() => {
       location.reload();
     });
   }
   esborra(id: string): void {
-    this.periodeVacancesService.delete(id).subscribe((res) => {
+    this.periodeDisponibleService.delete(id).subscribe((res) => {
       if (res.status == "ok") {
         location.reload();
       }
+    });
+  }
+  dies_quedables() {
+    this.llista_periodes$.subscribe((periodes) => {
+      periodes.forEach((periode) => {
+        const data = new Date(periode.data_ini).toISOString().split("T")[0];
+        const tipus = periode.motiu;
+        const existingGroupIndex = this.disponibilitats.findIndex(
+          (group) => group.data === data
+        );
+
+        if (existingGroupIndex !== -1) {
+          const existingOpcioIndex = this.disponibilitats[
+            existingGroupIndex
+          ].opcions.findIndex(
+            (opc: any) => opc.tipus == tipus || opc.tipus == 12
+          );
+          if (existingOpcioIndex !== -1) {
+            this.disponibilitats[existingGroupIndex].opcions[existingOpcioIndex]
+              .num++;
+          } else {
+            this.disponibilitats[existingGroupIndex].opcions.push({
+              tipus: tipus,
+              num: 1,
+            });
+          }
+        } else {
+          this.disponibilitats.push({
+            data: data,
+            opcions: [{ tipus: tipus, num: 1 }],
+          });
+        }
+      });
     });
   }
 }
