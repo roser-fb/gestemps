@@ -37,22 +37,16 @@ export class ResumDispComponent {
   }
   dies_quedables() {
     this.llista_periodes$.subscribe((periodes) => {
-      console.log(periodes);
       periodes.forEach((periode) => {
         const data = new Date(periode.data_ini).toISOString().split("T")[0];
         const tipus = periode.motiu;
-        console.log(data);
-        console.log(tipus);
         const existingGroupIndex = this.disponibilitats.findIndex(
           (group) => group.data === data
         );
-        console.log(existingGroupIndex);
         if (existingGroupIndex !== -1) {
           const existingOpcioIndex = this.disponibilitats[
             existingGroupIndex
-          ].opcions.findIndex(
-            (opc: any) => opc.tipus == tipus || opc.tipus == 12
-          );
+          ].opcions.findIndex((opc: any) => opc.tipus == tipus);
           console.log(existingOpcioIndex);
           if (existingOpcioIndex !== -1) {
             this.disponibilitats[existingGroupIndex].opcions[existingOpcioIndex]
@@ -69,7 +63,6 @@ export class ResumDispComponent {
             opcions: [{ tipus: tipus, num: 1 }],
           });
         }
-        console.log(this.disponibilitats);
       });
     });
   }
