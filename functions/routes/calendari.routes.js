@@ -74,17 +74,8 @@ router.get("/:id", verifyToken, async (req, res) => {
         ]);
         const disponible = await Disponible.aggregate([
           {
-            $lookup: {
-              from: "motius",
-              localField: "motiu",
-              foreignField: "motiu_id",
-              as: "motiu",
-            },
-          },
-          {
             $project: {
-              title: "$motiu.motiu_desc",
-              user: "$user",
+              title: "$user",
               start: "$data_ini",
               end: "$data_ini",
             },

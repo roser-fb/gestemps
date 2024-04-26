@@ -61,20 +61,14 @@ export class CalendariComponent {
           event.color = "#80cfa8";
         } else if (titol?.includes("GUARDIA")) {
           event.color = "#f4c93d";
-        } else if (
-          titol?.includes("DISP.") &&
-          user?.includes("65c35a5159d33117334282ae")
-        ) {
+        } else if (titol?.includes("65c35a5159d33117334282ae")) {
+          event.title = "Roser";
           event.color = "#f4c93d";
-        } else if (
-          titol?.includes("DISP.") &&
-          user?.includes("662b9aec35d178a02c38bbff")
-        ) {
+        } else if (titol?.includes("662b9aec35d178a02c38bbff")) {
+          event.title = "Clara";
           event.color = "#f4c93d";
-        } else if (
-          titol?.includes("DISP.") &&
-          user?.includes("662b9b1235d178a02c38bc05")
-        ) {
+        } else if (titol?.includes("662b9b1235d178a02c38bc05")) {
+          event.title = "Irene";
           event.color = "#f4c93d";
         } else {
           event.color = "#efa7a7";
