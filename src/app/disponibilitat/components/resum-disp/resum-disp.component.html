@@ -49,14 +49,13 @@
             </tr>
           </thead>
           <tbody class="table-group-divider">
-
-            <tr *ngFor="let d of disponibilitats">
-              <ng-container *ngFor="let o of d.opcions">
+            <ng-container *ngFor="let d of disponibilitats">
+              <tr *ngFor="let o of d.opcions">
                 <td>{{ d.data }}</td>
-                <td>{{ o.tipus }}</td>
+                <td>{{ o.tipus == "11" ? "Total" : o.tipus == "12" ? "Mati" : "Vesprada" }}</td>
                 <td>{{ o.num }}</td>
-              </ng-container>
-            </tr>
+              </tr>
+            </ng-container>
           </tbody>
         </table>
       </div>
