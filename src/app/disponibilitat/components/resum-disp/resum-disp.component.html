@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-8">
+      <div class="col-12 col-lg-8">
         <table class="table">
           <thead>
             <tr>
@@ -39,23 +39,25 @@
           </tbody>
         </table>
       </div>
-      <div class="col-3">
+      <div class="col-12 col-lg-3">
         <table class="table">
           <thead>
             <tr>
               <th class="table-vacances">Dia quedable</th>
-              <th class="table-vacances">Disponibilitat</th>
-              <th class="table-vacances">Quan</th>
+              <th class="table-vacances">Total</th>
+              <th class="table-vacances">Mati</th>
+              <th class="table-vacances">Vesprada</th>
             </tr>
           </thead>
           <tbody class="table-group-divider">
-            <ng-container *ngFor="let d of disponibilitats">
-              <tr *ngFor="let o of d.opcions">
-                <td>{{ d.data }}</td>
-                <td>{{ o.tipus == "11" ? "Total" : o.tipus == "12" ? "Mati" : "Vesprada" }}</td>
-                <td>{{ o.num }}</td>
-              </tr>
-            </ng-container>
+            <tr *ngFor="let p of percentatges">
+              <td>{{ p.data }}</td>
+              <td>{{ p.total }}</td>
+              <td [ngClass]=" p.mati == 3 ? 'disponible' :  p.mati == 2 ? 'mig_disponible': 'no_disponible'">{{ p.mati
+                }}</td>
+              <td [ngClass]=" p.vesp == 3 ? 'disponible' :  p.vesp == 2 ? 'mig_disponible': 'no_disponible'">{{ p.vesp
+                }}</td>
+            </tr>
           </tbody>
         </table>
       </div>
