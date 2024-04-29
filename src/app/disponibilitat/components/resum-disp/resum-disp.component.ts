@@ -1,6 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, numberAttribute } from "@angular/core";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { Observable } from "rxjs";
+import { TipusFestiuPipe } from "src/app/festius/pipes/tipus-festiu.pipe";
 import { PeriodeDisponible } from "../../models/periode-disponible.dto";
 import { DisponibleService } from "../../services/disponible.service";
 
@@ -15,8 +16,19 @@ export class ResumDispComponent {
   public llista_periodes$: Observable<PeriodeDisponible[]> = new Observable<
     PeriodeDisponible[]
   >();
-  public disponibilitats: any[] = [];
-  constructor(private periodeDisponibleService: DisponibleService) {}
+  public disponibilitats: any[];
+  public percentatges: {
+    data: string;
+    total: number;
+    mati: number;
+    vesp: number;
+    percent_mati: number;
+    percent_vesp: number;
+  }[];
+  constructor(private periodeDisponibleService: DisponibleService) {
+    this.disponibilitats = [];
+    this.percentatges = [];
+  }
 
   ngOnInit() {
     this.llista_periodes$ =
@@ -40,19 +52,21 @@ export class ResumDispComponent {
       periodes.forEach((periode) => {
         const data = new Date(periode.data_ini).toISOString().split("T")[0];
         const tipus = periode.motiu;
-        const existingGroupIndex = this.disponibilitats.findIndex(
+        const existeixIndex = this.disponibilitats.findIndex(
           (group) => group.data === data
         );
-        if (existingGroupIndex !== -1) {
-          const existingOpcioIndex = this.disponibilitats[
-            existingGroupIndex
+        if (existeixIndex !== -1) {
+          //Existeix data
+          const existeixOpcioIndex = this.disponibilitats[
+            existeixIndex
           ].opcions.findIndex((opc: any) => opc.tipus == tipus);
-          console.log(existingOpcioIndex);
-          if (existingOpcioIndex !== -1) {
-            this.disponibilitats[existingGroupIndex].opcions[existingOpcioIndex]
+          console.log(existeixOpcioIndex);
+          if (existeixOpcioIndex !== -1) {
+            //Existeix el tipus
+            this.disponibilitats[existeixIndex].opcions[existeixOpcioIndex]
               .num++;
           } else {
-            this.disponibilitats[existingGroupIndex].opcions.push({
+            this.disponibilitats[existeixIndex].opcions.push({
               tipus: tipus,
               num: 1,
             });
@@ -63,6 +77,41 @@ export class ResumDispComponent {
             opcions: [{ tipus: tipus, num: 1 }],
           });
         }
+      });
+    });
+    this.calcula_percentatge();
+  }
+
+  calcula_percentatge() {
+    this.disponibilitats.forEach((periode) => {
+      let total = 0;
+      let mati = 0;
+      let vesp = 0;
+      let percent_m = 0;
+      let percent_v = 0;
+      periode.opcions.forEach((opcio: any) => {
+        if (opcio.tipus === "11") {
+          total = total + opcio.num;
+        } else if (opcio.tipus === "12") {
+          mati = mati + opcio.num + total;
+          if (mati == 3) percent_m = 100;
+          if (mati == 2) percent_m = 50;
+          if (mati == 1) percent_m = 0;
+        } else if (opcio.tipus === "13") {
+          vesp = vesp + opcio.num + total;
+          if (vesp == 3) percent_v = 100;
+          if (vesp == 2) percent_v = 50;
+          if (vesp == 1) percent_v = 0;
+        }
+      });
+
+      this.percentatges.push({
+        data: periode.data,
+        total: total,
+        mati: mati,
+        vesp: vesp,
+        percent_mati: percent_m,
+        percent_vesp: percent_v,
       });
     });
   }

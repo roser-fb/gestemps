@@ -56,23 +56,23 @@ export class CalendariComponent {
 
         event.textColor = "#000";
         let titol = event.title;
-        let user = event["user"];
-        if (titol?.includes("Vacances") || titol?.includes("LD")) {
+        if (titol?.includes("VACANCES") || titol?.includes("DIA LD")) {
           event.color = "#80cfa8";
         } else if (titol?.includes("GUARDIA")) {
           event.color = "#f4c93d";
         } else if (titol?.includes("65c35a5159d33117334282ae")) {
           event.title = "Roser";
-          event.color = "#f4c93d";
+          event.color = "#80cfcf";
         } else if (titol?.includes("662b9aec35d178a02c38bbff")) {
           event.title = "Clara";
-          event.color = "#f4c93d";
+          event.color = "#a880cf";
         } else if (titol?.includes("662b9b1235d178a02c38bc05")) {
           event.title = "Irene";
-          event.color = "#f4c93d";
+          event.color = "#cf80cf";
         } else {
           event.color = "#efa7a7";
           event.display = "background";
+          event.title = "";
         }
       });
       this.calendarOptions.events = events;
