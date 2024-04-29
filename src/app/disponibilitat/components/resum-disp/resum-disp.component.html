@@ -53,10 +53,10 @@
             <tr *ngFor="let p of percentatges">
               <td>{{ p.data }}</td>
               <td>{{ p.total }}</td>
-              <td [ngClass]=" p.mati == 3 ? 'disponible' :  p.mati == 2 ? 'mig_disponible': 'no_disponible'">{{ p.mati
-                }}</td>
-              <td [ngClass]=" p.vesp == 3 ? 'disponible' :  p.vesp == 2 ? 'mig_disponible': 'no_disponible'">{{ p.vesp
-                }}</td>
+              <td [ngClass]=" p.mati == 3 ? 'disponible' :  p.mati == 2 ? 'mig_disponible': 'no_disponible'">
+                {{p.mati}}</td>
+              <td [ngClass]=" p.vesp == 3 ? 'disponible' :  p.vesp == 2 ? 'mig_disponible': 'no_disponible'">
+                {{ p.vesp}}</td>
             </tr>
           </tbody>
         </table>

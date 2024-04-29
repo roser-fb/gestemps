@@ -55,7 +55,7 @@ export class AuthStoreService {
     localStorage.setItem("userImg", usuariImg);
   }
 
-  deleteUserImgd(): void {
+  deleteUserImg(): void {
     localStorage.removeItem("userImg");
   }
 }
