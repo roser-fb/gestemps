@@ -36,6 +36,7 @@ export class ResumDispComponent {
         this.today.getFullYear()
       );
     this.dies_quedables();
+    console.log(this.percentatges);
     this.periodeDisponibleService.submitEvent.subscribe(() => {
       location.reload();
     });
@@ -114,5 +115,6 @@ export class ResumDispComponent {
         percent_vesp: percent_v,
       });
     });
+    console.log(this.percentatges);
   }
 }
