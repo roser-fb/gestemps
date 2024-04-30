@@ -23,18 +23,15 @@ export class ResumDispComponent {
     mati: number;
     vesp: number;
   }[] = [];
-  constructor(private periodeDisponibleService: DisponibleService) {
-    this.dies_quedables();
-    this.calcula_percentatge();
-  }
+  constructor(private periodeDisponibleService: DisponibleService) {}
 
   ngOnInit() {
     this.llista_periodes$ =
       this.periodeDisponibleService.getPeriodeDisponibleByYear(
         this.today.getFullYear()
       );
-    this.dies_quedables();
-    this.calcula_percentatge();
+    this.dies_quedables(this.llista_periodes$);
+    this.calcula_percentatge(this.disponibilitats);
     this.periodeDisponibleService.submitEvent.subscribe(() => {
       location.reload();
     });
@@ -46,8 +43,8 @@ export class ResumDispComponent {
       }
     });
   }
-  dies_quedables() {
-    this.llista_periodes$.subscribe((periodes) => {
+  dies_quedables(llista_periodes: Observable<PeriodeDisponible[]>) {
+    llista_periodes.subscribe((periodes) => {
       periodes.forEach((periode) => {
         const data = new Date(periode.data_ini).toISOString().split("T")[0];
         const tipus = periode.motiu;
@@ -80,8 +77,8 @@ export class ResumDispComponent {
     });
   }
 
-  calcula_percentatge() {
-    this.disponibilitats.forEach((periode) => {
+  calcula_percentatge(disponibilitats: any[]) {
+    disponibilitats.forEach((periode) => {
       let total = 0;
       let mati = 0;
       let vesp = 0;
