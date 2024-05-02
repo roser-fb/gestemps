@@ -24,10 +24,7 @@ export class ResumDispComponent {
     vesp: number;
   }[] = [];
   constructor(private periodeDisponibleService: DisponibleService) {
-    console.log("CONSTRUCTOR");
     this.dies_quedables(this.llista_periodes$);
-    console.log(this.disponibilitats);
-    console.log(this.percentatges);
   }
 
   ngOnInit() {
@@ -35,7 +32,7 @@ export class ResumDispComponent {
       this.periodeDisponibleService.getPeriodeDisponibleByYear(
         this.today.getFullYear()
       );
-    console.log("ngOnInit");
+
     this.dies_quedables(this.llista_periodes$);
     this.periodeDisponibleService.submitEvent.subscribe(() => {
       location.reload();
@@ -83,23 +80,20 @@ export class ResumDispComponent {
   }
 
   calcula_percentatge(disponibilitats: any[]) {
-    console.log("PERCENTATGES");
     disponibilitats.forEach((periode) => {
       let total = 0;
       let mati = 0;
       let vesp = 0;
-      console.log("total(p):" + total);
-      console.log("mati(p):" + mati);
-      console.log("vesp(p):" + vesp);
-      console.log(periode);
       periode.opcions.forEach((opcio: any) => {
         console.log(opcio);
         if (opcio.tipus === 11) {
           total = total + opcio.num;
+          mati = mati + opcio.num;
+          vesp = vesp + opcio.num;
         } else if (opcio.tipus === 12) {
-          mati = mati + opcio.num + total;
+          mati = mati + opcio.num;
         } else if (opcio.tipus === 13) {
-          vesp = vesp + opcio.num + total;
+          vesp = vesp + opcio.num;
         }
       });
       this.percentatges.push({
@@ -108,7 +102,6 @@ export class ResumDispComponent {
         mati: mati,
         vesp: vesp,
       });
-      console.log(this.percentatges);
     });
   }
 }
