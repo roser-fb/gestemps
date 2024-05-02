@@ -13,6 +13,29 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-12 col-lg-3">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="table-vacances">Dia quedable</th>
+              <th class="table-vacances">Total</th>
+              <th class="table-vacances">Mati</th>
+              <th class="table-vacances">Vesprada</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr *ngFor="let p of percentatges">
+              <td>{{ p.data }}</td>
+              <td>{{ p.total }}</td>
+              <td [ngClass]=" p.mati == 3 ? 'disponible' :  p.mati == 2 ? 'mig_disponible': 'no_disponible'">
+                {{p.mati}}</td>
+              <td [ngClass]=" p.vesp == 3 ? 'disponible' :  p.vesp == 2 ? 'mig_disponible': 'no_disponible'">
+                {{ p.vesp}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="col-12 col-lg-8">
         <table class="table">
           <thead>
@@ -35,28 +58,6 @@
               <td><button class="btn" type="button" (click)="esborra(periode.id)">
                   <fa-icon class="text-danger" [icon]="faTrashCan"></fa-icon>
                 </button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-12 col-lg-3">
-        <table class="table">
-          <thead>
-            <tr>
-              <th class="table-vacances">Dia quedable</th>
-              <th class="table-vacances">Total</th>
-              <th class="table-vacances">Mati</th>
-              <th class="table-vacances">Vesprada</th>
-            </tr>
-          </thead>
-          <tbody class="table-group-divider">
-            <tr *ngFor="let p of percentatges">
-              <td>{{ p.data }}</td>
-              <td>{{ p.total }}</td>
-              <td [ngClass]=" p.mati == 3 ? 'disponible' :  p.mati == 2 ? 'mig_disponible': 'no_disponible'">
-                {{p.mati}}</td>
-              <td [ngClass]=" p.vesp == 3 ? 'disponible' :  p.vesp == 2 ? 'mig_disponible': 'no_disponible'">
-                {{ p.vesp}}</td>
             </tr>
           </tbody>
         </table>
