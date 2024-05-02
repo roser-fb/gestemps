@@ -94,11 +94,11 @@ export class ResumDispComponent {
       console.log(periode);
       periode.opcions.forEach((opcio: any) => {
         console.log(opcio);
-        if (opcio.tipus === "11") {
+        if (opcio.tipus === 11) {
           total = total + opcio.num;
-        } else if (opcio.tipus === "12") {
+        } else if (opcio.tipus === 12) {
           mati = mati + opcio.num + total;
-        } else if (opcio.tipus === "13") {
+        } else if (opcio.tipus === 13) {
           vesp = vesp + opcio.num + total;
         }
       });
