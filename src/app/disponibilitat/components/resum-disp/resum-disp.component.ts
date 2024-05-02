@@ -23,15 +23,24 @@ export class ResumDispComponent {
     mati: number;
     vesp: number;
   }[] = [];
-  constructor(private periodeDisponibleService: DisponibleService) {}
+  constructor(private periodeDisponibleService: DisponibleService) {
+    console.log("CONSTRUCTOR");
+    this.dies_quedables(this.llista_periodes$);
+    console.log(this.llista_periodes$);
+    this.calcula_percentatge(this.disponibilitats);
+    console.log(this.disponibilitats);
+  }
 
   ngOnInit() {
     this.llista_periodes$ =
       this.periodeDisponibleService.getPeriodeDisponibleByYear(
         this.today.getFullYear()
       );
+    console.log("ngOnInit");
     this.dies_quedables(this.llista_periodes$);
+    console.log(this.llista_periodes$);
     this.calcula_percentatge(this.disponibilitats);
+    console.log(this.disponibilitats);
     this.periodeDisponibleService.submitEvent.subscribe(() => {
       location.reload();
     });
