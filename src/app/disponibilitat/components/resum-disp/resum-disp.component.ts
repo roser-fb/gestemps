@@ -26,9 +26,10 @@ export class ResumDispComponent {
   constructor(private periodeDisponibleService: DisponibleService) {
     console.log("CONSTRUCTOR");
     this.dies_quedables(this.llista_periodes$);
-    console.log(this.llista_periodes$);
+
     this.calcula_percentatge(this.disponibilitats);
     console.log(this.disponibilitats);
+    console.log(this.percentatges);
   }
 
   ngOnInit() {
@@ -38,9 +39,10 @@ export class ResumDispComponent {
       );
     console.log("ngOnInit");
     this.dies_quedables(this.llista_periodes$);
-    console.log(this.llista_periodes$);
+
     this.calcula_percentatge(this.disponibilitats);
     console.log(this.disponibilitats);
+    console.log(this.percentatges);
     this.periodeDisponibleService.submitEvent.subscribe(() => {
       location.reload();
     });
@@ -65,7 +67,6 @@ export class ResumDispComponent {
           const existeixOpcioIndex = this.disponibilitats[
             existeixIndex
           ].opcions.findIndex((opc: any) => opc.tipus == tipus);
-          console.log(existeixOpcioIndex);
           if (existeixOpcioIndex !== -1) {
             //Existeix el tipus
             this.disponibilitats[existeixIndex].opcions[existeixOpcioIndex]
