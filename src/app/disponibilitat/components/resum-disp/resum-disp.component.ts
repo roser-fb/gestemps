@@ -88,11 +88,12 @@ export class ResumDispComponent {
       let total = 0;
       let mati = 0;
       let vesp = 0;
-      console.log("total:" + total);
-      console.log("mati:" + mati);
-      console.log("vesp:" + vesp);
+      console.log("total(p):" + total);
+      console.log("mati(p):" + mati);
+      console.log("vesp(p):" + vesp);
       console.log(periode);
       periode.opcions.forEach((opcio: any) => {
+        console.log(opcio);
         if (opcio.tipus === "11") {
           total = total + opcio.num;
         } else if (opcio.tipus === "12") {
@@ -101,9 +102,6 @@ export class ResumDispComponent {
           vesp = vesp + opcio.num + total;
         }
       });
-      console.log("total:" + total);
-      console.log("mati:" + mati);
-      console.log("vesp:" + vesp);
       this.percentatges.push({
         data: periode.data,
         total: total,
