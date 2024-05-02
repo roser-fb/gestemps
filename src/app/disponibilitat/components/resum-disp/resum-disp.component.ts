@@ -26,8 +26,6 @@ export class ResumDispComponent {
   constructor(private periodeDisponibleService: DisponibleService) {
     console.log("CONSTRUCTOR");
     this.dies_quedables(this.llista_periodes$);
-
-    this.calcula_percentatge(this.disponibilitats);
     console.log(this.disponibilitats);
     console.log(this.percentatges);
   }
@@ -39,10 +37,6 @@ export class ResumDispComponent {
       );
     console.log("ngOnInit");
     this.dies_quedables(this.llista_periodes$);
-
-    this.calcula_percentatge(this.disponibilitats);
-    console.log(this.disponibilitats);
-    console.log(this.percentatges);
     this.periodeDisponibleService.submitEvent.subscribe(() => {
       location.reload();
     });
@@ -84,6 +78,7 @@ export class ResumDispComponent {
           });
         }
       });
+      this.calcula_percentatge(this.disponibilitats);
     });
   }
 
