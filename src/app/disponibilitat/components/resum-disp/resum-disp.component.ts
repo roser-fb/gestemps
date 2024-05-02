@@ -88,6 +88,7 @@ export class ResumDispComponent {
   }
 
   calcula_percentatge(disponibilitats: any[]) {
+    console.log("PERCENTATGES");
     disponibilitats.forEach((periode) => {
       let total = 0;
       let mati = 0;
@@ -102,7 +103,9 @@ export class ResumDispComponent {
           vesp = vesp + opcio.num + total;
         }
       });
-
+      console.log("total:" + total);
+      console.log("mati:" + mati);
+      console.log("vesp:" + vesp);
       this.percentatges.push({
         data: periode.data,
         total: total,
