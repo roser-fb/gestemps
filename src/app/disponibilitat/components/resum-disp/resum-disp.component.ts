@@ -88,7 +88,10 @@ export class ResumDispComponent {
       let total = 0;
       let mati = 0;
       let vesp = 0;
-
+      console.log("total:" + total);
+      console.log("mati:" + mati);
+      console.log("vesp:" + vesp);
+      console.log(periode);
       periode.opcions.forEach((opcio: any) => {
         if (opcio.tipus === "11") {
           total = total + opcio.num;
