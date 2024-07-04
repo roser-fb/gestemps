@@ -53,7 +53,11 @@ export class CalendariComponent {
     this.llista_events$.subscribe((events) => {
       events.forEach((event) => {
         event.allDay = true;
-
+        if (event.end) {
+          event.allDay = false;
+          event.start = event.start + " 00:00:00";
+          event.end = event.end + " 23:59:59";
+        }
         event.textColor = "#000";
         let titol = event.title;
         if (titol?.includes("VACANCES") || titol?.includes("DIA LD")) {
