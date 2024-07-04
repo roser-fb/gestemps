@@ -53,7 +53,7 @@ export class CalendariComponent {
     this.llista_events$.subscribe((events) => {
       events.forEach((event) => {
         event.allDay = true;
-        if (event.end) {
+        if (event.start != event.end) {
           event.allDay = false;
           event.start = event.start + " 00:00:00";
           event.end = event.end + " 23:59:59";
