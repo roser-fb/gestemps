@@ -14,16 +14,16 @@
         </div>
         <div class="row">
             <div class="col-12 col-lg-6">
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col">
                         <table class="table">
-                            <caption><b>TOTAL:</b> (6.165€ x {{resum_mes_ant.lab_hores}}h) + (6.915€ x
-                                {{resum_mes_ant.fest_hores}}h) =
-                                {{(6.165*resum_mes_ant.lab_hores)+(6.915*resum_mes_ant.fest_hores) | number : '1.2-2'}}€
+                            <caption><b>TOTAL:</b> ({{lab_preu}}€ x {{resum_mes_ant?.lab_hores}}h) + ({{lab_preu}}€ x
+                                {{resum_mes_ant?.fest_hores}}h) =
+                                {{resum_mes_ant?.preu | number : '1.2-2'}}€
                             </caption>
                             <thead>
                                 <tr>
-                                    <th class="table-guardia" colspan="4">Més passat {{ today | anterior:1}}</th>
+                                    <th class="table-guardia" colspan="4">Més passat {{ resum_mes_ant?.mes }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,25 +38,25 @@
                                     <th>Nº Dies</th>
                                 </tr>
                                 <tr>
-                                    <td>{{resum_mes_ant.lab_hores}}</td>
-                                    <td>{{resum_mes_ant.lab_dies}}</td>
-                                    <td>{{resum_mes_ant.fest_hores}}</td>
-                                    <td>{{resum_mes_ant.fest_dies}}</td>
+                                    <td>{{resum_mes_ant?.lab_hores}}</td>
+                                    <td>{{resum_mes_ant?.lab_dies}}</td>
+                                    <td>{{resum_mes_ant?.fest_hores}}</td>
+                                    <td>{{resum_mes_ant?.fest_dies}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col">
                         <table class="table">
-                            <caption><b>TOTAL:</b> (6.165€ x {{resum_mes_act.lab_hores}}h) + (6.915€ x
-                                {{resum_mes_act.fest_hores}}h) =
-                                {{(6.165*resum_mes_act.lab_hores)+(6.915*resum_mes_act.fest_hores) | number : '1.2-2'}}€
+                            <caption><b>TOTAL:</b> (6.165€ x {{resum_mes_act?.lab_hores}}h) + (6.915€ x
+                                {{resum_mes_act?.fest_hores}}h) =
+                                {{resum_mes_act?.preu | number : '1.2-2'}}€
                             </caption>
                             <thead>
                                 <tr>
-                                    <th class="table-guardia" colspan="4">Més actual ({{ today | date:"MM"}})</th>
+                                    <th class="table-guardia" colspan="4">Més actual ({{ resum_mes_act?.mes }})</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,33 +71,10 @@
                                     <th>Nº Dies</th>
                                 </tr>
                                 <tr>
-                                    <td>{{resum_mes_act.lab_hores}}</td>
-                                    <td>{{resum_mes_act.lab_dies}}</td>
-                                    <td>{{resum_mes_act.fest_hores}}</td>
-                                    <td>{{resum_mes_act.fest_dies}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="table-guardia">Data</th>
-                                    <th class="table-guardia">Num hores</th>
-                                    <th class="table-guardia"></th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-
-                                <tr *ngFor="let guardia of llista_guardies$ | async">
-                                    <td>{{guardia.data | date: 'dd/MM/YYY'}}</td>
-                                    <td>{{guardia.n_hores}}</td>
-                                    <td><button class="btn" type="button" (click)="esborra(guardia.id)">
-                                            <fa-icon class="text-danger" [icon]="faTrashCan"></fa-icon>
-                                        </button></td>
+                                    <td>{{resum_mes_act?.lab_hores}}</td>
+                                    <td>{{resum_mes_act?.lab_dies}}</td>
+                                    <td>{{resum_mes_act?.fest_hores}}</td>
+                                    <td>{{resum_mes_act?.fest_dies}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -105,8 +82,7 @@
                 </div>
             </div>
             <div class="col-12 col-lg-6">
-
-                <div class="row m-5">
+                <div class="row mb-3">
                     <div class="col">
                         <table class="table">
                             <thead>
@@ -126,16 +102,16 @@
                                     <th>Nº Dies</th>
                                 </tr>
                                 <tr>
-                                    <td>{{resum_any_act.lab_hores}}</td>
-                                    <td>{{resum_any_act.lab_dies}}</td>
-                                    <td>{{resum_any_act.fest_hores}}</td>
-                                    <td>{{resum_any_act.fest_dies}}</td>
+                                    <td>{{resum_any_act?.lab_hores}}</td>
+                                    <td>{{resum_any_act?.lab_dies}}</td>
+                                    <td>{{resum_any_act?.fest_hores }}</td>
+                                    <td>{{resum_any_act?.fest_dies}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="row m-5">
+                <div class="row m-3">
                     <div class="col">
                         <table class="table">
                             <thead>
@@ -155,10 +131,10 @@
                                     <th>Nº Dies</th>
                                 </tr>
                                 <tr>
-                                    <td>{{resum_any_ant.lab_hores}}</td>
-                                    <td>{{resum_any_ant.lab_dies}}</td>
-                                    <td>{{resum_any_ant.fest_hores}}</td>
-                                    <td>{{resum_any_ant.fest_dies}}</td>
+                                    <td>{{resum_any_ant?.lab_hores}}</td>
+                                    <td>{{resum_any_ant?.lab_dies}}</td>
+                                    <td>{{resum_any_ant?.fest_hores}}</td>
+                                    <td>{{resum_any_ant?.fest_dies}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -166,8 +142,59 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="row mb-3">
+                    <div class="col">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="table-guardia">Mes</th>
+                                    <th class="table-guardia">Nº Dies</th>
+                                    <th class="table-guardia">Nº Hores</th>
+                                    <th class="table-guardia">Preu</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <tr *ngFor="let resum of resumGuardiesMes">
+                                    <td>{{resum.mes}}</td>
+                                    <td>{{resum.lab_dies+resum.fest_dies}} </td>
+                                    <td>{{resum.lab_hores+resum.fest_hores}} </td>
+                                    <td>{{(lab_preu*resum.lab_hores)+(fest_preu*resum.fest_hores) | number :
+                                        '1.2-2'}}€</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="row mb-3">
+                    <div class="col">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="table-guardia">Data</th>
+                                    <th class="table-guardia">Num hores</th>
+                                    <th class="table-guardia"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
 
-        <app-formulari-guardies></app-formulari-guardies>
-
+                                <tr *ngFor="let guardia of llista_guardies$ | async">
+                                    <td>{{guardia.data | date: 'dd/MM/YYY'}}</td>
+                                    <td>{{guardia.n_hores}}</td>
+                                    <td><button class="btn" type="button" (click)="esborra(guardia.id)">
+                                            <fa-icon class="text-danger" [icon]="faTrashCan"></fa-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <app-formulari-guardies></app-formulari-guardies>
 </div>

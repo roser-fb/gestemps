@@ -16,16 +16,23 @@ export class ResumGuardiesComponent {
   public llista_all_guardies$: Observable<Guardia[]> = new Observable<
     Guardia[]
   >();
-  public resum_any_act: ResumGuardies;
-  public resum_any_ant: ResumGuardies;
-  public resum_mes_act: ResumGuardies;
-  public resum_mes_ant: ResumGuardies;
+  public detall_any_act: ResumGuardies[] | undefined;
+  public detall_any_ant: ResumGuardies[] | undefined;
+  public resum_any_act: ResumGuardies | undefined;
+  public resum_any_ant: ResumGuardies | undefined;
+  public resum_mes_act: ResumGuardies | undefined;
+  public resum_mes_ant: ResumGuardies | undefined;
   public today = new Date();
+  resumGuardiesMes: ResumGuardies[] = [];
+  lab_preu: number = 6.165;
+  fest_preu: number = 6.915;
   constructor(private guardiesService: GuardiesService) {
-    this.resum_any_act = new ResumGuardies(0, 0, 0, 0);
-    this.resum_any_ant = new ResumGuardies(0, 0, 0, 0);
-    this.resum_mes_act = new ResumGuardies(0, 0, 0, 0);
-    this.resum_mes_ant = new ResumGuardies(0, 0, 0, 0);
+    this.detall_any_act = [];
+    this.detall_any_ant = [];
+    this.resum_any_act = new ResumGuardies("", 0, 0, 0, 0, 0);
+    this.resum_any_ant = new ResumGuardies("", 0, 0, 0, 0, 0);
+    this.resum_mes_act = new ResumGuardies("", 0, 0, 0, 0, 0);
+    this.resum_mes_ant = new ResumGuardies("", 0, 0, 0, 0, 0);
   }
 
   ngOnInit() {
@@ -35,30 +42,113 @@ export class ResumGuardiesComponent {
     this.llista_all_guardies$ = this.guardiesService.getGuardiaByUser();
     this.llista_all_guardies$.subscribe((guardies) => {
       guardies.forEach((guardia) => {
-        var guardia_mes = new Date(guardia.data).getMonth() + 1;
-        var guardia_any = new Date(guardia.data).getFullYear();
-
-        if (this.any_anterior(guardia_any)) {
-          this.guardia_ant_resum(guardia);
-          return;
-        }
-        if (this.any_actual(guardia_any)) {
-          this.guardia_act_resum(guardia);
-          if (this.mes_anterior(guardia_mes)) {
-            this.guardia_ant_mes(guardia);
-          }
-          if (this.mes_actual(guardia_mes)) {
-            this.guardia_act_mes(guardia);
-          }
-          return;
-        }
+        this.processaGuardia(guardia);
+      });
+      this.guardiesService.submitEvent.subscribe(() => {
+        location.reload();
       });
     });
-    this.guardiesService.submitEvent.subscribe(() => {
-      location.reload();
-    });
   }
+  processaGuardia(guardia: Guardia) {
+    const grouped = new Map<string, ResumGuardies>();
+    var guardia_mes = new Date(guardia.data).getMonth() + 1;
+    var guardia_any = new Date(guardia.data).getFullYear();
+    var mes = guardia_mes + "/" + guardia_any;
 
+    if (!grouped.has(mes)) {
+      grouped.set(mes, {
+        mes: "",
+        lab_dies: 0,
+        lab_hores: 0,
+        fest_dies: 0,
+        fest_hores: 0,
+        preu: 0,
+      });
+    }
+    const group = grouped.get(mes)!;
+    if (guardia.festiu === 1) {
+      group.fest_dies += 1;
+      group.fest_hores += guardia.n_hores;
+    } else {
+      group.lab_dies += 1;
+      group.lab_hores += guardia.n_hores;
+    }
+
+    this.resumGuardiesMes = Array.from(grouped.entries()).map(
+      ([mes, hores]) => {
+        const lab_dies = hores.lab_dies;
+        const fest_dies = hores.fest_dies;
+        const lab_hores = hores.lab_hores;
+        const fest_hores = hores.fest_hores;
+        const preu =
+          hores.fest_hores * this.fest_preu + hores.lab_hores * this.lab_preu;
+        return { mes, lab_dies, lab_hores, fest_dies, fest_hores, preu };
+      }
+    );
+
+    this.resumGuardiesMes.sort((a, b) => {
+      const [monthA, yearA] = a.mes.split("/").map(Number);
+      const [monthB, yearB] = b.mes.split("/").map(Number);
+      if (yearA !== yearB) {
+        return yearA - yearB;
+      }
+      return monthA - monthB;
+    });
+    this.calculaResumMes();
+    this.calculaResumAny();
+  }
+  calculaResumMes() {
+    this.resum_mes_act = this.resumGuardiesMes.find(
+      (resum) =>
+        resum.mes === `${this.today.getMonth()}/${this.today.getFullYear()}`
+    );
+    this.resum_mes_ant = this.resumGuardiesMes.find(
+      (resum) =>
+        resum.mes === `${this.today.getMonth()}/${this.today.getFullYear()}`
+    );
+  }
+  calculaResumAny() {
+    this.detall_any_act = this.resumGuardiesMes.filter((resum) =>
+      resum.mes.includes(`${this.today.getFullYear()}`)
+    );
+    this.resum_any_act = this.detall_any_act.reduce(
+      (acc, item) => {
+        acc.lab_hores += item.lab_hores;
+        acc.fest_dies += item.fest_dies;
+        acc.fest_hores += item.fest_hores;
+        acc.preu += item.preu;
+        return acc;
+      },
+      {
+        mes: `${this.today.getFullYear()}`,
+        lab_hores: 0,
+        fest_dies: 0,
+        fest_hores: 0,
+        preu: 0,
+      } as ResumGuardies
+    );
+
+    this.detall_any_ant = this.resumGuardiesMes.filter((resum) =>
+      resum.mes.includes(`${this.today.getFullYear() - 1}`)
+    );
+
+    this.resum_any_ant = this.detall_any_ant.reduce(
+      (acc, item) => {
+        acc.lab_hores += item.lab_hores;
+        acc.fest_dies += item.fest_dies;
+        acc.fest_hores += item.fest_hores;
+        acc.preu += item.preu;
+        return acc;
+      },
+      {
+        mes: `${this.today.getFullYear() - 1}`,
+        lab_hores: 0,
+        fest_dies: 0,
+        fest_hores: 0,
+        preu: 0,
+      } as ResumGuardies
+    );
+  }
   esborra(id: string): void {
     this.guardiesService.delete(id).subscribe((res) => {
       if (res.status == "ok") {
@@ -81,46 +171,5 @@ export class ResumGuardiesComponent {
   }
   es_festiu(festiu: number): boolean {
     return festiu === 1;
-  }
-
-  guardia_ant_resum(guardia: Guardia): void {
-    if (this.es_festiu(guardia.festiu)) {
-      this.resum_any_ant.fest_dies += 1;
-      this.resum_any_ant.fest_hores += guardia.n_hores;
-      return;
-    }
-    this.resum_any_ant.lab_dies += 1;
-    this.resum_any_ant.lab_hores += guardia.n_hores;
-    return;
-  }
-  guardia_ant_mes(guardia: Guardia): void {
-    if (this.es_festiu(guardia.festiu)) {
-      this.resum_mes_ant.fest_dies += 1;
-      this.resum_mes_ant.fest_hores += guardia.n_hores;
-      return;
-    }
-    this.resum_mes_ant.lab_dies += 1;
-    this.resum_mes_ant.lab_hores += guardia.n_hores;
-    return;
-  }
-  guardia_act_resum(guardia: Guardia): void {
-    if (this.es_festiu(guardia.festiu)) {
-      this.resum_any_act.fest_dies += 1;
-      this.resum_any_act.fest_hores += guardia.n_hores;
-      return;
-    }
-    this.resum_any_act.lab_dies += 1;
-    this.resum_any_act.lab_hores += guardia.n_hores;
-    return;
-  }
-  guardia_act_mes(guardia: Guardia): void {
-    if (this.es_festiu(guardia.festiu)) {
-      this.resum_mes_act.fest_dies += 1;
-      this.resum_mes_act.fest_hores += guardia.n_hores;
-      return;
-    }
-    this.resum_mes_act.lab_dies += 1;
-    this.resum_mes_act.lab_hores += guardia.n_hores;
-    return;
   }
 }
