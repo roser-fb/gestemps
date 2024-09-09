@@ -57,7 +57,7 @@ export class ResumGuardiesComponent {
 
     if (!grouped.has(mes)) {
       grouped.set(mes, {
-        mes: "",
+        mes: mes,
         lab_dies: 0,
         lab_hores: 0,
         fest_dies: 0,
@@ -65,7 +65,9 @@ export class ResumGuardiesComponent {
         preu: 0,
       });
     }
+
     const group = grouped.get(mes)!;
+
     if (guardia.festiu === 1) {
       group.fest_dies += 1;
       group.fest_hores += guardia.n_hores;
@@ -74,17 +76,40 @@ export class ResumGuardiesComponent {
       group.lab_hores += guardia.n_hores;
     }
 
-    this.resumGuardiesMes = Array.from(grouped.entries()).map(
-      ([mes, hores]) => {
-        const lab_dies = hores.lab_dies;
-        const fest_dies = hores.fest_dies;
-        const lab_hores = hores.lab_hores;
-        const fest_hores = hores.fest_hores;
-        const preu =
-          hores.fest_hores * this.fest_preu + hores.lab_hores * this.lab_preu;
-        return { mes, lab_dies, lab_hores, fest_dies, fest_hores, preu };
-      }
+    const resumMap = new Map(
+      this.resumGuardiesMes.map((item) => [item.mes, item])
     );
+
+    Array.from(grouped.entries()).forEach(([mes, hores]) => {
+      const lab_dies = hores.lab_dies;
+      const fest_dies = hores.fest_dies;
+      const lab_hores = hores.lab_hores;
+      const fest_hores = hores.fest_hores;
+      const preu =
+        hores.fest_hores * this.fest_preu + hores.lab_hores * this.lab_preu;
+
+      if (resumMap.has(mes)) {
+        const existingEntry = resumMap.get(mes);
+        if (existingEntry) {
+          existingEntry.lab_dies += lab_dies;
+          existingEntry.fest_dies += fest_dies;
+          existingEntry.lab_hores += lab_hores;
+          existingEntry.fest_hores += fest_hores;
+          existingEntry.preu += preu;
+        }
+      } else {
+        resumMap.set(mes, {
+          mes,
+          lab_dies,
+          lab_hores,
+          fest_dies,
+          fest_hores,
+          preu,
+        });
+      }
+    });
+
+    this.resumGuardiesMes = Array.from(resumMap.values());
 
     this.resumGuardiesMes.sort((a, b) => {
       const [monthA, yearA] = a.mes.split("/").map(Number);
@@ -100,7 +125,7 @@ export class ResumGuardiesComponent {
   calculaResumMes() {
     this.resum_mes_act = this.resumGuardiesMes.find(
       (resum) =>
-        resum.mes === `${this.today.getMonth()}/${this.today.getFullYear()}`
+        resum.mes === `${this.today.getMonth() + 1}/${this.today.getFullYear()}`
     );
     this.resum_mes_ant = this.resumGuardiesMes.find(
       (resum) =>
@@ -111,8 +136,10 @@ export class ResumGuardiesComponent {
     this.detall_any_act = this.resumGuardiesMes.filter((resum) =>
       resum.mes.includes(`${this.today.getFullYear()}`)
     );
+
     this.resum_any_act = this.detall_any_act.reduce(
       (acc, item) => {
+        acc.lab_dies += item.lab_dies;
         acc.lab_hores += item.lab_hores;
         acc.fest_dies += item.fest_dies;
         acc.fest_hores += item.fest_hores;
@@ -121,6 +148,7 @@ export class ResumGuardiesComponent {
       },
       {
         mes: `${this.today.getFullYear()}`,
+        lab_dies: 0,
         lab_hores: 0,
         fest_dies: 0,
         fest_hores: 0,
@@ -134,6 +162,7 @@ export class ResumGuardiesComponent {
 
     this.resum_any_ant = this.detall_any_ant.reduce(
       (acc, item) => {
+        acc.lab_dies += item.lab_dies;
         acc.lab_hores += item.lab_hores;
         acc.fest_dies += item.fest_dies;
         acc.fest_hores += item.fest_hores;
@@ -142,6 +171,7 @@ export class ResumGuardiesComponent {
       },
       {
         mes: `${this.today.getFullYear() - 1}`,
+        lab_dies: 0,
         lab_hores: 0,
         fest_dies: 0,
         fest_hores: 0,

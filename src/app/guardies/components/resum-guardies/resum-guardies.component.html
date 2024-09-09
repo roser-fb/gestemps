@@ -85,6 +85,10 @@
                 <div class="row mb-3">
                     <div class="col">
                         <table class="table">
+                            <caption><b>TOTAL:</b> (6.165€ x {{resum_any_act?.lab_hores}}h) + (6.915€ x
+                                {{resum_any_act?.fest_hores}}h) =
+                                {{resum_any_act?.preu | number : '1.2-2'}}€
+                            </caption>
                             <thead>
                                 <tr>
                                     <th class="table-guardia" colspan="4">Acúmul any {{ today | date:"YYYY"}}</th>
@@ -114,6 +118,10 @@
                 <div class="row m-3">
                     <div class="col">
                         <table class="table">
+                            <caption><b>TOTAL:</b> (6.165€ x {{resum_any_ant?.lab_hores}}h) + (6.915€ x
+                                {{resum_any_ant?.fest_hores}}h) =
+                                {{resum_any_ant?.preu | number : '1.2-2'}}€
+                            </caption>
                             <thead>
                                 <tr>
                                     <th class="table-guardia" colspan="4">Acúmul any {{ today | anterior:2}}</th>
