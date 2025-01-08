@@ -14,7 +14,7 @@ export class DisponibleService {
     private http: HttpClient
   ) {
     this.disponible = [];
-    this.user = AuthStoreService.getUserId();
+    this.user = AuthStoreService.get("user_id");
   }
 
   getPeriodeDisponible(): Observable<PeriodeDisponible[]> {

@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppComponent } from "../app.component";
 import { LoginComponent } from "./components/login/login.component";
 import { JwtModule } from "@auth0/angular-jwt";
+import { AppRoutingModule } from "../app-routing.module";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -17,6 +18,7 @@ export function tokenGetter() {
   imports: [
     CommonModule,
     FormsModule,
+    AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     JwtModule.forRoot({

@@ -23,23 +23,23 @@ export class ResumDispComponent {
     mati: number;
     vesp: number;
   }[] = [];
-  constructor(private periodeDisponibleService: DisponibleService) {
+  constructor(private PeriodesDisponibleservice: DisponibleService) {
     this.dies_quedables(this.llista_periodes$);
   }
 
   ngOnInit() {
     this.llista_periodes$ =
-      this.periodeDisponibleService.getPeriodeDisponibleByYear(
+      this.PeriodesDisponibleservice.getPeriodeDisponibleByYear(
         this.today.getFullYear()
       );
 
     this.dies_quedables(this.llista_periodes$);
-    this.periodeDisponibleService.submitEvent.subscribe(() => {
+    this.PeriodesDisponibleservice.submitEvent.subscribe(() => {
       location.reload();
     });
   }
   esborra(id: string): void {
-    this.periodeDisponibleService.delete(id).subscribe((res) => {
+    this.PeriodesDisponibleservice.delete(id).subscribe((res) => {
       if (res.status == "ok") {
         location.reload();
       }

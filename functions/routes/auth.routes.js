@@ -23,6 +23,7 @@ router.post("/login", async (req, res) => {
       msg: "Successfully logged in",
       user: newuser._id,
       img: newuser.img,
+      role: newuser.role,
       token,
     });
   } catch (error) {

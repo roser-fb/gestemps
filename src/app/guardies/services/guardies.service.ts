@@ -15,7 +15,7 @@ export class GuardiesService {
     private http: HttpClient
   ) {
     this.guardies = [];
-    this.user = AuthStoreService.getUserId();
+    this.user = AuthStoreService.get("user_id");
   }
 
   getGuardia(): Observable<Guardia[]> {

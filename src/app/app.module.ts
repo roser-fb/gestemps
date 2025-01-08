@@ -17,6 +17,10 @@ import { ServiceWorkerModule } from "@angular/service-worker";
 import { FooterComponent } from "./shared/components/footer/footer.component";
 import { AuthModule } from "./auth/auth.module";
 import { DisponibilitatModule } from "./disponibilitat/disponibilitat.module";
+import { EffectsModule } from "@ngrx/effects";
+import { StoreModule } from "@ngrx/store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { appReducers, EffectsArray } from "./app.reducer";
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, FooterComponent],
@@ -40,6 +44,17 @@ import { DisponibilitatModule } from "./disponibilitat/disponibilitat.module";
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: "registerWhenStable:30000",
+    }),
+    StoreModule.forRoot(appReducers, {
+      runtimeChecks: {
+        strictStateImmutability: false,
+        strictActionImmutability: false,
+      },
+    }),
+    EffectsModule.forRoot(EffectsArray),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      // logOnly: environment.production,
     }),
   ],
   bootstrap: [AppComponent],

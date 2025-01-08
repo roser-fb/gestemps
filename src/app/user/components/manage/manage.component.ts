@@ -19,7 +19,7 @@ export class ManageComponent {
   faTrashCan = faTrashCan;
   constructor(private userService: UserService) {}
   ngOnInit() {
-    this.llista_usuaris$ = this.userService.getUser();
+    this.llista_usuaris$ = this.userService.getUsers();
   }
   resetPassword(id: string, username: string) {
     const newPassword = this.userService.newPassword(username);
@@ -43,7 +43,7 @@ export class ManageComponent {
     return result;
   }
   esborra(id: string): void {
-    this.userService.delete(id).subscribe((res) => {
+    this.userService.deleteUser(id).subscribe((res) => {
       if (res.status == "ok") {
         location.reload();
       }
@@ -54,14 +54,14 @@ export class ManageComponent {
   }
 
   checkIfAdmin(role: string) {
-    return role == Role.Admin;
+    return role == Role.ADMIN;
   }
   changeRole(id: string) {
     this.userService.getUserById(id).subscribe((user) => {
       if (user) {
-        if (user.role == Role.Admin) {
-          user.role = Role.User;
-        } else user.role = Role.Admin;
+        if (user.role == Role.ADMIN) {
+          user.role = Role.USER;
+        } else user.role = Role.ADMIN;
         this.userService.updateUser(id, user).subscribe((res) => {
           if (res.status == "ok") {
             location.reload();

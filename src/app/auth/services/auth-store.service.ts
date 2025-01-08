@@ -10,52 +10,25 @@ export class AuthStoreService {
 
   constructor() {}
   isUsuariAutenticat(): boolean {
-    this.usuariToken = this.getToken();
-    this.usuariId = this.getUserId();
-    this.usuariImg = this.getUserImg();
+    this.usuariToken = this.get("token");
+    this.usuariId = this.get("user_id");
+    this.usuariImg = this.get("user_img");
     if (this.usuariToken && this.usuariId) {
       return true;
     } else {
       return false;
     }
   }
-  getToken(): string | null {
-    const token = localStorage.getItem("token");
-    return token !== null ? token : null;
+
+  set(key: string, value: string) {
+    localStorage.setItem(key, value);
   }
 
-  setToken(usuariToken: string): void {
-    this.usuariToken = usuariToken;
-    localStorage.setItem("token", usuariToken);
-  }
-  deleteToken(): void {
-    localStorage.removeItem("token");
-  }
-  getUserId(): string | null {
-    const user = localStorage.getItem("userId");
-    return user !== null ? user : null;
+  get(key: string) {
+    return localStorage.getItem(key);
   }
 
-  setUserId(usuariId: string): void {
-    this.usuariId = usuariId;
-    localStorage.setItem("userId", usuariId);
-  }
-
-  deleteUserId(): void {
-    localStorage.removeItem("userId");
-  }
-
-  getUserImg(): string | null {
-    const image = localStorage.getItem("userImg");
-    return image !== null ? image : null;
-  }
-
-  setUserImg(usuariImg: string): void {
-    this.usuariImg = usuariImg;
-    localStorage.setItem("userImg", usuariImg);
-  }
-
-  deleteUserImg(): void {
-    localStorage.removeItem("userImg");
+  delete(key: string) {
+    localStorage.removeItem(key);
   }
 }

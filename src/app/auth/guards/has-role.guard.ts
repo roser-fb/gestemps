@@ -29,7 +29,7 @@ export class HasRoleGuard implements CanActivate {
     | boolean
     | UrlTree {
     const allowedRoles = route.data?.["allowedRoles"];
-    const id = this.AuthStoreService.getUserId();
+    const id = this.AuthStoreService.get("user_id");
     if (id && !this.tokenCaducat()) {
       return this.userService.getUserById(id).pipe(
         map((user) => {
@@ -39,14 +39,14 @@ export class HasRoleGuard implements CanActivate {
         })
       );
     }
-    return false && alert("Acceso Denegado");
+    return false && alert("Accés Denegat");
   }
 
   tokenCaducat() {
-    const token = this.AuthStoreService.getToken();
+    const token = this.AuthStoreService.get("token");
     if (this.jwtHelper.isTokenExpired(token)) {
-      this.AuthStoreService.deleteToken();
-      this.AuthStoreService.deleteUserId();
+      this.AuthStoreService.delete("token");
+      this.AuthStoreService.delete("user_id");
       return true;
     }
     return false;

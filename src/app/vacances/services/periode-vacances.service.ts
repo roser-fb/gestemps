@@ -15,7 +15,7 @@ export class PeriodeVacancesService {
     private http: HttpClient
   ) {
     this.periodes = [];
-    this.user = AuthStoreService.getUserId();
+    this.user = AuthStoreService.get("user_id");
   }
 
   getPeriodeVacances(): Observable<PeriodeVacances[]> {

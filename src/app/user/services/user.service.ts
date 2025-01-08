@@ -17,21 +17,21 @@ export class UserService {
     return this.http.put("/api/user/" + id, user);
   }
 
-  getUser(): Observable<User[]> {
+  getUsers(): Observable<User[]> {
     return this.http.get<User[]>("/api/user");
   }
 
   getUserById(id: string): Observable<User | undefined> {
-    return this.getUser().pipe(
+    return this.getUsers().pipe(
       map((guardies: User[]) => guardies.find((user) => user.id == id))
     );
   }
   getUserByMail(mail: string): Observable<User | undefined> {
-    return this.getUser().pipe(
+    return this.getUsers().pipe(
       map((guardies: User[]) => guardies.find((user) => user.mail === mail))
     );
   }
-  delete(id: string): Observable<any> {
+  deleteUser(id: string): Observable<any> {
     return this.http.delete<any>("/api/user/" + id);
   }
   submitEvent: EventEmitter<void> = new EventEmitter<void>();

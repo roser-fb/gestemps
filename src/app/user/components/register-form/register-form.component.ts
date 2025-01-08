@@ -41,8 +41,8 @@ export class RegisterFormComponent {
     if (this.registerForm.valid) {
       let newuser: User = this.registerForm.value;
       newuser.password = this.userService.newPassword(newuser.username);
-      newuser.role = Role.User;
-      if (this.checked) newuser.role = Role.Admin;
+      newuser.role = Role.USER;
+      if (this.checked) newuser.role = Role.ADMIN;
       this.userService.register(newuser).subscribe(
         (result: any) => {
           this.message = result.msg;

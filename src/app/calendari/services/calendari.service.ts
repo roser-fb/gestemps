@@ -14,7 +14,7 @@ export class CalendariService {
     private AuthStoreService: AuthStoreService,
     private http: HttpClient
   ) {
-    this.user = AuthStoreService.getUserId();
+    this.user = AuthStoreService.get("user_id");
   }
   getPeriodeVacances(): Observable<EventInput[]> {
     return this.http.get<EventInput[]>("/api/calendari/" + this.user).pipe(

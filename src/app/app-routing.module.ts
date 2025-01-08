@@ -4,7 +4,7 @@ import { CalendariComponent } from "./calendari/pagina/calendari.component";
 import { ResumFestiusComponent } from "./festius/components/resum-festius/resum-festius.component";
 import { ResumGuardiesComponent } from "./guardies/components/resum-guardies/resum-guardies.component";
 import { AuthGuard } from "./auth/guards/auth.guard";
-import { HasRoleGuard } from "./auth/guards/has-role.guard";
+//import { HasRoleGuard } from "./auth/guards/has-role.guard";
 import { LoginComponent } from "./auth/components/login/login.component";
 import { LogoutComponent } from "./user/components/logout/logout.component";
 import { ManageComponent } from "./user/components/manage/manage.component";
@@ -40,7 +40,7 @@ const routes: Routes = [
     //    canActivate: [AuthGuard, HasRoleGuard],
     canActivate: [AuthGuard],
     data: {
-      allowedRoles: [Role.Admin],
+      allowedRoles: [Role.ADMIN],
     },
   },
   { path: "login", component: LoginComponent },

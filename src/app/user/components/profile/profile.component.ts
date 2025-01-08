@@ -19,7 +19,7 @@ export class ProfileComponent {
   changePassword: boolean = false;
   submitted: boolean = false;
   isAdmin: boolean | null = null;
-  user: User = new User("", "", "", "", Role.User, "");
+  user: User = new User("", "", "", "", Role.USER, "");
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -45,11 +45,11 @@ export class ProfileComponent {
     );
   }
   ngOnInit() {
-    const id = this.authStoreService.getUserId();
+    const id = this.authStoreService.get("user_id");
     if (id)
       this.userService.getUserById(id).subscribe((user) => {
         if (user) this.user = user;
-        this.isAdmin = this.user.role == Role.Admin;
+        this.isAdmin = this.user.role == Role.ADMIN;
         this.profileForm = this.formBuilder.group({
           username: [this.user.username, Validators.required],
           email: [this.user.mail, [Validators.required, Validators.email]],

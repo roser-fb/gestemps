@@ -14,7 +14,7 @@ export class FitxarService {
     private AuthStoreService: AuthStoreService,
     private http: HttpClient
   ) {
-    this.user = AuthStoreService.getUserId();
+    this.user = AuthStoreService.get("user_id");
   }
   getPeriodeTreball(): Observable<PeriodeTreball[]> {
     return this.http.get<PeriodeTreball[]>("/api/fitxar");

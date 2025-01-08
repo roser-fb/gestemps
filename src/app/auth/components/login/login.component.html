@@ -29,7 +29,10 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mb-3">Inicia Sessió</button>
-                        <div *ngIf="message" class="alert alert-success" role="alert">
+                        <div *ngIf="message" class="alert" [ngClass]="{
+                            'alert-success': alerta === 'success',
+                            'alert-danger': alerta === 'error'
+                          }" role="alert">
                             {{message}}
                         </div>
                     </div>
