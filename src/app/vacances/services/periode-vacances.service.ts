@@ -38,6 +38,9 @@ export class PeriodeVacancesService {
   getPeriodeVacancesByYear(year: number): Observable<PeriodeVacances[]> {
     return this.http.get<PeriodeVacances[]>("/api/periodes/" + year);
   }
+  getLDByYear(year: number): Observable<PeriodeVacances[]> {
+    return this.http.get<PeriodeVacances[]>("/api/periodes/ld/" + year);
+  }
   getPeriodeVacancesByUserAndYear(year: number): Observable<PeriodeVacances[]> {
     return this.getPeriodeVacancesByYear(year).pipe(
       map((periodes: PeriodeVacances[]) =>

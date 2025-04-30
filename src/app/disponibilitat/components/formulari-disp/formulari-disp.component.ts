@@ -4,8 +4,11 @@ import {
   DataValidator,
   MotiuValidator,
 } from "../../../shared/validadors/data-validator";
-import { DisponibleService } from "../../services/disponible.service";
-import * as moment from "moment";
+import { Store } from "@ngrx/store";
+import { AppState } from "src/app/app.reducer";
+import { Observable, map } from "rxjs";
+import { AuthState } from "src/app/auth/reducers";
+import * as PeriodeDisponibleAction from "../../actions";
 
 @Component({
   selector: "app-formulari-disp",
@@ -17,11 +20,26 @@ export class FormulariDispComponent {
   public num_dies: number = 0;
   public submitted = false;
   public message = null;
+  public auth_estat$: Observable<AuthState>;
+
+  periode$ = this.store
+    .select("periodeDisponible")
+    .pipe(map(({ periodeDisponible }) => periodeDisponible));
+
+  responseOK$: Observable<boolean | null> = this.store
+    .select("periodeDisponible")
+    .pipe(map(({ responseOK }) => responseOK));
+
+  error$: Observable<any> = this.store
+    .select("periodeDisponible")
+    .pipe(map(({ error }) => error));
+
   constructor(
     private formbuilder: FormBuilder,
-    private disponibleService: DisponibleService
+    private store: Store<AppState>
   ) {
     this.creaFormulari();
+    this.auth_estat$ = this.store.select("auth");
   }
   creaFormulari() {
     this.disponibleForm = this.formbuilder.group(
@@ -38,15 +56,10 @@ export class FormulariDispComponent {
   onSubmit() {
     this.submitted = true;
     if (this.disponibleForm.valid) {
-      this.disponibleService.create(this.disponibleForm.value).subscribe(
-        (result: any) => {
-          this.message = result.msg;
-          this.creaFormulari();
-          this.disponibleService.triggerSubmitEvent();
-        },
-        (err) => {
-          this.message = err.error.msg;
-        }
+      this.store.dispatch(
+        PeriodeDisponibleAction.createPeriodeDisponible({
+          periodeDisponible: this.disponibleForm.value,
+        })
       );
     } else {
       console.log("El formulari és invàlid");

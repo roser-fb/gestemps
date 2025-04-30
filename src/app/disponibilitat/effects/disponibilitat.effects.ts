@@ -94,7 +94,25 @@ export class PeriodeDisponibleEffects {
       )
     )
   );
-
+  getPeriodeDisponibleByYear$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PeriodeDisponibleAction.getPeriodeDisponibleByYear),
+      exhaustMap(({ year }) =>
+        this.disponibleService.getPeriodeDisponibleByYear(year).pipe(
+          map((periodeDisponible) =>
+            PeriodeDisponibleAction.getPeriodeDisponibleByYearSuccess({
+              periodeDisponible,
+            })
+          ),
+          catchError((error) =>
+            of(
+              PeriodeDisponibleAction.getPeriodeDisponibleByYearError({ error })
+            )
+          )
+        )
+      )
+    )
+  );
   updatePeriodesDisponiblesuccess$ = createEffect(
     () =>
       this.actions$.pipe(

@@ -13,7 +13,7 @@ export class PeriodeFestiusService {
     this.periodes = [];
   }
 
-  getPeriodeFestius(): Observable<PeriodeFestius[]> {
+  getPeriodesFestius(): Observable<PeriodeFestius[]> {
     return this.http.get<PeriodeFestius[]>("/api/festius").pipe(
       map((data: PeriodeFestius[]) => {
         const festiusModificats: PeriodeFestius[] = [];
@@ -57,7 +57,7 @@ export class PeriodeFestiusService {
     );
   }
   getPeriodeFestiusById(id: string): Observable<PeriodeFestius | undefined> {
-    return this.getPeriodeFestius().pipe(
+    return this.getPeriodesFestius().pipe(
       map((periodes: PeriodeFestius[]) =>
         periodes.find((periode) => periode.id === id)
       )
@@ -65,7 +65,7 @@ export class PeriodeFestiusService {
   }
   getPeriodeFestiusByDate(data: Date): Observable<PeriodeFestius | undefined> {
     let datePipe: DatePipe = new DatePipe("en-US");
-    return this.getPeriodeFestius().pipe(
+    return this.getPeriodesFestius().pipe(
       map((periodes: PeriodeFestius[]) => {
         return periodes.find((periode) => {
           return (

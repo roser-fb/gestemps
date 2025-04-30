@@ -1,13 +1,15 @@
 import { Component } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import * as moment from "moment";
-import { findIndex } from "rxjs";
+import { findIndex, map, Observable } from "rxjs";
 import { PeriodeFestiusService } from "src/app/festius/services/periode-festius.service";
 import {
   DataValidator,
   MotiuValidator,
 } from "src/app/shared/validadors/data-validator";
-
+import * as PeriodeFestiusAction from "../../actions";
+import { Store } from "@ngrx/store";
+import { AppState } from "src/app/app.reducer";
 @Component({
   selector: "app-formulari-festius",
   templateUrl: "./formulari-festius.component.html",
@@ -18,9 +20,22 @@ export class FormulariFestiusComponent {
   public num_dies: number = 0;
   public submitted = false;
   public message = null;
+
+  periode$ = this.store
+    .select("periodeFestius")
+    .pipe(map(({ periode }) => periode));
+
+  responseOK$: Observable<boolean | null> = this.store
+    .select("periodeFestius")
+    .pipe(map(({ responseOK }) => responseOK));
+
+  error$: Observable<any> = this.store
+    .select("periodeFestius")
+    .pipe(map(({ error }) => error));
+
   constructor(
     private formbuilder: FormBuilder,
-    private periodeFestiusService: PeriodeFestiusService
+    private store: Store<AppState>
   ) {
     this.creaFormulari();
   }
@@ -46,16 +61,10 @@ export class FormulariFestiusComponent {
       } else {
         this.festiusForm.value.fix = 1;
       }
-      console.log(this.festiusForm.value);
-      this.periodeFestiusService.create(this.festiusForm.value).subscribe(
-        (result: any) => {
-          this.message = result.msg;
-          this.creaFormulari();
-          this.periodeFestiusService.triggerSubmitEvent();
-        },
-        (err) => {
-          this.message = err.error.msg;
-        }
+      this.store.dispatch(
+        PeriodeFestiusAction.createPeriodeFestius({
+          periode: this.festiusForm.value,
+        })
       );
     } else {
       console.log("El formulari és invàlid");

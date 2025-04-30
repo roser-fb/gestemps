@@ -1,3 +1,3 @@
 import { PeriodeDisponibleEffects } from "./disponibilitat.effects";
 
-export const UserEffectsArray: any[] = [PeriodeDisponibleEffects];
+export const PeriodeDisponibleEffectsArray: any[] = [PeriodeDisponibleEffects];

@@ -37,7 +37,15 @@ const _periodeDisponibleReducer = createReducer(
     responseOK: null,
   })),
 
-  on(PeriodeDisponibleAction.getPeriodeDisponibleById, (state, action) => ({
+  on(PeriodeDisponibleAction.getPeriodeDisponibleById, (state) => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+    responseOK: null,
+  })),
+
+  on(PeriodeDisponibleAction.getPeriodeDisponibleByYear, (state) => ({
     ...state,
     loading: true,
     loaded: false,
@@ -79,47 +87,6 @@ const _periodeDisponibleReducer = createReducer(
     responseOK: null,
   })),
 
-  on(PeriodeDisponibleAction.newPassword, (state, action) => ({
-    ...state,
-    periodeDisponible: action.periodeDisponible,
-    PeriodesDisponibles: [
-      ...state.periodesDisponibles.map((periodeDisponible) => {
-        if (periodeDisponible.id === action.id) {
-          return {
-            ...periodeDisponible,
-            ...action.periodeDisponible,
-          };
-        } else {
-          return periodeDisponible;
-        }
-      }),
-    ],
-    loading: true,
-    loaded: false,
-    error: null,
-    responseOK: null,
-  })),
-
-  on(PeriodeDisponibleAction.updateRol, (state, action) => ({
-    ...state,
-    PeriodesDisponibles: [
-      ...state.periodesDisponibles.map((periodeDisponible) => {
-        if (periodeDisponible.id === action.id) {
-          return {
-            ...periodeDisponible,
-            ...action.periodeDisponible,
-          };
-        } else {
-          return periodeDisponible;
-        }
-      }),
-    ],
-    loading: true,
-    loaded: false,
-    error: null,
-    responseOK: null,
-  })),
-
   on(PeriodeDisponibleAction.deletePeriodeDisponible, (state, action) => ({
     ...state,
     PeriodesDisponibles: [
@@ -134,7 +101,7 @@ const _periodeDisponibleReducer = createReducer(
   })),
   on(PeriodeDisponibleAction.getPeriodeDisponibleSuccess, (state, action) => ({
     ...state,
-    periodeDisponibles: [action.periodeDisponible],
+    periodesDisponibles: action.periodeDisponible,
     loading: false,
     loaded: true,
     error: null,
@@ -194,7 +161,28 @@ const _periodeDisponibleReducer = createReducer(
       responseOK: null,
     })
   ),
+  on(
+    PeriodeDisponibleAction.getPeriodeDisponibleByYearSuccess,
+    (state, action) => ({
+      ...state,
+      periodesDisponibles: action.periodeDisponible,
+      loading: false,
+      loaded: true,
+      error: null,
+      responseOK: null,
+    })
+  ),
 
+  on(
+    PeriodeDisponibleAction.getPeriodeDisponibleByYearError,
+    (state, { error }) => ({
+      ...state,
+      loading: false,
+      loaded: false,
+      error: error,
+      responseOK: null,
+    })
+  ),
   on(PeriodeDisponibleAction.updatePeriodesDisponiblesuccess, (state) => ({
     ...state,
     //periodeDisponible: action.periodeDisponible,
@@ -214,38 +202,6 @@ const _periodeDisponibleReducer = createReducer(
       responseOK: false,
     })
   ),
-  on(PeriodeDisponibleAction.newPasswordSuccess, (state) => ({
-    ...state,
-    //periodeDisponible: action.periodeDisponible,
-    loading: false,
-    loaded: true,
-    error: null,
-    responseOK: true,
-  })),
-
-  on(PeriodeDisponibleAction.newPasswordError, (state, { error }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    error: error,
-    responseOK: false,
-  })),
-  on(PeriodeDisponibleAction.updateRolSuccess, (state) => ({
-    ...state,
-    //periodeDisponible: action.periodeDisponible,
-    loading: false,
-    loaded: true,
-    error: null,
-    responseOK: true,
-  })),
-
-  on(PeriodeDisponibleAction.updateRolError, (state, { error }) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    error: error,
-    responseOK: false,
-  })),
 
   on(PeriodeDisponibleAction.deletePeriodesDisponiblesuccess, (state) => ({
     ...state,

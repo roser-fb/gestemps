@@ -18,11 +18,11 @@ export class GuardiesService {
     this.user = AuthStoreService.get("user_id");
   }
 
-  getGuardia(): Observable<Guardia[]> {
+  getGuardies(): Observable<Guardia[]> {
     return this.http.get<Guardia[]>("/api/guardia");
   }
   getGuardiaById(id: string): Observable<Guardia | undefined> {
-    return this.getGuardia().pipe(
+    return this.getGuardies().pipe(
       map((guardies: Guardia[]) =>
         guardies.find((guardia) => guardia.id === id)
       )
@@ -32,7 +32,7 @@ export class GuardiesService {
     return this.http.get<Guardia[]>("/api/guardia/" + any);
   }
   getGuardiaByUser(): Observable<Guardia[]> {
-    return this.getGuardia().pipe(
+    return this.getGuardies().pipe(
       map((guardies: Guardia[]) =>
         guardies.filter((guardia) => guardia.user === this.user)
       )

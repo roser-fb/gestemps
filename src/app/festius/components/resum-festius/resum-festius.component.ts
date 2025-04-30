@@ -1,9 +1,12 @@
 import { Component } from "@angular/core";
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 import { PeriodeFestius } from "src/app/festius/models/periode-festius.dto";
 import { PeriodeFestiusService } from "src/app/festius/services/periode-festius.service";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-
+import { AppState } from "src/app/app.reducer";
+import { Store } from "@ngrx/store";
+import { PeriodeFestiusState } from "../../reducers";
+import * as PeriodeFestiusAction from "../../actions";
 @Component({
   selector: "app-resum-festius",
   templateUrl: "./resum-festius.component.html",
@@ -17,13 +20,16 @@ export class ResumFestiusComponent {
   >();
   public llista_festius: PeriodeFestius[] = [];
   public currentDate: Date = new Date();
-  constructor(private periodeFestiusService: PeriodeFestiusService) {}
+  constructor(private store: Store<AppState>) {
+    this.llista_festius$ = this.store
+      .select("periodeFestius")
+      .pipe(map(({ periodes }) => periodes));
+  }
 
   ngOnInit() {
-    this.llista_festius$ = this.periodeFestiusService.getPeriodeFestius();
-    this.periodeFestiusService.submitEvent.subscribe(() => {
-      location.reload();
-    });
+    this.store.dispatch(
+      PeriodeFestiusAction.getPeriodesFestius()
+    );
   }
   proximsFestius(data: Date): boolean {
     const sisMesos = new Date();
@@ -65,10 +71,8 @@ export class ResumFestiusComponent {
   }
 
   esborra(id: string): void {
-    this.periodeFestiusService.delete(id).subscribe((res) => {
-      if (res.status == "ok") {
-        location.reload();
-      }
-    });
+    this.store.dispatch(
+      PeriodeFestiusAction.deletePeriodeFestius({ id })
+    );
   }
 }

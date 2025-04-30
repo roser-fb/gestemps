@@ -43,6 +43,36 @@ router.get("/:year", verifyToken, async (req, res) => {
     }
   });
 });
+router.get("/ld/:year_anterior", verifyToken, async (req, res) => {
+  jwt.verify(req.token, secretKey, async (err, authData) => {
+    if (err) {
+      res
+        .status(401)
+        .json({ status: "error", message: "Token de autorización inválido" });
+    } else {
+      try {
+        const year_anterior = req.params.year_anterior;
+        var condition = year_anterior
+          ? {
+              $and: [
+                {
+                  data_ini: {
+                    $regex: new RegExp(year_anterior),
+                    $options: "i",
+                  },
+                },
+                { motiu: 2 },
+              ],
+            }
+          : {};
+        const results = await Periode.find(condition).sort({ data_ini: 1 });
+        res.status(200).json(results);
+      } catch (error) {
+        res.status(500).json({ status: "error" });
+      }
+    }
+  });
+});
 router.post("/", verifyToken, async (req, res) => {
   jwt.verify(req.token, secretKey, async (err, authData) => {
     if (err) {

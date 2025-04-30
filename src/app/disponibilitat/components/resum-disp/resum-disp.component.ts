@@ -1,10 +1,10 @@
-import { Component, numberAttribute } from "@angular/core";
+import { Component } from "@angular/core";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { Observable } from "rxjs";
-import { TipusFestiuPipe } from "src/app/festius/pipes/tipus-festiu.pipe";
+import { map, Observable } from "rxjs";
 import { PeriodeDisponible } from "../../models/periode-disponible.dto";
-import { DisponibleService } from "../../services/disponible.service";
-
+import { AppState } from "src/app/app.reducer";
+import { Store } from "@ngrx/store";
+import * as PeriodesDisponiblesAction from "../../actions";
 @Component({
   selector: "app-resum-disp",
   templateUrl: "./resum-disp.component.html",
@@ -12,10 +12,8 @@ import { DisponibleService } from "../../services/disponible.service";
 })
 export class ResumDispComponent {
   faTrashCan = faTrashCan;
+  llista_periodes$: Observable<PeriodeDisponible[]>;
   public today = new Date();
-  public llista_periodes$: Observable<PeriodeDisponible[]> = new Observable<
-    PeriodeDisponible[]
-  >();
   public disponibilitats: any[] = [];
   public percentatges: {
     data: string;
@@ -23,27 +21,26 @@ export class ResumDispComponent {
     mati: number;
     vesp: number;
   }[] = [];
-  constructor(private PeriodesDisponibleservice: DisponibleService) {
+
+  constructor(private store: Store<AppState>) {
+    this.llista_periodes$ = this.store
+      .select("periodeDisponible")
+      .pipe(map(({ periodesDisponibles }) => periodesDisponibles));
     this.dies_quedables(this.llista_periodes$);
   }
 
   ngOnInit() {
-    this.llista_periodes$ =
-      this.PeriodesDisponibleservice.getPeriodeDisponibleByYear(
-        this.today.getFullYear()
-      );
-
+    this.store.dispatch(
+      PeriodesDisponiblesAction.getPeriodeDisponibleByYear({
+        year: this.today.getFullYear(),
+      })
+    );
     this.dies_quedables(this.llista_periodes$);
-    this.PeriodesDisponibleservice.submitEvent.subscribe(() => {
-      location.reload();
-    });
   }
   esborra(id: string): void {
-    this.PeriodesDisponibleservice.delete(id).subscribe((res) => {
-      if (res.status == "ok") {
-        location.reload();
-      }
-    });
+    this.store.dispatch(
+      PeriodesDisponiblesAction.deletePeriodeDisponible({ id })
+    );
   }
   dies_quedables(llista_periodes: Observable<PeriodeDisponible[]>) {
     llista_periodes.subscribe((periodes) => {
